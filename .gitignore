@@ -4,6 +4,9 @@
 TODO*
 Tips*
 
+# Temp folder
+tmp/
+
 # User-specific files
 *.suo
 *.user
