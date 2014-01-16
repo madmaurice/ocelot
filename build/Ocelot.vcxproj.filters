@@ -1,2 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" />
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="core">
+      <UniqueIdentifier>{ec17bb2e-c514-432a-a731-8a71fc91668c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\logging">
+      <UniqueIdentifier>{d21ccb9d-7559-46bf-9fb4-fa5d47b4a6db}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\core\logging\logger.cpp">
+      <Filter>core\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\logging\loggingConfig.cpp">
+      <Filter>core\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\logging\logEvent.cpp">
+      <Filter>core\logging</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\core\logging\logEvent.h">
+      <Filter>core\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\logging\logger.h">
+      <Filter>core\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\logging\loggingConfig.h">
+      <Filter>core\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\types.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\logging\logLevel.h">
+      <Filter>core\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\defines.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\common.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\logging\logging.h">
+      <Filter>core\logging</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

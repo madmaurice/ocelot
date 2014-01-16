@@ -6,7 +6,20 @@
 #include <vector>
 #include "gtest/gtest.h"
 
-#if 0
+#if 1
+
+
+int main (int argc, char** argv)
+{
+    ::testing::InitGoogleTest(&argc, argv);
+    RUN_ALL_TESTS();
+
+    int toto;
+    std::cin >> toto;
+    return 0;
+}
+
+#else
 class BulletBoxApp : public Application
 {
 public:
@@ -131,19 +144,5 @@ int WINAPI WinMain(HINSTANCE h_Inst, HINSTANCE h_PrevInst, LPSTR lpcmdline, int 
 
     return ret;
 }
-#else
 
-TEST(SimpleTest, aTest) {
-    EXPECT_EQ(1, 1);
-}
-
-int main (int argc, char** argv)
-{
-    ::testing::InitGoogleTest(&argc, argv);
-    RUN_ALL_TESTS();
-
-    int toto;
-    std::cin >> toto;
-    return 0;
-}
 #endif
