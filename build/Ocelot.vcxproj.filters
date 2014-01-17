@@ -18,6 +18,12 @@
     <ClCompile Include="..\src\core\logging\logEvent.cpp">
       <Filter>core\logging</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\core\logging\logLevel.cpp">
+      <Filter>core\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\assert.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\core\logging\logEvent.h">
@@ -43,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="..\src\core\logging\logging.h">
       <Filter>core\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\assert.h">
+      <Filter>core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

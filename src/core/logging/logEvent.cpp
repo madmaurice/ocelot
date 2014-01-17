@@ -33,4 +33,13 @@ LogEvent::LogEvent(LogLevel logLevel, std::string msg, std::string file, uint32 
 {
 }
 
+std::ostream& operator<<(std::ostream& stream, const LogEvent& logEvent)
+{
+    stream << "Level : " << LogLevelHelper::logLeveltoString(logEvent.m_logLevel) << std::endl;
+    stream << "Message : " << logEvent.m_message << std::endl;
+    stream << "File : " << logEvent.m_file << std::endl;
+    stream << "Line : " << logEvent.m_lineNumber << std::endl;
+    return stream;
+}
+
 OC_NS_END;

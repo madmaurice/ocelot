@@ -18,10 +18,12 @@ public:
 
     LoggingConfig& getConfig();
 
+    void debug(std::string msg, const char* file, uint32 line);
     void info(std::string msg, const char* file, uint32 line);
-    //void debug(string, string, int);
-    //void warning(string, string, int);
-    //void error(string, string, int);
+    void warn(std::string msg, const char* file, uint32 line);
+    void error(std::string msg, const char* file, uint32 line);
+    void always(std::string msg, const char* file, uint32 line);
+
 private:
     Logger();
 
