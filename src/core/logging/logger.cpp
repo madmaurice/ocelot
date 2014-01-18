@@ -66,10 +66,15 @@ Logger::Logger()
 
 void Logger::processLog(LogLevel level, std::string msg, const char* file, uint32 line)
 {
-    LogEvent log(level, msg, file, line);
+    if (level >= m_config.getLogLevel())
+    {
+        LogEvent log(level, msg, file, line);
 
-    std::cout << log;
-    //TODO send to appender
+        for (auto& appender : m_config.getAllAppenders())
+        {
+            appender->append(log);
+        }
+    }
 }
 
 

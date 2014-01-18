@@ -12,7 +12,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\core\assert.cpp" />
+    <ClCompile Include="..\src\core\logging\logAppender.cpp" />
     <ClCompile Include="..\src\core\logging\logEvent.cpp" />
+    <ClCompile Include="..\src\core\logging\logFormatter.cpp" />
     <ClCompile Include="..\src\core\logging\logger.cpp" />
     <ClCompile Include="..\src\core\logging\loggingConfig.cpp" />
     <ClCompile Include="..\src\core\logging\logLevel.cpp" />
@@ -21,7 +23,9 @@
     <ClInclude Include="..\src\core\assert.h" />
     <ClInclude Include="..\src\core\common.h" />
     <ClInclude Include="..\src\core\defines.h" />
+    <ClInclude Include="..\src\core\logging\logAppender.h" />
     <ClInclude Include="..\src\core\logging\logEvent.h" />
+    <ClInclude Include="..\src\core\logging\logFormatter.h" />
     <ClInclude Include="..\src\core\logging\logger.h" />
     <ClInclude Include="..\src\core\logging\logging.h" />
     <ClInclude Include="..\src\core\logging\loggingConfig.h" />
