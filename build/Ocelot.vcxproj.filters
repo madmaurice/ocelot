@@ -7,6 +7,9 @@
     <Filter Include="core\logging">
       <UniqueIdentifier>{d21ccb9d-7559-46bf-9fb4-fa5d47b4a6db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="core\util">
+      <UniqueIdentifier>{65d0b134-fab3-43a7-aca7-5f7cd86d9145}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\core\logging\logger.cpp">
@@ -64,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="..\src\core\logging\logFormatter.h">
       <Filter>core\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\util\pointer.h">
+      <Filter>core\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

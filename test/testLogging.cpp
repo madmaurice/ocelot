@@ -11,12 +11,44 @@
 
 using namespace oc;
 
-TEST(LOGGING, InitLogging) 
+
+TEST(LOGGING, DISABLED_InitLogging) 
 {
     LoggingConfig config(LogLevel::Debug);
 
-    config.addAppender(std::unique_ptr<ILogAppender>(new DebugConsoleAppender()));
-    config.addAppender(std::unique_ptr<ILogAppender>(new StdOutAppender()));
+    config.addAppender(oc::make_unique<DebugConsoleAppender>());
+    config.addAppender(oc::make_unique<StdOutAppender>());
+
+    Logger::init(config);
+
+    OC_LOG_DEBUG("ALLO");
+
+    EXPECT_EQ(1, 1);
+}
+
+TEST(LOGGING, LogFormatter) 
+{
+    LoggingConfig config(LogLevel::Debug);
+
+    //std::shared_ptr<TimeFormatter> formatter(std::make_shared<TimeFormatter>(new LogFormatter()));
+    std::shared_ptr<TimeFormatter> formatter(std::make_shared<TimeFormatter>(std::make_shared<LogFormatter>()));
+
+    //config.addAppender(oc::make_unique<DebugConsoleAppender>());
+    config.addAppender(oc::make_unique<StdOutAppender>(formatter));
+
+    Logger::init(config);
+
+    OC_LOG_DEBUG("ALLO");
+
+    EXPECT_EQ(1, 1);
+}
+
+TEST(LOGGING, CopyLogFormatter) 
+{
+    LoggingConfig config(LogLevel::Debug);
+
+    std::shared_ptr<TimeFormatter> formatter(std::make_shared<TimeFormatter>(std::make_shared<LogFormatter>()));
+    config.addAppender(oc::make_unique<StdOutAppender>(formatter));
 
     Logger::init(config);
 

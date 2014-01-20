@@ -13,17 +13,47 @@ LogFormatter::~LogFormatter()
 {
 }
 
-LogFormatter* LogFormatter::clone()
-{
-    return new LogFormatter(*this);
-}
-
 std::string LogFormatter::applyFormat(LogEvent logEvent)
 {
     //TODO
-    std::stringstream sstream;
-    sstream << logEvent;
-    return sstream.str();
+    //std::stringstream sstream;
+    //sstream << logEvent;
+    //return sstream.str();
+    return logEvent.m_message;
+}
+
+//-----------------------------------------------------------------------------
+// LogFormatterDecorator
+
+LogFormatterWrapper::LogFormatterWrapper(FormatterPtr formatter)
+    : m_formatter(formatter)
+{
+}
+
+LogFormatterWrapper::~LogFormatterWrapper()
+{
+}
+
+std::string LogFormatterWrapper::applyFormat(LogEvent logEvent)
+{
+    return m_formatter->applyFormat(logEvent);
+}
+//-----------------------------------------------------------------------------
+// TimeFormatter
+
+TimeFormatter::TimeFormatter(FormatterPtr formatter)
+    : LogFormatterWrapper(formatter)
+{
+}
+
+TimeFormatter::~TimeFormatter()
+{
+}
+
+std::string TimeFormatter::applyFormat(LogEvent logEvent)
+{
+    const std::string& base = LogFormatterWrapper::applyFormat(logEvent);
+    return "Current time " + base;
 }
 
 
