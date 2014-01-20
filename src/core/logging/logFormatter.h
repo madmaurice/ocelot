@@ -7,43 +7,52 @@
 
 OC_NS_BG;
 
-
 class ILogFormatter
 {
 public:
     virtual ~ILogFormatter();
+
+    virtual ILogFormatter* clone() const = 0;
     virtual std::string applyFormat(LogEvent logEvent) = 0;
 };
 
-typedef std::shared_ptr<ILogFormatter> FormatterPtr;
 
 class LogFormatter : public ILogFormatter
 {
 public:
     virtual ~LogFormatter();
+
+    virtual LogFormatter* clone() const;
     virtual std::string applyFormat(LogEvent logEvent);
 };
 
+// Wrap another formatter to add more functionality
+// This takes ownership of the formatter received in the ctor
 class LogFormatterWrapper : public ILogFormatter
 {
 public:
-    explicit LogFormatterWrapper(FormatterPtr formatter);
+    explicit LogFormatterWrapper(ILogFormatter* formatter); //Takes ownership
+    LogFormatterWrapper(const LogFormatterWrapper& other);
     virtual ~LogFormatterWrapper();
 
-    virtual std::string applyFormat(LogEvent logEvent);
-private:
+    LogFormatterWrapper& operator=(const LogFormatterWrapper& rhs);
 
-    FormatterPtr m_formatter;
+    virtual LogFormatterWrapper* clone() const;
+    virtual std::string applyFormat(LogEvent logEvent);
+
+private:
+    ILogFormatter* m_formatter;
 };
 
 class TimeFormatter : public LogFormatterWrapper
 {
 public:
-    explicit TimeFormatter(FormatterPtr formatter);
+    explicit TimeFormatter(ILogFormatter* formatter); //Takes ownership
     virtual ~TimeFormatter();
 
+    virtual TimeFormatter* clone() const;
     virtual std::string applyFormat(LogEvent logEvent);
-private:
 };
+
 
 OC_NS_END;

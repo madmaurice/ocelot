@@ -31,7 +31,10 @@ TEST(LOGGING, LogFormatter)
     LoggingConfig config(LogLevel::Debug);
 
     //std::shared_ptr<TimeFormatter> formatter(std::make_shared<TimeFormatter>(new LogFormatter()));
-    std::shared_ptr<TimeFormatter> formatter(std::make_shared<TimeFormatter>(std::make_shared<LogFormatter>()));
+    std::shared_ptr<TimeFormatter> formatter(new TimeFormatter(new LogFormatter()));
+
+    TimeFormatter formatter2(new LogFormatter);
+    formatter2 = *formatter;
 
     //config.addAppender(oc::make_unique<DebugConsoleAppender>());
     config.addAppender(oc::make_unique<StdOutAppender>(formatter));
@@ -43,11 +46,11 @@ TEST(LOGGING, LogFormatter)
     EXPECT_EQ(1, 1);
 }
 
-TEST(LOGGING, CopyLogFormatter) 
+TEST(LOGGING, DISABLED_CopyLogFormatter) 
 {
     LoggingConfig config(LogLevel::Debug);
 
-    std::shared_ptr<TimeFormatter> formatter(std::make_shared<TimeFormatter>(std::make_shared<LogFormatter>()));
+    std::shared_ptr<TimeFormatter> formatter(new TimeFormatter(new LogFormatter()));
     config.addAppender(oc::make_unique<StdOutAppender>(formatter));
 
     Logger::init(config);
