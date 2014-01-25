@@ -14,7 +14,7 @@ class ILogAppender
 public:
     virtual ~ILogAppender();
     virtual std::string getName() = 0;
-    virtual void append(LogEvent logEvent) = 0;
+    virtual void append(const LogEvent& logEvent) = 0;
 
     virtual ILogFormatter& getFormatter() = 0;
     virtual void setFormatter(const std::shared_ptr<ILogFormatter>& formatter) = 0;
@@ -28,12 +28,12 @@ public:
     virtual ~LogAppenderBase();
 
     virtual std::string getName() = 0;
-    virtual void append(LogEvent logEvent) = 0;
+    virtual void append(const LogEvent& logEvent) = 0;
 
     virtual ILogFormatter& getFormatter();
     virtual void setFormatter(const std::shared_ptr<ILogFormatter>& formatter);
 protected:
-    std::string formatLogEvent(LogEvent logEvent);
+    std::string formatLogEvent(const LogEvent& logEvent);
 
     std::shared_ptr<ILogFormatter> m_formatter;
 };
@@ -45,7 +45,7 @@ public:
     DebugConsoleAppender(const std::shared_ptr<ILogFormatter>& formatter);
 
     virtual std::string getName();
-    virtual void append(LogEvent logEvent);
+    virtual void append(const LogEvent& logEvent);
 };
 
 class StdOutAppender : public LogAppenderBase
@@ -55,7 +55,7 @@ public:
     StdOutAppender(const std::shared_ptr<ILogFormatter>& formatter);
 
     virtual std::string getName();
-    virtual void append(LogEvent logEvent);
+    virtual void append(const LogEvent& logEvent);
 };
 
 OC_NS_END;

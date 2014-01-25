@@ -35,9 +35,11 @@ void LogAppenderBase::setFormatter(const std::shared_ptr<ILogFormatter>& formatt
     m_formatter = formatter;
 }
 
-std::string LogAppenderBase::formatLogEvent(LogEvent logEvent)
+std::string LogAppenderBase::formatLogEvent(const LogEvent& logEvent)
 {
-    return m_formatter->applyFormat(logEvent);
+    std::stringstream sstream;
+    m_formatter->applyFormat(logEvent, sstream);
+    return sstream.str();
 }
 
 std::string DebugConsoleAppender::getName()
@@ -45,9 +47,9 @@ std::string DebugConsoleAppender::getName()
     return "DebugConsole";
 }
 
-void DebugConsoleAppender::append(LogEvent logEvent)
+void DebugConsoleAppender::append(const LogEvent& logEvent)
 {
-    std::string logString = formatLogEvent(logEvent);
+    std::string logString = formatLogEvent(logEvent) + "\n";
     OutputDebugString(logString.c_str());
 }
 
@@ -60,7 +62,9 @@ DebugConsoleAppender::DebugConsoleAppender(const std::shared_ptr<ILogFormatter>&
     : LogAppenderBase(formatter)
 {
 
-}StdOutAppender::StdOutAppender()
+}
+
+StdOutAppender::StdOutAppender()
 {
 }
 
@@ -76,7 +80,7 @@ std::string StdOutAppender::getName()
     return "StdOut";
 }
 
-void StdOutAppender::append(LogEvent logEvent)
+void StdOutAppender::append(const LogEvent& logEvent)
 {
     std::string logString = formatLogEvent(logEvent);
     std::cout << logString << std::endl;

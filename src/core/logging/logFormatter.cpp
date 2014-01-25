@@ -1,10 +1,35 @@
 
 #include "logFormatter.h"
 #include <sstream>
+#include <iomanip>
 #include <ctime>
 
 OC_NS_BG;
 
+namespace LogFormatterImpl
+{
+    void appendCurrentTime(std::ostream& ostream)
+    {
+        std::time_t epoch = time(NULL);
+        struct tm now;
+        localtime_s(&now, &epoch);
+
+        std::stringstream sstream;
+        sstream << "(" << now.tm_hour << "h" << std::setfill('0') << std::setw(2) << now.tm_min 
+                << ":" << std::setfill('0') << std::setw(2) << now.tm_sec << ")";
+
+        ostream << sstream.str();
+    }
+
+    void appendLogLevel(std::ostream& ostream, LogLevel level)
+    {
+        std::string levelString(LogLevelHelper::logLeveltoString(level));
+        std::string outString(6, ' '); //Max log level length is 6
+        outString.replace(0, levelString.size(), levelString);
+
+        ostream << "[" << outString << "]";
+    }
+}
 
 ILogFormatter::~ILogFormatter()
 {
@@ -14,89 +39,12 @@ LogFormatter::~LogFormatter()
 {
 }
 
-std::string LogFormatter::applyFormat(LogEvent logEvent)
+void LogFormatter::applyFormat(const LogEvent& logEvent, std::ostream& ostream)
 {
-    //TODO
-    //std::stringstream sstream;
-    //sstream << logEvent;
-    //return sstream.str();
-    return logEvent.m_message;
-}
-
-LogFormatter* LogFormatter::clone() const
-{
-    return new LogFormatter(*this);
-}
-
-//-----------------------------------------------------------------------------
-// LogFormatterDecorator
-
-LogFormatterWrapper::LogFormatterWrapper(ILogFormatter* formatter)
-    : m_formatter(formatter)
-{
-}
-
-LogFormatterWrapper::LogFormatterWrapper(const LogFormatterWrapper& other)
-    : m_formatter(other.m_formatter->clone())
-{
-}
-
-LogFormatterWrapper::~LogFormatterWrapper()
-{
-    delete m_formatter;
-}
-
-LogFormatterWrapper& LogFormatterWrapper::operator=(const LogFormatterWrapper& rhs)
-{
-    if (this == &rhs)
-    {
-        return *this;
-    }
-
-    delete m_formatter;
-    m_formatter = rhs.m_formatter->clone();
-    return *this;
-}
-
-std::string LogFormatterWrapper::applyFormat(LogEvent logEvent)
-{
-    return m_formatter->applyFormat(logEvent);
-}
-
-LogFormatterWrapper* LogFormatterWrapper::clone() const
-{
-    return new LogFormatterWrapper(*this);
-}
-
-//-----------------------------------------------------------------------------
-// TimeFormatter
-
-TimeFormatter::TimeFormatter(ILogFormatter* formatter)
-    : LogFormatterWrapper(formatter)
-{
-}
-
-TimeFormatter::~TimeFormatter()
-{
-}
-
-TimeFormatter* TimeFormatter::clone() const
-{
-    return new TimeFormatter(*this);
-}
-
-std::string TimeFormatter::applyFormat(LogEvent logEvent)
-{
-    const std::string& base = LogFormatterWrapper::applyFormat(logEvent);
-
-    std::time_t epoch = time(NULL);
-    struct tm now;
-    localtime_s(&now, &epoch);
-
-    std::stringstream sstream;
-    sstream << "[ " << now.tm_hour << "h" << now.tm_min << ":" << now.tm_sec << " ]";
-
-    return sstream.str() + "  " + base;
+    LogFormatterImpl::appendCurrentTime(ostream);
+    ostream << " - ";
+    LogFormatterImpl::appendLogLevel(ostream, logEvent.m_logLevel);
+    ostream << " : " << logEvent.m_message;
 }
 
 OC_NS_END;
