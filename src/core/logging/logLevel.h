@@ -14,7 +14,7 @@ enum class LogLevel
     Always
 };
 
-namespace LogLevelHelper
+namespace LogLevelUtil
 {
     std::string logLeveltoString(LogLevel level);
 };

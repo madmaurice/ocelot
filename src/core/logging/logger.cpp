@@ -12,22 +12,10 @@ Logger& Logger::getInstance()
     return instance;
 }
 
-bool Logger::init(const LoggingConfig& config)
+void Logger::init(const LoggingConfig& config)
 {
     Logger& logger = getInstance();
     logger.m_config = config;
-    return true;
-}
-
-void Logger::uninit()
-{
-    Logger& logger = getInstance();
-    if (logger.m_initialized)
-    {
-        //Reset the config
-        logger.m_config = LoggingConfig();
-        logger.m_initialized = false;
-    }
 }
 
 LoggingConfig& Logger::getConfig()

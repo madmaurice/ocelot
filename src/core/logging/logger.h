@@ -13,8 +13,7 @@ class Logger
 public:
     static Logger& getInstance();
 
-    static bool init(const LoggingConfig& config);
-    static void uninit();
+    static void init(const LoggingConfig& config);
 
     LoggingConfig& getConfig();
 
@@ -30,7 +29,6 @@ private:
     void processLog(LogLevel level, std::string msg, const char* file, uint32 line);
 
     LoggingConfig   m_config;
-    bool            m_initialized;
 };
 
 OC_NS_END;

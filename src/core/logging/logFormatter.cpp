@@ -23,7 +23,7 @@ namespace LogFormatterImpl
 
     void appendLogLevel(std::ostream& ostream, LogLevel level)
     {
-        std::string levelString(LogLevelHelper::logLeveltoString(level));
+        std::string levelString(LogLevelUtil::logLeveltoString(level));
         std::string outString(6, ' '); //Max log level length is 6
         outString.replace(0, levelString.size(), levelString);
 

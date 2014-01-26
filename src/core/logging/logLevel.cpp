@@ -6,7 +6,7 @@
 
 OC_NS_BG;
 
-std::string LogLevelHelper::logLeveltoString(LogLevel level)
+std::string LogLevelUtil::logLeveltoString(LogLevel level)
 {
     switch (level)
     {

@@ -21,19 +21,16 @@ public:
 
     ~LoggingConfig();
 
-    LogLevel getLogLevel();
+    LogLevel getLogLevel() const;
     void setLogLevel(LogLevel level);
 
+    const std::vector<std::unique_ptr<ILogAppender> >& getAllAppenders() const;
 
-    std::vector<std::unique_ptr<ILogAppender> >& getAllAppenders();
-    ILogAppender* getAppender(std::string name);
+    template<class T>
+    T* getAppender(const std::string& name) const;
     void addAppender(std::unique_ptr<ILogAppender> appender);
-    void removeAppender(std::string name);
+    void removeAppender(const std::string& name);
 
-    //setCategories(Vector<LogCategory>)
-    //setCategories<T>(LogCategoryPolicy : T)
-    //enableCategory(uint32) : void
-    //disableCategory(uint32) : void
 private:
 
     struct ConfigInternal
@@ -47,5 +44,18 @@ private:
 
     std::shared_ptr<ConfigInternal> m_configData;
 };
+
+template<class T>
+T* LoggingConfig::getAppender(const std::string& name) const
+{
+    for (const auto& appender : m_configData->m_appenders)
+    {
+        if (appender->getName() == name)
+        {
+            return static_cast<T*>(appender.get());
+        }
+    }
+    return nullptr;
+}
 
 OC_NS_END;
