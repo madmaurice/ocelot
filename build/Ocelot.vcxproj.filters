@@ -10,6 +10,9 @@
     <Filter Include="core\util">
       <UniqueIdentifier>{65d0b134-fab3-43a7-aca7-5f7cd86d9145}</UniqueIdentifier>
     </Filter>
+    <Filter Include="math">
+      <UniqueIdentifier>{d6a9d9fd-d155-4882-b391-ec3b526844dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\core\logging\logger.cpp">
@@ -32,6 +35,21 @@
     </ClCompile>
     <ClCompile Include="..\src\core\logging\logFormatter.cpp">
       <Filter>core\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\math\matrix3.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\math\vector2.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\math\vector3.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\math\vector4.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\math\matrix4.cpp">
+      <Filter>math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +88,21 @@
     </ClInclude>
     <ClInclude Include="..\src\core\util\pointer.h">
       <Filter>core\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\math\matrix3.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\math\vector2.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\math\vector3.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\math\vector4.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\math\matrix4.h">
+      <Filter>math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

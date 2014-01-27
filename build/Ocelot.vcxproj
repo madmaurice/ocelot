@@ -18,6 +18,11 @@
     <ClCompile Include="..\src\core\logging\logger.cpp" />
     <ClCompile Include="..\src\core\logging\loggingConfig.cpp" />
     <ClCompile Include="..\src\core\logging\logLevel.cpp" />
+    <ClCompile Include="..\src\math\matrix3.cpp" />
+    <ClCompile Include="..\src\math\matrix4.cpp" />
+    <ClCompile Include="..\src\math\vector2.cpp" />
+    <ClCompile Include="..\src\math\vector3.cpp" />
+    <ClCompile Include="..\src\math\vector4.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\core\assert.h" />
@@ -32,6 +37,11 @@
     <ClInclude Include="..\src\core\logging\logLevel.h" />
     <ClInclude Include="..\src\core\types.h" />
     <ClInclude Include="..\src\core\util\pointer.h" />
+    <ClInclude Include="..\src\math\matrix3.h" />
+    <ClInclude Include="..\src\math\matrix4.h" />
+    <ClInclude Include="..\src\math\vector2.h" />
+    <ClInclude Include="..\src\math\vector3.h" />
+    <ClInclude Include="..\src\math\vector4.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{73B1D1B0-6661-4A2A-AC16-D07986750881}</ProjectGuid>
