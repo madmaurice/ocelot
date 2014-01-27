@@ -14,11 +14,9 @@ namespace LogFormatterImpl
         struct tm now;
         localtime_s(&now, &epoch);
 
-        std::stringstream sstream;
-        sstream << "(" << now.tm_hour << "h" << std::setfill('0') << std::setw(2) << now.tm_min 
-                << ":" << std::setfill('0') << std::setw(2) << now.tm_sec << ")";
-
-        ostream << sstream.str();
+        char buffer[11];
+        strftime(buffer, 11, "(%Hh%M:%S)", &now);
+        ostream << buffer;
     }
 
     void appendLogLevel(std::ostream& ostream, LogLevel level)
