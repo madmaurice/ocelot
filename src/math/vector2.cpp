@@ -61,12 +61,12 @@ void Vector2::clamp()
 	if ( y < 0.0f ) y = 0.0f;
 }
 
-float Vector2::operator[] (int pos) const
+float Vector2::operator[] (uint32 pos) const
 {
     return pos == 0 ? x : y;
 }
 
-float& Vector2::operator[] (int pos)
+float& Vector2::operator[] (uint32 pos)
 {
     return pos == 0 ? x : y;
 }

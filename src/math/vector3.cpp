@@ -123,14 +123,14 @@ Vector3& Vector3::operator= (const Vector3& vector)
     return *this;
 }
 
-float Vector3::operator[] (int pos) const
+float Vector3::operator[] (uint32 pos) const
 {
 	if ( pos == 0 ) return( x );
 	if ( pos == 1 ) return( y );
 	return z;
 }
 
-float& Vector3::operator[] (int pos)
+float& Vector3::operator[] (uint32 pos)
 {
 	if ( pos == 0 ) return( x );
 	if ( pos == 1 ) return( y );
