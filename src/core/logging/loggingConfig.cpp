@@ -1,5 +1,4 @@
 #include "loggingConfig.h"
-#include "core/assert.h"
 
 OC_NS_BG;
 

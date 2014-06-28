@@ -5,7 +5,6 @@
 //---------------------------------------------------------------------------------------
 #pragma once
 
-#include "core/common.h"
 #include "core/logging/logAppender.h"
 #include "core/logging/logLevel.h"
 #include <memory>

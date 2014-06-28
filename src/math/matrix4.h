@@ -1,8 +1,6 @@
 
 #pragma once
 
-#include "core/defines.h"
-#include "core/types.h"
 #include "matrix3.h"
 #include "vector4.h"
 

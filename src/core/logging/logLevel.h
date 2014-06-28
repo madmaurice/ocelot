@@ -1,8 +1,6 @@
 
 #pragma once
 
-#include "core/common.h"
-
 OC_NS_BG;
 
 enum class LogLevel

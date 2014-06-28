@@ -4,8 +4,7 @@
 #include <vector>
 #include "gtest/gtest.h"
 
-#include "core/common.h"
-#include "core/assert.h"
+#include "pch.h"
 #include "core/logging/logger.h"
 #include "core/logging/loggingConfig.h"
 

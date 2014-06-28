@@ -1,7 +1,6 @@
 
 #pragma once
 
-#include "core/common.h"
 #include "core/logging/loggingConfig.h"
 #include "core/logging/logLevel.h"
 #include <string>

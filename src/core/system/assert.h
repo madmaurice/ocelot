@@ -1,9 +1,6 @@
 
 #pragma once
 
-#include "types.h"
-
-
 namespace oc
 {
     void ocAssert(const char* msg, const char* file, uint32 line);

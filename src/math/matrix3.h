@@ -2,8 +2,6 @@
 #pragma once
 
 #include "vector3.h"
-#include "core/defines.h"
-#include "core/types.h"
 
 OC_NS_BG;
 

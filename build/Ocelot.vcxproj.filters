@@ -13,6 +13,12 @@
     <Filter Include="math">
       <UniqueIdentifier>{d6a9d9fd-d155-4882-b391-ec3b526844dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="app">
+      <UniqueIdentifier>{cf10530b-92ba-4790-823d-0e7a29e7e0aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\system">
+      <UniqueIdentifier>{7101bd1c-3369-4197-a8f2-671f1449c904}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\core\logging\logger.cpp">
@@ -26,9 +32,6 @@
     </ClCompile>
     <ClCompile Include="..\src\core\logging\logLevel.cpp">
       <Filter>core\logging</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\core\assert.cpp">
-      <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="..\src\core\logging\logAppender.cpp">
       <Filter>core\logging</Filter>
@@ -51,6 +54,25 @@
     <ClCompile Include="..\src\math\matrix4.cpp">
       <Filter>math</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\app\application.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\app\engine.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\app\window.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\pch.cpp" />
+    <ClCompile Include="..\src\core\system\stackTrace.cpp">
+      <Filter>core\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\system\stackWalker.cpp">
+      <Filter>core\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\system\assert.cpp">
+      <Filter>core\system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\core\logging\logEvent.h">
@@ -62,23 +84,14 @@
     <ClInclude Include="..\src\core\logging\loggingConfig.h">
       <Filter>core\logging</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\core\types.h">
-      <Filter>core</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\core\logging\logLevel.h">
       <Filter>core\logging</Filter>
     </ClInclude>
     <ClInclude Include="..\src\core\defines.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\core\common.h">
-      <Filter>core</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\core\logging\logging.h">
       <Filter>core\logging</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\assert.h">
-      <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="..\src\core\logging\logAppender.h">
       <Filter>core\logging</Filter>
@@ -103,6 +116,28 @@
     </ClInclude>
     <ClInclude Include="..\src\math\matrix4.h">
       <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\app\application.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\app\engine.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\app\window.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\pch.h" />
+    <ClInclude Include="..\src\core\system\stackTrace.h">
+      <Filter>core\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\system\stackWalker.h">
+      <Filter>core\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\system\types.h">
+      <Filter>core\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\system\assert.h">
+      <Filter>core\system</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

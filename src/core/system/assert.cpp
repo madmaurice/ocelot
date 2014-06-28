@@ -1,5 +1,4 @@
 
-
 #include "assert.h"
 #include "core/logging/logger.h"
 #include <sstream>

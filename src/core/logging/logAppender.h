@@ -1,10 +1,8 @@
 
 #pragma once
 
-#include "core/types.h"
 #include "core/logging/logEvent.h"
 #include "core/logging/logFormatter.h"
-#include <string>
 #include <memory>
 
 OC_NS_BG;
