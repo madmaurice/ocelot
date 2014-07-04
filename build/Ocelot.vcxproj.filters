@@ -64,13 +64,13 @@
       <Filter>app</Filter>
     </ClCompile>
     <ClCompile Include="..\src\pch.cpp" />
-    <ClCompile Include="..\src\core\system\stackTrace.cpp">
-      <Filter>core\system</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\core\system\stackWalker.cpp">
       <Filter>core\system</Filter>
     </ClCompile>
     <ClCompile Include="..\src\core\system\assert.cpp">
+      <Filter>core\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\system\callStack.cpp">
       <Filter>core\system</Filter>
     </ClCompile>
   </ItemGroup>
@@ -127,9 +127,6 @@
       <Filter>app</Filter>
     </ClInclude>
     <ClInclude Include="..\src\pch.h" />
-    <ClInclude Include="..\src\core\system\stackTrace.h">
-      <Filter>core\system</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\core\system\stackWalker.h">
       <Filter>core\system</Filter>
     </ClInclude>
@@ -138,6 +135,12 @@
     </ClInclude>
     <ClInclude Include="..\src\core\system\assert.h">
       <Filter>core\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\system\callStack.h">
+      <Filter>core\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\util\nonCopyable.h">
+      <Filter>core\util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

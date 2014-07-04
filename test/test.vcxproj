@@ -47,6 +47,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)\..\external\gtest-1.7.0\include;$(ProjectDir)\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_VARIADIC_MAX=10;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -73,6 +74,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="testLogging.cpp" />
+    <ClCompile Include="testStackWalk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\build\Ocelot.vcxproj">

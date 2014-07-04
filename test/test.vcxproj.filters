@@ -3,5 +3,6 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="testLogging.cpp" />
+    <ClCompile Include="testStackWalk.cpp" />
   </ItemGroup>
 </Project>

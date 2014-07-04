@@ -10,6 +10,7 @@
 #if defined(OC_LOG_ENABLED)
 
 #include <sstream>
+#include "logger.h"
 #define OC_LOG(level, msg, file, line)                                                \
     {                                                                   \
         std::stringstream sstream;                                      \

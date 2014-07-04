@@ -21,7 +21,7 @@
     <ClCompile Include="..\src\core\logging\loggingConfig.cpp" />
     <ClCompile Include="..\src\core\logging\logLevel.cpp" />
     <ClCompile Include="..\src\core\system\assert.cpp" />
-    <ClCompile Include="..\src\core\system\stackTrace.cpp" />
+    <ClCompile Include="..\src\core\system\callStack.cpp" />
     <ClCompile Include="..\src\core\system\stackWalker.cpp" />
     <ClCompile Include="..\src\math\matrix3.cpp" />
     <ClCompile Include="..\src\math\matrix4.cpp" />
@@ -47,9 +47,10 @@
     <ClInclude Include="..\src\core\logging\loggingConfig.h" />
     <ClInclude Include="..\src\core\logging\logLevel.h" />
     <ClInclude Include="..\src\core\system\assert.h" />
-    <ClInclude Include="..\src\core\system\stackTrace.h" />
+    <ClInclude Include="..\src\core\system\callStack.h" />
     <ClInclude Include="..\src\core\system\stackWalker.h" />
     <ClInclude Include="..\src\core\system\types.h" />
+    <ClInclude Include="..\src\core\util\nonCopyable.h" />
     <ClInclude Include="..\src\core\util\pointer.h" />
     <ClInclude Include="..\src\math\matrix3.h" />
     <ClInclude Include="..\src\math\matrix4.h" />
