@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\app\application.cpp" />
     <ClCompile Include="..\src\app\engine.cpp" />
+    <ClCompile Include="..\src\app\fpsCounter.cpp" />
     <ClCompile Include="..\src\app\window.cpp" />
     <ClCompile Include="..\src\core\logging\logAppender.cpp" />
     <ClCompile Include="..\src\core\logging\logEvent.cpp" />
@@ -23,6 +24,7 @@
     <ClCompile Include="..\src\core\system\assert.cpp" />
     <ClCompile Include="..\src\core\system\callStack.cpp" />
     <ClCompile Include="..\src\core\system\stackWalker.cpp" />
+    <ClCompile Include="..\src\core\system\timer.cpp" />
     <ClCompile Include="..\src\math\matrix3.cpp" />
     <ClCompile Include="..\src\math\matrix4.cpp" />
     <ClCompile Include="..\src\math\vector2.cpp" />
@@ -37,6 +39,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\app\application.h" />
     <ClInclude Include="..\src\app\engine.h" />
+    <ClInclude Include="..\src\app\fpsCounter.h" />
     <ClInclude Include="..\src\app\window.h" />
     <ClInclude Include="..\src\core\defines.h" />
     <ClInclude Include="..\src\core\logging\logAppender.h" />
@@ -49,6 +52,7 @@
     <ClInclude Include="..\src\core\system\assert.h" />
     <ClInclude Include="..\src\core\system\callStack.h" />
     <ClInclude Include="..\src\core\system\stackWalker.h" />
+    <ClInclude Include="..\src\core\system\timer.h" />
     <ClInclude Include="..\src\core\system\types.h" />
     <ClInclude Include="..\src\core\util\nonCopyable.h" />
     <ClInclude Include="..\src\core\util\pointer.h" />

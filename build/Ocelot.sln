@@ -9,6 +9,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gtest", "..\external\gtest-
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "..\test\test.vcxproj", "{1BFFE2E8-C836-411B-9846-EDA61718EF83}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample", "sample", "{18E82381-17E9-426F-93E0-799598790839}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BasicRender", "..\sample\BasicRender\BasicRender.vcxproj", "{B80E4EA6-6DF0-4C78-81E2-5E9BB4D4BBE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -27,11 +31,16 @@ Global
 		{1BFFE2E8-C836-411B-9846-EDA61718EF83}.Debug|Win32.Build.0 = Debug|Win32
 		{1BFFE2E8-C836-411B-9846-EDA61718EF83}.Release|Win32.ActiveCfg = Release|Win32
 		{1BFFE2E8-C836-411B-9846-EDA61718EF83}.Release|Win32.Build.0 = Release|Win32
+		{B80E4EA6-6DF0-4C78-81E2-5E9BB4D4BBE5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B80E4EA6-6DF0-4C78-81E2-5E9BB4D4BBE5}.Debug|Win32.Build.0 = Debug|Win32
+		{B80E4EA6-6DF0-4C78-81E2-5E9BB4D4BBE5}.Release|Win32.ActiveCfg = Release|Win32
+		{B80E4EA6-6DF0-4C78-81E2-5E9BB4D4BBE5}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C8F6C172-56F2-4E76-B5FA-C3B423B31BE7} = {6613FBBF-0ACD-4A91-A709-951862FBE7B4}
+		{B80E4EA6-6DF0-4C78-81E2-5E9BB4D4BBE5} = {18E82381-17E9-426F-93E0-799598790839}
 	EndGlobalSection
 EndGlobal

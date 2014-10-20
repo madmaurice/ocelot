@@ -3,6 +3,8 @@
 #include <windows.h>
 #include <DbgHelp.h>
 
+OC_NS_BG;
+
 namespace
 {
     StackFrame addressToStackFrame(uint64 address)
@@ -17,7 +19,7 @@ namespace
         info->SizeOfStruct = sizeof(SYMBOL_INFO);
         info->MaxNameLen = 1024;
 
-        // Attempt to get information about the symbol and add it to the StackTrace
+        // Attempt to get information about the symbol to create the StackFrame
         if (SymFromAddr(processHandle, address, &displacement, info)) 
         {
             frame.m_function = String(info->Name, info->NameLen);
@@ -36,36 +38,37 @@ namespace
     }
 }
 
+
 CallStack::CallStack()
 {
 }
 
 CallStack::CallStack(const std::vector<uint64>& addresses )
-    : m_stack(addresses)
+    : m_stack(new std::vector<uint64>(addresses))
 {
 }
 
 void CallStack::append(uint64 address)
 {
-    m_stack.push_back(address);
+    m_stack->push_back(address);
 }
 
 void CallStack::remove(uint32 position)
 {
-    OC_ASSERT(position <= m_stack.size());
-    m_stack.erase(m_stack.begin() + position);
+    OC_ASSERT(position <= m_stack->size());
+    m_stack->erase(m_stack->begin() + position);
 }
 
 size_t CallStack::getSize() const
 {
-    return m_stack.size();
+    return m_stack->size();
 }
 
 StackTrace CallStack::getTrace() const
 {
     StackTrace trace;
     int i = 0;
-    for (const auto& address : m_stack)
+    for (const auto& address : *m_stack)
     {
         StackFrame frame = addressToStackFrame(address);
         frame.m_depth = i++;
@@ -76,8 +79,8 @@ StackTrace CallStack::getTrace() const
 
 StackFrame CallStack::getFrame(size_t position) const
 {
-    OC_ASSERT(position <= m_stack.size());
-    StackFrame frame = addressToStackFrame(m_stack[position]);
+    OC_ASSERT(position <= m_stack->size());
+    StackFrame frame = addressToStackFrame((*m_stack)[position]);
     frame.m_depth = position;
     return frame;
 }
@@ -93,7 +96,7 @@ String CallStack::toString() const
     DWORD64 displacement = 0;
 
     const HANDLE processHandle = GetCurrentProcess();
-    for (const auto& address : m_stack)
+    for (const auto& address : *m_stack)
     {
         uint64 buffer[ (sizeof(SYMBOL_INFO) + 1024 + sizeof(ULONG64) - 1) / sizeof(ULONG64) ] = { 0 };
         SYMBOL_INFO *info = (SYMBOL_INFO *)buffer;
@@ -132,3 +135,5 @@ std::ostream& operator<<(std::ostream& os, const CallStack& stackTrace)
     os << stackTrace.toString();
     return os;
 }
+
+OC_NS_END;

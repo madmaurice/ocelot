@@ -1,6 +1,8 @@
 
 #pragma once
 
+OC_NS_BG;
+
 struct StackFrame
 {
     size_t m_depth;
@@ -32,7 +34,10 @@ public:
     String toString() const;
 
 private:
-    std::vector<uint64> m_stack;
+    typedef std::shared_ptr<std::vector<uint64>> StackPtr;
+    StackPtr m_stack;
 };
 
 std::ostream& operator<<(std::ostream& os, const CallStack& callStack);
+
+OC_NS_END;

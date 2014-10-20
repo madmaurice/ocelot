@@ -2,6 +2,7 @@
 #include "gtest/gtest.h"
 #include "core/system/stackWalker.h"
 #include <iostream>
+#include "core/util/nonCopyable.h"
 
 using namespace oc;
 
@@ -20,6 +21,7 @@ protected:
         StackWalker::shutdown();
     }
 };
+
 
 typedef StackWalkFixture STACK_WALK;
 
