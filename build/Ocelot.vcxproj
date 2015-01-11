@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\app\application.cpp" />
-    <ClCompile Include="..\src\app\engine.cpp" />
     <ClCompile Include="..\src\app\fpsCounter.cpp" />
     <ClCompile Include="..\src\app\window.cpp" />
     <ClCompile Include="..\src\core\logging\logAppender.cpp" />
@@ -25,6 +24,8 @@
     <ClCompile Include="..\src\core\system\callStack.cpp" />
     <ClCompile Include="..\src\core\system\stackWalker.cpp" />
     <ClCompile Include="..\src\core\system\timer.cpp" />
+    <ClCompile Include="..\src\engine.cpp" />
+    <ClCompile Include="..\src\graphic\graphicSystem.cpp" />
     <ClCompile Include="..\src\math\matrix3.cpp" />
     <ClCompile Include="..\src\math\matrix4.cpp" />
     <ClCompile Include="..\src\math\vector2.cpp" />
@@ -38,7 +39,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\app\application.h" />
-    <ClInclude Include="..\src\app\engine.h" />
     <ClInclude Include="..\src\app\fpsCounter.h" />
     <ClInclude Include="..\src\app\window.h" />
     <ClInclude Include="..\src\core\defines.h" />
@@ -56,6 +56,9 @@
     <ClInclude Include="..\src\core\system\types.h" />
     <ClInclude Include="..\src\core\util\nonCopyable.h" />
     <ClInclude Include="..\src\core\util\pointer.h" />
+    <ClInclude Include="..\src\engine.h" />
+    <ClInclude Include="..\src\graphic\dxUtil.h" />
+    <ClInclude Include="..\src\graphic\graphicSystem.h" />
     <ClInclude Include="..\src\math\matrix3.h" />
     <ClInclude Include="..\src\math\matrix4.h" />
     <ClInclude Include="..\src\math\vector2.h" />
@@ -71,7 +74,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110_xp</PlatformToolset>
+    <PlatformToolset>v120_xp</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -86,6 +89,7 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="DirectX.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />

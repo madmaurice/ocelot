@@ -7,7 +7,7 @@ namespace oc
     void ocAssert(const char* check, const char* msg, const char* file, uint32 line);
 }
 
-#if defined(_DEBUG)
+#if defined(OC_DEBUG)
 
 #define OC_ASSERT(check) \
     __pragma(warning(push))         \

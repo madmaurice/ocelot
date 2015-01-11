@@ -2,6 +2,8 @@
 #include "core/system/timer.h"
 #include <windows.h>
 
+OC_NS_BG;
+
 Timer::Timer() :
     m_secondsPerCount(0.0), 
     m_deltaTime(-1.0), 
@@ -124,3 +126,5 @@ void Timer::tick()
 		m_deltaTime = 0.0;
 	}
 }
+
+OC_NS_END;

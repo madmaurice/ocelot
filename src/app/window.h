@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "core\util\nonCopyable.h"
+#include "core/util/nonCopyable.h"
 #include <windows.h>
 #include <functional>
 

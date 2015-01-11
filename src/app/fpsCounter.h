@@ -1,6 +1,8 @@
 
 #pragma once
 
+OC_NS_BG;
+
 class FpsCounter
 {
 public:
@@ -17,3 +19,5 @@ private:
     uint32 m_frameCount;
     float m_elapsedTime;
 };
+
+OC_NS_END;

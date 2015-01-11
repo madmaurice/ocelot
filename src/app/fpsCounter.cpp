@@ -1,6 +1,8 @@
 
 #include "fpsCounter.h"
 
+OC_NS_BG;
+
 FpsCounter::FpsCounter()
     : m_fps(0)
     , m_frameCount(0)
@@ -32,3 +34,5 @@ float FpsCounter::getFrameTimeMs() const
 {
     return m_fps > 0 ? 1000 / (float)m_fps : 0;
 }
+
+OC_NS_END;

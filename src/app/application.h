@@ -5,8 +5,16 @@
 #include "app/window.h"
 #include "core/system/timer.h"
 
-
 OC_NS_BG;
+
+struct AppContext
+{
+    HWND m_hwnd;
+    uint32 m_windowWidth;
+    uint32 m_windowHeight;
+};
+
+class Engine;
 
 class Application : public NonCopyable
 {
@@ -22,7 +30,9 @@ public:
     // Starts main loop
     void run();
 
-private:    virtual bool initializeImpl() = 0;
+private:
+
+    virtual bool initializeImpl() = 0;
     virtual void shutdownImpl() = 0;
 
     virtual void updateImpl(float elapsed) = 0;
@@ -39,9 +49,12 @@ private:    virtual bool initializeImpl() = 0;
     bool m_minimized;
     bool m_maximized;
     bool m_shutdown;
+    bool m_initCompleted;
 
     Timer m_timer;
     FpsCounter m_fpsCounter;
+
+    std::unique_ptr<Engine> m_engine;
 
     Window m_window;
     const String m_name;

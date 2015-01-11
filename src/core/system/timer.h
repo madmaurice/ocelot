@@ -1,6 +1,8 @@
 
 #pragma once
 
+OC_NS_BG;
+
 class Timer
 {
 public:
@@ -30,3 +32,5 @@ private:
 
 	bool m_stopped;
 };
+
+OC_NS_END;

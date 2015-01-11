@@ -15,24 +15,13 @@
 // And configure assert report
 // link: http://msdn.microsoft.com/en-US/library/8hyw4sy7(v=vs.80).aspx
 #if defined(DEBUG) || defined(_DEBUG)
+
+#define OC_DEBUG
+#define OC_LOG_ENABLED
+
 #define OC_DBG_CONFIG() \
     _CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF ); \
     _CrtSetReportMode( _CRT_ASSERT, _CRTDBG_MODE_DEBUG | _CRTDBG_MODE_WNDW);
 #else
 #define OC_DBG_CONFIG()
 #endif
-
-// Define unique_ptr implementation : http://stackoverflow.com/questions/13883824/make-unique-does-not-compile
-#include <memory> // brings in TEMPLATE macros.
-
-#define _MAKE_UNIQUE(TEMPLATE_LIST, PADDING_LIST, LIST, COMMA, X1, X2, X3, X4)  \
-    namespace oc {\
-        template<class T COMMA LIST(_CLASS_TYPE)>    \
-        inline std::unique_ptr<T> make_unique(LIST(_TYPE_REFREF_ARG))    \
-        {    \
-            return std::unique_ptr<T>(new T(LIST(_FORWARD_ARG)));    \
-        }\
-    };
-
-_VARIADIC_EXPAND_0X(_MAKE_UNIQUE, , , , )
-#undef _MAKE_UNIQUE

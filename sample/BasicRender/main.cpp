@@ -21,7 +21,5 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE prevInstance,
 
     app.run();
 
-    app.shutdown();
-
     return 0;
 }

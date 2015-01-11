@@ -164,7 +164,7 @@ TEST_F(LOGGING, ConfigLogAppender)
     appender = m_config.getAppender<ILogAppender>(fakeAppender);
     EXPECT_EQ(nullptr, appender);
 
-    m_config.addAppender(oc::make_unique<FakeAppender>());
+    m_config.addAppender(std::make_unique<FakeAppender>());
 
     appender = m_config.getAppender<ILogAppender>(fakeAppender);
     EXPECT_NE(nullptr, appender);

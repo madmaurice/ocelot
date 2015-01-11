@@ -19,6 +19,9 @@
     <Filter Include="core\system">
       <UniqueIdentifier>{7101bd1c-3369-4197-a8f2-671f1449c904}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graphic">
+      <UniqueIdentifier>{04384ad7-ecb9-42fa-9bc8-00e9590b6eea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\core\logging\logger.cpp">
@@ -57,9 +60,6 @@
     <ClCompile Include="..\src\app\application.cpp">
       <Filter>app</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\app\engine.cpp">
-      <Filter>app</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\app\window.cpp">
       <Filter>app</Filter>
     </ClCompile>
@@ -79,6 +79,10 @@
     <ClCompile Include="..\src\app\fpsCounter.cpp">
       <Filter>app</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\graphic\graphicSystem.cpp">
+      <Filter>graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\engine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\core\logging\logEvent.h">
@@ -126,9 +130,6 @@
     <ClInclude Include="..\src\app\application.h">
       <Filter>app</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\app\engine.h">
-      <Filter>app</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\app\window.h">
       <Filter>app</Filter>
     </ClInclude>
@@ -153,6 +154,13 @@
     </ClInclude>
     <ClInclude Include="..\src\app\fpsCounter.h">
       <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\graphicSystem.h">
+      <Filter>graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\engine.h" />
+    <ClInclude Include="..\src\graphic\dxUtil.h">
+      <Filter>graphic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

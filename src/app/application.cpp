@@ -1,4 +1,5 @@
 #include "app/application.h"
+#include "engine.h"
 #include <functional>
 
 OC_NS_BG;
@@ -21,6 +22,8 @@ Application::Application(const String& name)
     , m_minimized(false)
     , m_maximized(false)
     , m_shutdown(false)
+    , m_initCompleted(false)
+    , m_engine(nullptr)
     , m_window(name)
     , m_name(name)
 {
@@ -34,7 +37,7 @@ Application::~Application()
 bool Application::initialize()
 {
     LoggingConfig logConfig;
-    logConfig.addAppender(make_unique<DebugConsoleAppender>());
+    logConfig.addAppender(std::make_unique<DebugConsoleAppender>());
     return initialize(logConfig);
 }
 
@@ -49,11 +52,18 @@ bool Application::initialize(const LoggingConfig& config)
     Window::WndProc wndProc = std::bind(&Application::wndProc, this, _1, _2, _3, _4);
     if (!m_window.initialize(wndProc))
     {
-        OC_LOG_ERROR("Window initialization failed");
+        OC_LOG_ERROR("Application initialization failed : Window init failed!");
         return false;
     }
 
-    // TODO : initialize other systems (DX3D)
+    AppContext appContext = { m_window.getHandle(), m_window.getWidth(), m_window.getHeight() };
+    m_engine.reset(new Engine(appContext));
+
+    if (!m_engine->initialize())
+    {
+        OC_LOG_ERROR("Application initialization failed : Engine init failed!");
+        return false;
+    }
 
     if (!initializeImpl())
     {
@@ -61,6 +71,7 @@ bool Application::initialize(const LoggingConfig& config)
         return false;
     }
 
+    m_initCompleted = true;
     return true;
 }
 
@@ -71,6 +82,7 @@ void Application::shutdown()
     if (!m_shutdown)
     {
         shutdownImpl();
+        m_engine->shutdown();
         m_window.shutdown();
 
         m_shutdown = true;
@@ -92,6 +104,7 @@ void Application::run()
             if (msg.message == WM_QUIT)
             {
                 running = false;
+                shutdown();
                 return;
             }
 
@@ -118,23 +131,23 @@ void Application::run()
 
 void Application::update()
 {
-    // TODO
-    // processMessage (dispatch?), update engine
     m_fpsCounter.updateFrame(m_timer.getElapsed());
 
     // Update FPS on window title
     updateWindowCaption(m_window, m_name, m_fpsCounter);
 
-    updateImpl(m_timer.getDelta());
+    // TODO order is not correct (separate update and render)
+
+    const float delta = m_timer.getDelta();
+    m_engine->runFrame(delta);
+
+    updateImpl(delta);
 }
 
 void Application::handleResize(uint32 width, uint32 height)
 {
-    OC_UNUSED(width);
-    OC_UNUSED(height);
-
-    // TODO : Render system resize
-    OC_LOG_ALWAYS("Resize : width=" << width << ", height=" << height);
+    OC_LOG_DEBUG("Handle resize : width=" << width << ", height=" << height);
+    m_engine->resize(width, height);
 }
 
 LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -163,6 +176,12 @@ LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
         // WM_SIZE is sent when the user resizes the window.  
     case WM_SIZE:
         {
+            // Need to wait Direct3D to be initialized before performing any resizing.
+            if (!m_initCompleted)
+            {
+                return 0;
+            }
+
             // Save the new client area dimensions.
             windowWidth  = LOWORD(lParam);
             windowHeight = HIWORD(lParam);

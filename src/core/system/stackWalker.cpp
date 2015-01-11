@@ -6,7 +6,6 @@
 
 OC_NS_BG;
 
-
 class StackWalkerImpl
 {
 public:

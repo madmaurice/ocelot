@@ -3,6 +3,8 @@
 
 #include <string>
 
+OC_NS_BG;
+
 typedef std::string String;
 
 // link : http://msdn.microsoft.com/en-us/library/s3f49ktz.aspx
@@ -16,3 +18,5 @@ typedef __int8                  int8;
 typedef __int16                 int16;
 typedef __int32                 int32;
 typedef __int64                 int64;
+
+OC_NS_END;
