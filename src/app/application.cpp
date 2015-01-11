@@ -38,6 +38,7 @@ bool Application::initialize()
 {
     LoggingConfig logConfig;
     logConfig.addAppender(std::make_unique<DebugConsoleAppender>());
+    logConfig.setLogLevel(LogLevel::Debug);
     return initialize(logConfig);
 }
 

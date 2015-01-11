@@ -19,7 +19,8 @@ GraphicSystem::~GraphicSystem()
 
 bool GraphicSystem::initialize()
 {
-    GraphicSystemConfig config = { false, true, true, 4, 0, D3D_DRIVER_TYPE_HARDWARE };
+    // No MSAA
+    GraphicSystemConfig config = { false, false, 1, 0, D3D_DRIVER_TYPE_HARDWARE };
     return initialize(config);
 }
 
@@ -63,6 +64,13 @@ bool GraphicSystem::initialize(const GraphicSystemConfig& config)
         return false;
     }
 
+#if defined(OC_DEBUG)
+    ComPtr<ID3D11InfoQueue> infoQueue;
+    DXCall(m_dxDevice->QueryInterface(__uuidof(ID3D11InfoQueue), (void**)infoQueue.GetAddressOf()));
+    infoQueue->SetBreakOnSeverity(D3D11_MESSAGE_SEVERITY_WARNING, TRUE);
+    infoQueue->SetBreakOnSeverity(D3D11_MESSAGE_SEVERITY_ERROR, TRUE);
+#endif 
+
     // Check 4X MSAA quality support for our back buffer format.
     // All Direct3D 11 capable devices support 4X MSAA for all render 
     // target formats, so we only need to check quality support.
@@ -91,19 +99,10 @@ bool GraphicSystem::initialize(const GraphicSystemConfig& config)
     sd.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
 
     // Multisampling (anti-aliasing), all DX11 device support at least 4X multisampling for all render target format
-    if (m_config.m_enableMSAA)
-    {
-        sd.SampleDesc.Count = m_config.m_MSAASample;
-        sd.SampleDesc.Quality = m_config.m_MSAAQuality - 1;
-    }
-    else
-    {
-        // No MSAA
-        sd.SampleDesc.Count = 1;
-        sd.SampleDesc.Quality = 0;
-    }
+    sd.SampleDesc.Count = m_config.m_MSAASample;
+    sd.SampleDesc.Quality = m_config.m_MSAAQuality - 1;
 
-    // Describes the surface usage and CPU access options for the back buffer. 
+     // Describes the surface usage and CPU access options for the back buffer. 
     // The back buffer can be used for shader input or render-target output.
     sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
     sd.BufferCount = 1;
@@ -179,8 +178,8 @@ void GraphicSystem::resize(uint32 width, uint32 heigth)
     // Release the old views, as they hold references to the buffers we
     // will be destroying.  Also release the old depth/stencil buffer.
     m_backBufferRTV.Reset();
-    m_depthStencilBuffer.Reset();
     m_depthStencilView.Reset();
+    m_depthStencilBuffer.Reset();
 
     // Resize the swap chain and recreate the render target view.
     // NOTE: If we do not resize the buffers the display will be stretched to the window size
@@ -205,17 +204,9 @@ void GraphicSystem::bindDefaultBuffers()
     depthStencilDesc.ArraySize = 1;
     depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 
-    // Use MSAA? -- must match swap chain MSAA values.
-    if (m_config.m_enableMSAA)
-    {
-        depthStencilDesc.SampleDesc.Count = m_config.m_MSAASample;
-        depthStencilDesc.SampleDesc.Quality = m_config.m_MSAAQuality - 1;
-    }
-    else
-    {
-        depthStencilDesc.SampleDesc.Count = 1;
-        depthStencilDesc.SampleDesc.Quality = 0;
-    }
+    // Must match swap chain MSAA values.
+    depthStencilDesc.SampleDesc.Count = m_config.m_MSAASample;
+    depthStencilDesc.SampleDesc.Quality = m_config.m_MSAAQuality - 1;
 
     depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
     depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;

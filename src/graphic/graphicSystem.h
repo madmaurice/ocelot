@@ -10,7 +10,6 @@ OC_NS_BG;
 struct GraphicSystemConfig
 {
     bool m_fullScreen;
-    bool m_enableMSAA;
     bool m_selectBestQuality;
     uint32 m_MSAASample;
     uint32 m_MSAAQuality;
