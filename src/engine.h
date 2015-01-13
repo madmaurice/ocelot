@@ -1,8 +1,9 @@
 
 #pragma once
 
-#include "graphic/graphicSystem.h"
+#include "app/event.h"
 #include "core/util/nonCopyable.h"
+#include "graphic/graphicSystem.h"
 
 OC_NS_BG;
 
@@ -19,11 +20,12 @@ public:
 
     void runFrame(float elapsed);
 
-    // TODO : better propagate
-    void resize(uint32 width, uint32 height);
-
 private:
+    void handleResize(EventPtr resizeEvent);
+
     GraphicSystem m_graphicSystem;
+
+    std::shared_ptr<EventDispatcher> m_eventDispatcher;
 };
 
 OC_NS_END;

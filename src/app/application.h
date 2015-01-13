@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "app/event.h"
 #include "app/fpsCounter.h"
 #include "app/window.h"
 #include "core/system/timer.h"
@@ -12,6 +13,7 @@ struct AppContext
     HWND m_hwnd;
     uint32 m_windowWidth;
     uint32 m_windowHeight;
+    std::shared_ptr<EventDispatcher> m_eventDispatcher;
 };
 
 class Engine;
@@ -40,7 +42,7 @@ private:
     // Called each frame
     void update();
 
-    void handleResize(uint32 width, uint32 height);
+    void dispatchResize(uint32 width, uint32 height);
 
     LRESULT wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -54,6 +56,7 @@ private:
     Timer m_timer;
     FpsCounter m_fpsCounter;
 
+    std::shared_ptr<EventDispatcher> m_eventDispatcher;
     std::unique_ptr<Engine> m_engine;
 
     Window m_window;

@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\app\application.cpp" />
+    <ClCompile Include="..\src\app\event.cpp" />
     <ClCompile Include="..\src\app\fpsCounter.cpp" />
     <ClCompile Include="..\src\app\window.cpp" />
     <ClCompile Include="..\src\core\logging\logAppender.cpp" />
@@ -39,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\app\application.h" />
+    <ClInclude Include="..\src\app\event.h" />
     <ClInclude Include="..\src\app\fpsCounter.h" />
     <ClInclude Include="..\src\app\window.h" />
     <ClInclude Include="..\src\core\defines.h" />

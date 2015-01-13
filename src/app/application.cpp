@@ -23,6 +23,7 @@ Application::Application(const String& name)
     , m_maximized(false)
     , m_shutdown(false)
     , m_initCompleted(false)
+    , m_eventDispatcher(new EventDispatcher())
     , m_engine(nullptr)
     , m_window(name)
     , m_name(name)
@@ -57,7 +58,7 @@ bool Application::initialize(const LoggingConfig& config)
         return false;
     }
 
-    AppContext appContext = { m_window.getHandle(), m_window.getWidth(), m_window.getHeight() };
+    AppContext appContext = { m_window.getHandle(), m_window.getWidth(), m_window.getHeight(), m_eventDispatcher };
     m_engine.reset(new Engine(appContext));
 
     if (!m_engine->initialize())
@@ -145,10 +146,10 @@ void Application::update()
     updateImpl(delta);
 }
 
-void Application::handleResize(uint32 width, uint32 height)
+void Application::dispatchResize(uint32 width, uint32 height)
 {
-    OC_LOG_DEBUG("Handle resize : width=" << width << ", height=" << height);
-    m_engine->resize(width, height);
+    OC_LOG_DEBUG("Dispatch resize event : width=" << width << ", height=" << height);
+    m_eventDispatcher->dispatchEvent(std::make_shared<ResizeEvent>(width, height));
 }
 
 LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -197,7 +198,7 @@ LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 m_paused = false;
                 m_minimized = false;
                 m_maximized = true;
-                handleResize(windowWidth, windowHeight);
+                dispatchResize(windowWidth, windowHeight);
             }
             else if(wParam == SIZE_RESTORED)
             {
@@ -206,14 +207,14 @@ LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 {
                     m_paused = false;
                     m_minimized = false;
-                    handleResize(windowWidth, windowHeight);
+                    dispatchResize(windowWidth, windowHeight);
                 }
                 // Restoring from maximized state?
                 else if(m_maximized)
                 {
                     m_paused = false;
                     m_maximized = false;
-                    handleResize(windowWidth, windowHeight);
+                    dispatchResize(windowWidth, windowHeight);
                 }
                 else if(m_resizing)
                 {
@@ -228,7 +229,7 @@ LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 }
                 else // API call such as SetWindowPos or SwapChain->SetFullscreenState.
                 {
-                    handleResize(windowWidth, windowHeight);
+                    dispatchResize(windowWidth, windowHeight);
                 }
             }
             return 0;
@@ -247,7 +248,7 @@ LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
         m_paused = false;
         m_resizing  = false;
         m_timer.start();
-        handleResize(windowWidth, windowHeight);
+        dispatchResize(windowWidth, windowHeight);
         return 0;
 
         // WM_DESTROY is sent when the window is being destroyed.

@@ -1,10 +1,12 @@
 #include "engine.h"
 #include "app/application.h"
+#include <functional>
 
 OC_NS_BG;
 
 Engine::Engine(const AppContext& appContext)
     : m_graphicSystem(appContext.m_hwnd, appContext.m_windowWidth, appContext.m_windowHeight)
+    , m_eventDispatcher(appContext.m_eventDispatcher)
 {
 }
 
@@ -14,6 +16,8 @@ Engine::~Engine()
 
 bool Engine::initialize()
 {
+    using namespace std::placeholders;
+
     OC_LOG_INFO("Engine initializing");
 
     if (!m_graphicSystem.initialize())
@@ -21,6 +25,9 @@ bool Engine::initialize()
         OC_LOG_ERROR("Engine initialization failed");
         return false;
     }
+
+    Event::Callback callback = std::bind(&Engine::handleResize, this, _1);
+    m_eventDispatcher->addEventHandler(Event::Type::WndResize, callback);
 
     OC_LOG_INFO("Engine initialize completed");
     return true;
@@ -38,9 +45,11 @@ void Engine::runFrame(float elapsed)
     m_graphicSystem.present();
 }
 
-void Engine::resize(uint32 width, uint32 height)
+void Engine::handleResize(EventPtr resizeEvent)
 {
-    m_graphicSystem.resize(width, height);
+    OC_ASSERT(resizeEvent->m_type == Event::Type::WndResize);
+    ResizeEvent* event = static_cast<ResizeEvent*>(resizeEvent.get());
+    m_graphicSystem.resize(event->m_width, event->m_height);
 }
 
 OC_NS_END;
