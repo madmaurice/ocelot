@@ -38,10 +38,19 @@ void Engine::shutdown()
     m_graphicSystem.shutdown();
 }
 
-void Engine::runFrame(float elapsed)
+void Engine::update(float elapsed)
 {
     OC_UNUSED(elapsed);
-    // TODO : draw stuffs
+    // TODO : update stuffs
+}
+
+void Engine::clear()
+{
+    m_graphicSystem.clear();
+}
+
+void Engine::render()
+{
     m_graphicSystem.present();
 }
 
@@ -51,5 +60,6 @@ void Engine::handleResize(EventPtr resizeEvent)
     ResizeEvent* event = static_cast<ResizeEvent*>(resizeEvent.get());
     m_graphicSystem.resize(event->m_width, event->m_height);
 }
+
 
 OC_NS_END;

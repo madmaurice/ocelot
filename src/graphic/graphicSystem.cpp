@@ -230,11 +230,14 @@ void GraphicSystem::bindDefaultBuffers()
     m_dxImmediateContext->RSSetViewports(1, &vp);
 }
 
-void GraphicSystem::present()
+void GraphicSystem::clear()
 {
     m_dxImmediateContext->ClearRenderTargetView(m_backBufferRTV.Get(), reinterpret_cast<const float*>(&Colors::SteelBlue));
     m_dxImmediateContext->ClearDepthStencilView(m_depthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+}
 
+void GraphicSystem::present()
+{
     DXCall(m_swapChain->Present(0, 0));
 }
 

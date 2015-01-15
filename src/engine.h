@@ -18,7 +18,12 @@ public:
     bool initialize();
     void shutdown();
 
-    void runFrame(float elapsed);
+    void update(float elapsed);
+    void clear();
+    void render();
+
+    // TODO : remove methods below
+    GraphicSystem* getGraphics() { return &m_graphicSystem; }
 
 private:
     void handleResize(EventPtr resizeEvent);

@@ -31,9 +31,14 @@ public:
 
     void resize(uint32 width, uint32 heigth);
 
+    void clear();
     void present();
     // NOTE: Update might be needed later (with scene...)
     //void update(float elapsed);
+
+    // TODO : remove methods below
+    ComPtr<ID3D11Device> getDevice() { return m_dxDevice; }
+    ComPtr<ID3D11DeviceContext> getDeviceContext() { return m_dxImmediateContext; }
 
 private:
 

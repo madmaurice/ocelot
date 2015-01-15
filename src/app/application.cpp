@@ -17,14 +17,14 @@ namespace
 }
 
 Application::Application(const String& name)
-    : m_paused(false)
+    : m_eventDispatcher(new EventDispatcher())
+    , m_engine(nullptr)
+    , m_paused(false)
     , m_resizing(false)
     , m_minimized(false)
     , m_maximized(false)
     , m_shutdown(false)
     , m_initCompleted(false)
-    , m_eventDispatcher(new EventDispatcher())
-    , m_engine(nullptr)
     , m_window(name)
     , m_name(name)
 {
@@ -66,6 +66,9 @@ bool Application::initialize(const LoggingConfig& config)
         OC_LOG_ERROR("Application initialization failed : Engine init failed!");
         return false;
     }
+
+    // TODO : remove this
+    m_graphicSystem = m_engine->getGraphics();
 
     if (!initializeImpl())
     {
@@ -118,8 +121,9 @@ void Application::run()
 
         if (!m_paused)
         {
-            // Call the overloaded application update function.
+            // Call the overloaded application update and render functions.
             update();
+            render();
 
             // TODO : better frame rate limit...
             Sleep(15);
@@ -138,12 +142,20 @@ void Application::update()
     // Update FPS on window title
     updateWindowCaption(m_window, m_name, m_fpsCounter);
 
-    // TODO order is not correct (separate update and render)
-
     const float delta = m_timer.getDelta();
-    m_engine->runFrame(delta);
-
     updateImpl(delta);
+
+    m_engine->update(delta);
+}
+
+void Application::render()
+{
+    m_engine->clear();
+
+    renderImpl();
+
+    // TODO : render debug HUD
+    m_engine->render();
 }
 
 void Application::dispatchResize(uint32 width, uint32 height)
