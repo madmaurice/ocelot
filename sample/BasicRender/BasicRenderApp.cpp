@@ -42,24 +42,24 @@ namespace
 Cube::Cube()
 {
     // Top vertices
-    m_vertices[0].pos = XMFLOAT3(-1.0f, 1.0f, -1.0f);
-    m_vertices[0].color = (const float*)&Colors::Green;
-    m_vertices[1].pos = XMFLOAT3(1.0f, 1.0f, -1.0f);
-    m_vertices[1].color = (const float*)&Colors::Cyan;
-    m_vertices[2].pos = XMFLOAT3(1.0f, 1.0f, 1.0f);
-    m_vertices[2].color = (const float*)&Colors::Red;
-    m_vertices[3].pos = XMFLOAT3(-1.0f, 1.0f, 1.0f);
-    m_vertices[3].color = (const float*)&Colors::Yellow;
+    m_vertices[0].pos = Vector3(-1.0f, 1.0f, -1.0f);
+    m_vertices[0].color = Colors::Green;
+    m_vertices[1].pos = Vector3(1.0f, 1.0f, -1.0f);
+    m_vertices[1].color = Colors::Cyan;
+    m_vertices[2].pos = Vector3(1.0f, 1.0f, 1.0f);
+    m_vertices[2].color = Colors::Red;
+    m_vertices[3].pos = Vector3(-1.0f, 1.0f, 1.0f);
+    m_vertices[3].color = Colors::Yellow;
 
     // Bottom vertices
-    m_vertices[4].pos = XMFLOAT3(-1.0f, -1.0f, -1.0f);
-    m_vertices[4].color = (const float*)&Colors::Pink;
-    m_vertices[5].pos = XMFLOAT3(1.0f, -1.0f, -1.0f);
-    m_vertices[5].color = (const float*)&Colors::Blue;
-    m_vertices[6].pos = XMFLOAT3(1.0f, -1.0f, 1.0f);
-    m_vertices[6].color = (const float*)&Colors::Gray;
-    m_vertices[7].pos = XMFLOAT3(-1.0f, -1.0f, 1.0f);
-    m_vertices[7].color = (const float*)&Colors::Brown;
+    m_vertices[4].pos = Vector3(-1.0f, -1.0f, -1.0f);
+    m_vertices[4].color = Colors::Pink;
+    m_vertices[5].pos = Vector3(1.0f, -1.0f, -1.0f);
+    m_vertices[5].color = Colors::Blue;
+    m_vertices[6].pos = Vector3(1.0f, -1.0f, 1.0f);
+    m_vertices[6].color = Colors::Gray;
+    m_vertices[7].pos = Vector3(-1.0f, -1.0f, 1.0f);
+    m_vertices[7].color = Colors::Brown;
 }
 
 BasicRenderApp::BasicRenderApp()
@@ -167,19 +167,19 @@ bool BasicRenderApp::initializeImpl()
     DXCall(m_dxDevice->CreateBuffer(&cbd, NULL, m_constantBuffer.GetAddressOf()));
 
     // Initialize matrix
-    m_world = XMMatrixIdentity();
+    m_world = Matrix4::identity();
 
     // View
-    XMVECTOR eye = XMVectorSet(0.0f, 2.0f, -4.0f, 0.0f);
-    XMVECTOR at = XMVectorSet(0.0f, -1.0f, 0.0f, 0.0f);
-    XMVECTOR up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-    m_view = XMMatrixLookAtLH(eye, at, up);
+    Vector3 eye(0.0f, 2.0f, -4.0f);
+    Vector3 at(0.0f, -1.0f, 0.0f);
+    Vector3 up(0.0f, 1.0f, 0.0f);
+    m_view = Matrix4::lookAtLHMatrix(eye, at, up);
 
     // TODO : resize break the projection matrix
 
     // Initialize the projection matrix
     const float aspectRatio = (float)m_graphicSystem->getBackBufferWidth() / (float)m_graphicSystem->getBackBufferHeigth();
-    m_projection = XMMatrixPerspectiveFovLH(XM_PIDIV2, aspectRatio, 0.01f, 100.0f);
+    m_projection = Matrix4::perspectiveFovLHMatrix(OC_PIDIV2, aspectRatio, 0.01f, 100.0f);
 
     return true;
 }
@@ -193,14 +193,14 @@ void BasicRenderApp::updateImpl(float elapsed)
     m_time += elapsed;
 
     // Animate the cube
-    m_world = XMMatrixRotationY(m_time);
+    m_world = Matrix4::rotationMatrixY(m_time);
 
     // Update constant buffer
     ConstantBuffer cb;
     // Why the transpose : http://www.gamedev.net/topic/574593-direct3d11-why-need-transpose/
-    cb.m_world = XMMatrixTranspose(m_world);
-    cb.m_view = XMMatrixTranspose(m_view);
-    cb.m_projection = XMMatrixTranspose(m_projection);
+    cb.m_world = m_world.transpose();
+    cb.m_view = m_view.transpose();
+    cb.m_projection = m_projection.transpose();
     m_dxImmediateContext->UpdateSubresource(m_constantBuffer.Get(), 0, NULL, &cb, 0, 0);
 }
 

@@ -168,5 +168,8 @@
     <ClInclude Include="..\src\app\event.h">
       <Filter>app</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\math\math.h">
+      <Filter>math</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

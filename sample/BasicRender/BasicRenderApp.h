@@ -5,21 +5,22 @@
 #include "core/util/pointer.h"
 #include "graphic/dxUtil.h"
 #include "graphic/graphicSystem.h"
+#include "math/math.h"
 
 
 OC_NS_BG;
 
 struct ConstantBuffer
 {
-    XMMATRIX m_world;
-    XMMATRIX m_view;
-    XMMATRIX m_projection;
+    Matrix4 m_world;
+    Matrix4 m_view;
+    Matrix4 m_projection;
 };
 
 struct Vertex
 {
-    XMFLOAT3 pos;
-    XMFLOAT4 color;
+    Vector3 pos;
+    Vector4 color;
 };
 
 class Cube
@@ -44,9 +45,9 @@ private:
 
     Cube m_cube;
     float m_time;
-    XMMATRIX m_world;
-    XMMATRIX m_view;
-    XMMATRIX m_projection;
+    Matrix4 m_world;
+    Matrix4 m_view;
+    Matrix4 m_projection;
     ComPtr<ID3D11Buffer>  m_constantBuffer;
 
     // NOTE : temporary...

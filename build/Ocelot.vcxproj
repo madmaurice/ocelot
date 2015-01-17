@@ -61,6 +61,7 @@
     <ClInclude Include="..\src\engine.h" />
     <ClInclude Include="..\src\graphic\dxUtil.h" />
     <ClInclude Include="..\src\graphic\graphicSystem.h" />
+    <ClInclude Include="..\src\math\math.h" />
     <ClInclude Include="..\src\math\matrix3.h" />
     <ClInclude Include="..\src\math\matrix4.h" />
     <ClInclude Include="..\src\math\vector2.h" />
