@@ -65,8 +65,6 @@ Cube::Cube()
 BasicRenderApp::BasicRenderApp()
     : Application("Basic render")
     , m_time(0)
-    , m_vertexBuffer(nullptr)
-    , m_indexBuffer(nullptr)
     , m_inputLayout(nullptr)
     , m_vertexShader(nullptr)
     , m_pixelShader(nullptr)
@@ -83,16 +81,7 @@ bool BasicRenderApp::initializeImpl()
     m_dxImmediateContext = m_graphicSystem->getDeviceContext();
 
     // Create vertex buffer
-    D3D11_BUFFER_DESC bd;
-    ZeroMemory(&bd, sizeof(bd));
-    bd.Usage = D3D11_USAGE_DEFAULT;
-    bd.ByteWidth = sizeof(Vertex) * 8;  // Cube
-    bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-    bd.CPUAccessFlags = 0;
-    D3D11_SUBRESOURCE_DATA initData;
-    ZeroMemory(&initData, sizeof(initData));
-    initData.pSysMem = m_cube.m_vertices;
-    DXCall(m_dxDevice->CreateBuffer(&bd, &initData, m_vertexBuffer.GetAddressOf()));
+    m_vertexBuffer.initialize(m_dxDevice.Get(), sizeof(Vertex) * 8, m_cube.m_vertices);
 
     // Create the indice buffers for the cube
     UINT indices[] =
@@ -116,16 +105,8 @@ bool BasicRenderApp::initializeImpl()
         7, 4, 6,
     };
 
-    D3D11_BUFFER_DESC ibd;
-    ibd.Usage = D3D11_USAGE_IMMUTABLE;
-    ibd.ByteWidth = sizeof(UINT) * 36;        // 36 vertices needed for 12 triangles in a triangle list
-    ibd.BindFlags = D3D11_BIND_INDEX_BUFFER;
-    ibd.CPUAccessFlags = 0;
-    ibd.MiscFlags = 0;
-    ibd.StructureByteStride = 0;
-    D3D11_SUBRESOURCE_DATA iinitData;
-    iinitData.pSysMem = indices;
-    DXCall(m_dxDevice->CreateBuffer(&ibd, &iinitData, m_indexBuffer.GetAddressOf()));
+    // 36 vertices needed for 12 triangles in a triangle list
+    m_indexBuffer.initialize(m_dxDevice.Get(), indices, 36);
 
     // Compile the vertex shader
     ComPtr<ID3DBlob> pVSBlob = nullptr;
@@ -211,9 +192,9 @@ void BasicRenderApp::renderImpl()
 
     UINT stride = sizeof(Vertex);
     UINT offset = 0;
-    m_dxImmediateContext->IASetVertexBuffers(0, 1, m_vertexBuffer.GetAddressOf(), &stride, &offset);
+    m_dxImmediateContext->IASetVertexBuffers(0, 1, m_vertexBuffer, &stride, &offset);
     //The only formats allowed for index buffer data are 16-bit (DXGI_FORMAT_R16_UINT) and 32-bit (DXGI_FORMAT_R32_UINT) integers.
-    m_dxImmediateContext->IASetIndexBuffer(m_indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
+    m_dxImmediateContext->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
     m_dxImmediateContext->VSSetShader(m_vertexShader.Get(), NULL, 0);
     m_dxImmediateContext->VSSetConstantBuffers(0, 1, m_constantBuffer.GetAddressOf());

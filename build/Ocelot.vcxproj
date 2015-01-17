@@ -26,6 +26,9 @@
     <ClCompile Include="..\src\core\system\stackWalker.cpp" />
     <ClCompile Include="..\src\core\system\timer.cpp" />
     <ClCompile Include="..\src\engine.cpp" />
+    <ClCompile Include="..\src\graphic\buffer\constantBuffer.cpp" />
+    <ClCompile Include="..\src\graphic\buffer\indexBuffer.cpp" />
+    <ClCompile Include="..\src\graphic\buffer\vertexBuffer.cpp" />
     <ClCompile Include="..\src\graphic\graphicSystem.cpp" />
     <ClCompile Include="..\src\math\matrix3.cpp" />
     <ClCompile Include="..\src\math\matrix4.cpp" />
@@ -59,6 +62,9 @@
     <ClInclude Include="..\src\core\util\nonCopyable.h" />
     <ClInclude Include="..\src\core\util\pointer.h" />
     <ClInclude Include="..\src\engine.h" />
+    <ClInclude Include="..\src\graphic\buffer\constantBuffer.h" />
+    <ClInclude Include="..\src\graphic\buffer\indexBuffer.h" />
+    <ClInclude Include="..\src\graphic\buffer\vertexBuffer.h" />
     <ClInclude Include="..\src\graphic\dxUtil.h" />
     <ClInclude Include="..\src\graphic\graphicSystem.h" />
     <ClInclude Include="..\src\math\math.h" />

@@ -22,6 +22,9 @@
     <Filter Include="graphic">
       <UniqueIdentifier>{04384ad7-ecb9-42fa-9bc8-00e9590b6eea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graphic\buffer">
+      <UniqueIdentifier>{685f9ea2-5473-44db-8708-7c23257b6b43}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\core\logging\logger.cpp">
@@ -85,6 +88,15 @@
     <ClCompile Include="..\src\engine.cpp" />
     <ClCompile Include="..\src\app\event.cpp">
       <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphic\buffer\constantBuffer.cpp">
+      <Filter>graphic\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphic\buffer\indexBuffer.cpp">
+      <Filter>graphic\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphic\buffer\vertexBuffer.cpp">
+      <Filter>graphic\buffer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +182,15 @@
     </ClInclude>
     <ClInclude Include="..\src\math\math.h">
       <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\buffer\constantBuffer.h">
+      <Filter>graphic\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\buffer\indexBuffer.h">
+      <Filter>graphic\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\buffer\vertexBuffer.h">
+      <Filter>graphic\buffer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

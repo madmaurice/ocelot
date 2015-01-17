@@ -5,6 +5,8 @@
 #include "core/util/pointer.h"
 #include "graphic/dxUtil.h"
 #include "graphic/graphicSystem.h"
+#include "graphic/buffer/indexBuffer.h"
+#include "graphic/buffer/vertexBuffer.h"
 #include "math/math.h"
 
 
@@ -54,8 +56,8 @@ private:
     ComPtr<ID3D11Device> m_dxDevice;
     ComPtr<ID3D11DeviceContext> m_dxImmediateContext;
 
-    ComPtr<ID3D11Buffer>           m_vertexBuffer;
-    ComPtr<ID3D11Buffer>           m_indexBuffer;
+    VertexBuffer                   m_vertexBuffer;
+    IndexBuffer                    m_indexBuffer;
     ComPtr<ID3D11InputLayout>      m_inputLayout;
     ComPtr<ID3D11VertexShader>     m_vertexShader;
     ComPtr<ID3D11PixelShader>      m_pixelShader;
