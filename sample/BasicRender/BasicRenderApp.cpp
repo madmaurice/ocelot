@@ -135,17 +135,7 @@ bool BasicRenderApp::initializeImpl()
     DXCall(m_dxDevice->CreatePixelShader(pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), NULL, m_pixelShader.GetAddressOf()));
 
     // Create constant buffer
-    D3D11_BUFFER_DESC cbd;
-    cbd.Usage = D3D11_USAGE_DEFAULT;
-    cbd.ByteWidth = sizeof(ConstantBuffer);
-    cbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-    cbd.CPUAccessFlags = 0;
-    cbd.MiscFlags = 0;
-    cbd.StructureByteStride = 0;
-    // TODO : set init data?
-    //D3D11_SUBRESOURCE_DATA cbInitData;
-    //cbInitData.pSysMem = ;
-    DXCall(m_dxDevice->CreateBuffer(&cbd, NULL, m_constantBuffer.GetAddressOf()));
+    m_constantBuffer.initialize(m_dxDevice.Get());
 
     // Initialize matrix
     m_world = Matrix4::identity();
@@ -177,12 +167,12 @@ void BasicRenderApp::updateImpl(float elapsed)
     m_world = Matrix4::rotationMatrixY(m_time);
 
     // Update constant buffer
-    ConstantBuffer cb;
     // Why the transpose : http://www.gamedev.net/topic/574593-direct3d11-why-need-transpose/
-    cb.m_world = m_world.transpose();
-    cb.m_view = m_view.transpose();
-    cb.m_projection = m_projection.transpose();
-    m_dxImmediateContext->UpdateSubresource(m_constantBuffer.Get(), 0, NULL, &cb, 0, 0);
+    m_constantBuffer.m_data.m_world = m_world.transpose();
+    m_constantBuffer.m_data.m_view = m_view.transpose();
+    m_constantBuffer.m_data.m_projection = m_projection.transpose();
+
+    m_constantBuffer.applyChanges(m_dxImmediateContext.Get());
 }
 
 void BasicRenderApp::renderImpl()
@@ -197,7 +187,7 @@ void BasicRenderApp::renderImpl()
     m_dxImmediateContext->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
     m_dxImmediateContext->VSSetShader(m_vertexShader.Get(), NULL, 0);
-    m_dxImmediateContext->VSSetConstantBuffers(0, 1, m_constantBuffer.GetAddressOf());
+    m_dxImmediateContext->VSSetConstantBuffers(0, 1, m_constantBuffer);
     m_dxImmediateContext->PSSetShader(m_pixelShader.Get(), NULL, 0);
 
     m_dxImmediateContext->DrawIndexed(36, 0, 0);

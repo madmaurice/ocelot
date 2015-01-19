@@ -26,7 +26,6 @@
     <ClCompile Include="..\src\core\system\stackWalker.cpp" />
     <ClCompile Include="..\src\core\system\timer.cpp" />
     <ClCompile Include="..\src\engine.cpp" />
-    <ClCompile Include="..\src\graphic\buffer\constantBuffer.cpp" />
     <ClCompile Include="..\src\graphic\buffer\indexBuffer.cpp" />
     <ClCompile Include="..\src\graphic\buffer\vertexBuffer.cpp" />
     <ClCompile Include="..\src\graphic\graphicSystem.cpp" />
@@ -74,6 +73,9 @@
     <ClInclude Include="..\src\math\vector3.h" />
     <ClInclude Include="..\src\math\vector4.h" />
     <ClInclude Include="..\src\pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\graphic\buffer\constantBuffer.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{73B1D1B0-6661-4A2A-AC16-D07986750881}</ProjectGuid>

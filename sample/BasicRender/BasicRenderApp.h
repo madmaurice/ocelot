@@ -5,6 +5,7 @@
 #include "core/util/pointer.h"
 #include "graphic/dxUtil.h"
 #include "graphic/graphicSystem.h"
+#include "graphic/buffer/constantBuffer.h"
 #include "graphic/buffer/indexBuffer.h"
 #include "graphic/buffer/vertexBuffer.h"
 #include "math/math.h"
@@ -12,7 +13,7 @@
 
 OC_NS_BG;
 
-struct ConstantBuffer
+struct ConstantBufferData
 {
     Matrix4 m_world;
     Matrix4 m_view;
@@ -50,17 +51,17 @@ private:
     Matrix4 m_world;
     Matrix4 m_view;
     Matrix4 m_projection;
-    ComPtr<ID3D11Buffer>  m_constantBuffer;
 
     // NOTE : temporary...
     ComPtr<ID3D11Device> m_dxDevice;
     ComPtr<ID3D11DeviceContext> m_dxImmediateContext;
 
-    VertexBuffer                   m_vertexBuffer;
-    IndexBuffer                    m_indexBuffer;
-    ComPtr<ID3D11InputLayout>      m_inputLayout;
-    ComPtr<ID3D11VertexShader>     m_vertexShader;
-    ComPtr<ID3D11PixelShader>      m_pixelShader;
+    VertexBuffer                        m_vertexBuffer;
+    IndexBuffer                         m_indexBuffer;
+    ConstantBuffer<ConstantBufferData>  m_constantBuffer;
+    ComPtr<ID3D11InputLayout>           m_inputLayout;
+    ComPtr<ID3D11VertexShader>          m_vertexShader;
+    ComPtr<ID3D11PixelShader>           m_pixelShader;
 };
 
 OC_NS_END;
