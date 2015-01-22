@@ -85,6 +85,7 @@
     <ClCompile Include="..\src\graphic\graphicSystem.cpp">
       <Filter>graphic</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\engine.cpp" />
     <ClCompile Include="..\src\app\event.cpp">
       <Filter>app</Filter>
     </ClCompile>
@@ -169,6 +170,7 @@
     <ClInclude Include="..\src\graphic\graphicSystem.h">
       <Filter>graphic</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\engine.h" />
     <ClInclude Include="..\src\graphic\dxUtil.h">
       <Filter>graphic</Filter>
     </ClInclude>

@@ -25,6 +25,7 @@
     <ClCompile Include="..\src\core\system\callStack.cpp" />
     <ClCompile Include="..\src\core\system\stackWalker.cpp" />
     <ClCompile Include="..\src\core\system\timer.cpp" />
+    <ClCompile Include="..\src\engine.cpp" />
     <ClCompile Include="..\src\graphic\buffer\indexBuffer.cpp" />
     <ClCompile Include="..\src\graphic\buffer\vertexBuffer.cpp" />
     <ClCompile Include="..\src\graphic\graphicSystem.cpp" />
@@ -59,6 +60,7 @@
     <ClInclude Include="..\src\core\system\types.h" />
     <ClInclude Include="..\src\core\util\nonCopyable.h" />
     <ClInclude Include="..\src\core\util\pointer.h" />
+    <ClInclude Include="..\src\engine.h" />
     <ClInclude Include="..\src\graphic\buffer\constantBuffer.h" />
     <ClInclude Include="..\src\graphic\buffer\indexBuffer.h" />
     <ClInclude Include="..\src\graphic\buffer\vertexBuffer.h" />

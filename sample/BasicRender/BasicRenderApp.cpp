@@ -77,8 +77,8 @@ BasicRenderApp::~BasicRenderApp()
 
 bool BasicRenderApp::initializeImpl()
 {
-    m_dxDevice = m_graphic->getDevice();
-    m_dxImmediateContext = m_graphic->getDeviceContext();
+    m_dxDevice = m_graphicSystem->getDevice();
+    m_dxImmediateContext = m_graphicSystem->getDeviceContext();
 
     // Create vertex buffer
     m_vertexBuffer.initialize(m_dxDevice.Get(), sizeof(Vertex) * 8, m_cube.m_vertices);
@@ -149,7 +149,7 @@ bool BasicRenderApp::initializeImpl()
     // TODO : resize break the projection matrix
 
     // Initialize the projection matrix
-    const float aspectRatio = (float)m_graphic->getBackBufferWidth() / (float)m_graphic->getBackBufferHeigth();
+    const float aspectRatio = (float)m_graphicSystem->getBackBufferWidth() / (float)m_graphicSystem->getBackBufferHeigth();
     m_projection = Matrix4::perspectiveFovLHMatrix(OC_PIDIV2, aspectRatio, 0.01f, 100.0f);
 
     return true;
