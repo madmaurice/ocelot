@@ -9,16 +9,6 @@
 
 OC_NS_BG;
 
-struct AppContext
-{
-    HWND m_hwnd;
-    uint32 m_windowWidth;
-    uint32 m_windowHeight;
-    std::shared_ptr<EventDispatcher> m_eventDispatcher;
-};
-
-class Engine;
-
 class Application : public NonCopyable
 {
 public:
@@ -35,10 +25,7 @@ public:
 
 protected:
     std::shared_ptr<EventDispatcher> m_eventDispatcher;
-    std::unique_ptr<Engine> m_engine;
-
-    // TODO : remove this
-    GraphicSystem* m_graphicSystem;
+    std::unique_ptr<GraphicSystem> m_graphic;
 
 private:
 
@@ -52,7 +39,7 @@ private:
     void update();
     void render();
 
-    void dispatchResize(uint32 width, uint32 height);
+    void onResize(uint32 width, uint32 height);
 
     LRESULT wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 

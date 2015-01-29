@@ -1,5 +1,5 @@
 #include "app/application.h"
-#include "engine.h"
+#include "graphic/graphicSystem.h"
 #include <functional>
 
 OC_NS_BG;
@@ -18,7 +18,6 @@ namespace
 
 Application::Application(const String& name)
     : m_eventDispatcher(new EventDispatcher())
-    , m_engine(nullptr)
     , m_paused(false)
     , m_resizing(false)
     , m_minimized(false)
@@ -58,17 +57,12 @@ bool Application::initialize(const LoggingConfig& config)
         return false;
     }
 
-    AppContext appContext = { m_window.getHandle(), m_window.getWidth(), m_window.getHeight(), m_eventDispatcher };
-    m_engine.reset(new Engine(appContext));
-
-    if (!m_engine->initialize())
+    m_graphic.reset(new GraphicSystem(m_window.getHandle(), m_window.getWidth(), m_window.getHeight()));
+    if (!m_graphic->initialize())
     {
-        OC_LOG_ERROR("Application initialization failed : Engine init failed!");
+        OC_LOG_ERROR("Application initialization failed : Graphic init failed!");
         return false;
     }
-
-    // TODO : remove this
-    m_graphicSystem = m_engine->getGraphics();
 
     if (!initializeImpl())
     {
@@ -87,7 +81,7 @@ void Application::shutdown()
     if (!m_shutdown)
     {
         shutdownImpl();
-        m_engine->shutdown();
+        m_graphic->shutdown();
         m_window.shutdown();
 
         m_shutdown = true;
@@ -144,24 +138,22 @@ void Application::update()
 
     const float delta = m_timer.getDelta();
     updateImpl(delta);
-
-    m_engine->update(delta);
 }
 
 void Application::render()
 {
-    m_engine->clear();
+    m_graphic->clear();
 
     renderImpl();
 
     // TODO : render debug HUD
-    m_engine->render();
+    m_graphic->present();
 }
 
-void Application::dispatchResize(uint32 width, uint32 height)
+void Application::onResize(uint32 width, uint32 height)
 {
-    OC_LOG_DEBUG("Dispatch resize event : width=" << width << ", height=" << height);
-    m_eventDispatcher->dispatchEvent(std::make_shared<ResizeEvent>(width, height));
+    OC_LOG_DEBUG("Application::onResize : width=" << width << ", height=" << height);
+    m_graphic->resize(width, height);
 }
 
 LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -210,7 +202,7 @@ LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 m_paused = false;
                 m_minimized = false;
                 m_maximized = true;
-                dispatchResize(windowWidth, windowHeight);
+                onResize(windowWidth, windowHeight);
             }
             else if(wParam == SIZE_RESTORED)
             {
@@ -219,14 +211,14 @@ LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 {
                     m_paused = false;
                     m_minimized = false;
-                    dispatchResize(windowWidth, windowHeight);
+                    onResize(windowWidth, windowHeight);
                 }
                 // Restoring from maximized state?
                 else if(m_maximized)
                 {
                     m_paused = false;
                     m_maximized = false;
-                    dispatchResize(windowWidth, windowHeight);
+                    onResize(windowWidth, windowHeight);
                 }
                 else if(m_resizing)
                 {
@@ -241,7 +233,7 @@ LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 }
                 else // API call such as SetWindowPos or SwapChain->SetFullscreenState.
                 {
-                    dispatchResize(windowWidth, windowHeight);
+                    onResize(windowWidth, windowHeight);
                 }
             }
             return 0;
@@ -260,7 +252,7 @@ LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
         m_paused = false;
         m_resizing  = false;
         m_timer.start();
-        dispatchResize(windowWidth, windowHeight);
+        onResize(windowWidth, windowHeight);
         return 0;
 
         // WM_DESTROY is sent when the window is being destroyed.
