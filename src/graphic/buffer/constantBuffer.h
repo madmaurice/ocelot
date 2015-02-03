@@ -1,7 +1,8 @@
 
 #pragma once
 
-#include "core\util\pointer.h"
+#include "core/util/pointer.h"
+#include "graphic/dxUtil.h"
 
 OC_NS_BG;
 

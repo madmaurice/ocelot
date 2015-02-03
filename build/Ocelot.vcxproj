@@ -28,6 +28,9 @@
     <ClCompile Include="..\src\graphic\buffer\indexBuffer.cpp" />
     <ClCompile Include="..\src\graphic\buffer\vertexBuffer.cpp" />
     <ClCompile Include="..\src\graphic\graphicSystem.cpp" />
+    <ClCompile Include="..\src\graphic\shader\colorEffect.cpp" />
+    <ClCompile Include="..\src\graphic\shader\effect.cpp" />
+    <ClCompile Include="..\src\graphic\shader\shader.cpp" />
     <ClCompile Include="..\src\math\matrix3.cpp" />
     <ClCompile Include="..\src\math\matrix4.cpp" />
     <ClCompile Include="..\src\math\vector2.cpp" />
@@ -64,6 +67,9 @@
     <ClInclude Include="..\src\graphic\buffer\vertexBuffer.h" />
     <ClInclude Include="..\src\graphic\dxUtil.h" />
     <ClInclude Include="..\src\graphic\graphicSystem.h" />
+    <ClInclude Include="..\src\graphic\shader\colorEffect.h" />
+    <ClInclude Include="..\src\graphic\shader\effect.h" />
+    <ClInclude Include="..\src\graphic\shader\shader.h" />
     <ClInclude Include="..\src\math\math.h" />
     <ClInclude Include="..\src\math\matrix3.h" />
     <ClInclude Include="..\src\math\matrix4.h" />

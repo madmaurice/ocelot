@@ -25,6 +25,12 @@
     <Filter Include="graphic\buffer">
       <UniqueIdentifier>{685f9ea2-5473-44db-8708-7c23257b6b43}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graphic\shader">
+      <UniqueIdentifier>{f8773408-6a53-4c57-a77d-5a65e8835523}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphic\shader\hlsl">
+      <UniqueIdentifier>{08454a55-52dc-4e36-b9eb-8af170389f5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\core\logging\logger.cpp">
@@ -93,6 +99,15 @@
     </ClCompile>
     <ClCompile Include="..\src\graphic\buffer\vertexBuffer.cpp">
       <Filter>graphic\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphic\shader\colorEffect.cpp">
+      <Filter>graphic\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphic\shader\effect.cpp">
+      <Filter>graphic\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphic\shader\shader.cpp">
+      <Filter>graphic\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +201,15 @@
     </ClInclude>
     <ClInclude Include="..\src\graphic\buffer\vertexBuffer.h">
       <Filter>graphic\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\shader\colorEffect.h">
+      <Filter>graphic\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\shader\effect.h">
+      <Filter>graphic\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\shader\shader.h">
+      <Filter>graphic\shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

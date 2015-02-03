@@ -1,5 +1,4 @@
 
-#include "graphic/dxUtil.h"
 
 OC_NS_BG;
 
@@ -12,6 +11,7 @@ OC_NS_BG;
 
 template <class T>
 ConstantBuffer<T>::ConstantBuffer(bool dynamicUsage)
+    : m_dynamicUsage(dynamicUsage)
 {
     ZeroMemory(&m_data, sizeof(T));
 }
