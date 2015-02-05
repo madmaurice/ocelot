@@ -8,7 +8,7 @@ struct ID3D11DeviceContext;
 
 OC_NS_BG;
 
-class ColorEffect : public Effect, public NonCopyable
+class ColorEffect : public Effect
 {
 public:
     struct Param
@@ -27,6 +27,8 @@ public:
     Param& getParam();
 
 private:
+    virtual void bindResources(ID3D11DeviceContext* context);
+
     ConstantBuffer<Param>  m_constantBuffer;
 };
 

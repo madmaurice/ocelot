@@ -7,7 +7,7 @@
 OC_NS_BG;
 
 template <class T>
-class ConstantBuffer
+class ConstantBuffer : public NonCopyable
 {
 public:
     explicit ConstantBuffer(bool dynamicUsage = true);

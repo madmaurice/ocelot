@@ -8,17 +8,11 @@
 #include "graphic/buffer/constantBuffer.h"
 #include "graphic/buffer/indexBuffer.h"
 #include "graphic/buffer/vertexBuffer.h"
+#include "graphic/shader/colorEffect.h"
 #include "math/math.h"
 
 
 OC_NS_BG;
-
-struct ConstantBufferData
-{
-    Matrix4 m_world;
-    Matrix4 m_view;
-    Matrix4 m_projection;
-};
 
 struct Vertex
 {
@@ -58,10 +52,9 @@ private:
 
     VertexBuffer                        m_vertexBuffer;
     IndexBuffer                         m_indexBuffer;
-    ConstantBuffer<ConstantBufferData>  m_constantBuffer;
+    ColorEffect                         m_colorEffect;
+
     ComPtr<ID3D11InputLayout>           m_inputLayout;
-    ComPtr<ID3D11VertexShader>          m_vertexShader;
-    ComPtr<ID3D11PixelShader>           m_pixelShader;
 };
 
 OC_NS_END;

@@ -77,9 +77,18 @@
     <ClInclude Include="..\src\math\vector3.h" />
     <ClInclude Include="..\src\math\vector4.h" />
     <ClInclude Include="..\src\pch.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\graphic\buffer\constantBuffer.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Ocelot.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\graphic\shader\hlsl\color.hlsl">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{73B1D1B0-6661-4A2A-AC16-D07986750881}</ProjectGuid>

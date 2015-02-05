@@ -66,8 +66,6 @@ BasicRenderApp::BasicRenderApp()
     : Application("Basic render")
     , m_time(0)
     , m_inputLayout(nullptr)
-    , m_vertexShader(nullptr)
-    , m_pixelShader(nullptr)
 {
 }
 
@@ -108,12 +106,8 @@ bool BasicRenderApp::initializeImpl()
     // 36 vertices needed for 12 triangles in a triangle list
     m_indexBuffer.initialize(m_dxDevice.Get(), indices, 36);
 
-    // Compile the vertex shader
-    ComPtr<ID3DBlob> pVSBlob = nullptr;
-    DXCall(CompileShaderFromFile("shader.hlsl", "VS", "vs_4_0", pVSBlob.GetAddressOf()));
-
-    // Create the vertex shader
-    DXCall(m_dxDevice->CreateVertexShader(pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), NULL, m_vertexShader.GetAddressOf()));
+    // Initialize the shaders
+    m_colorEffect.initialize(m_dxDevice.Get());
 
     // Defined then create the vertex input layout.
     D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
@@ -122,20 +116,7 @@ bool BasicRenderApp::initializeImpl()
         { "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
     };
 
-    // Create the input layout to describe the input-buffer data for the input-assembler stage.
-    // This map our vertex structure to the corresponding input of the vertex shader
-    m_dxDevice->CreateInputLayout(vertexDesc, 2, pVSBlob->GetBufferPointer(),
-        pVSBlob->GetBufferSize(), m_inputLayout.GetAddressOf());
-
-    // Compile the pixel shader
-    ComPtr<ID3DBlob> pPSBlob = nullptr;
-    DXCall(CompileShaderFromFile("shader.hlsl", "PS", "ps_4_0", pPSBlob.GetAddressOf()));
-
-    // Create pixel shader
-    DXCall(m_dxDevice->CreatePixelShader(pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), NULL, m_pixelShader.GetAddressOf()));
-
-    // Create constant buffer
-    m_constantBuffer.initialize(m_dxDevice.Get());
+    m_inputLayout = m_colorEffect.createInputLayout(m_dxDevice.Get(), vertexDesc, 2);
 
     // Initialize matrix
     m_world = Matrix4::identity();
@@ -168,11 +149,12 @@ void BasicRenderApp::updateImpl(float elapsed)
 
     // Update constant buffer
     // Why the transpose : http://www.gamedev.net/topic/574593-direct3d11-why-need-transpose/
-    m_constantBuffer.m_data.m_world = m_world.transpose();
-    m_constantBuffer.m_data.m_view = m_view.transpose();
-    m_constantBuffer.m_data.m_projection = m_projection.transpose();
+    ColorEffect::Param& effectParam = m_colorEffect.getParam();
+    effectParam.m_world = m_world.transpose();
+    effectParam.m_view = m_view.transpose();
+    effectParam.m_projection = m_projection.transpose();
 
-    m_constantBuffer.applyChanges(m_dxImmediateContext.Get());
+    m_colorEffect.applyChanges(m_dxImmediateContext.Get());
 }
 
 void BasicRenderApp::renderImpl()
@@ -186,9 +168,7 @@ void BasicRenderApp::renderImpl()
     //The only formats allowed for index buffer data are 16-bit (DXGI_FORMAT_R16_UINT) and 32-bit (DXGI_FORMAT_R32_UINT) integers.
     m_dxImmediateContext->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
-    m_dxImmediateContext->VSSetShader(m_vertexShader.Get(), NULL, 0);
-    m_dxImmediateContext->VSSetConstantBuffers(0, 1, m_constantBuffer);
-    m_dxImmediateContext->PSSetShader(m_pixelShader.Get(), NULL, 0);
+    m_colorEffect.bindShaders(m_dxImmediateContext.Get());
 
     m_dxImmediateContext->DrawIndexed(36, 0, 0);
 }

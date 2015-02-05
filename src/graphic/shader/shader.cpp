@@ -39,6 +39,10 @@ namespace
     }
 }
 
+Shader::Shader()
+    : m_blob(nullptr)
+{}
+
 Shader::Shader(const String& filePath, const String& functionName)
     : m_blob(nullptr)
     , m_filePath(filePath)
@@ -47,7 +51,7 @@ Shader::Shader(const String& filePath, const String& functionName)
 
 bool Shader::isNull() const
 {
-    return m_blob.Get() != nullptr;
+    return m_blob.Get() == nullptr;
 }
 
 ID3DBlob* Shader::getBlob()
@@ -57,6 +61,9 @@ ID3DBlob* Shader::getBlob()
 
 // Vertex Shader 
 // -------------------------
+VertexShader::VertexShader()
+{ }
+
 VertexShader::VertexShader(const String& filePath, const String& functionName)
     : Shader(filePath, functionName)
     , m_vs(nullptr)
@@ -70,6 +77,9 @@ void VertexShader::bindVS(ID3D11DeviceContext* context)
 
 // Pixel Shader 
 // -------------------------
+PixelShader::PixelShader()
+{ }
+
 PixelShader::PixelShader(const String& filePath, const String& functionName)
     : Shader(filePath, functionName)
     , m_ps(nullptr)

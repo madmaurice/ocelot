@@ -211,10 +211,17 @@
     <ClInclude Include="..\src\graphic\shader\shader.h">
       <Filter>graphic\shader</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\graphic\buffer\constantBuffer.inl">
       <Filter>graphic\buffer</Filter>
     </None>
+    <None Include="..\src\graphic\shader\hlsl\color.hlsl">
+      <Filter>graphic\shader\hlsl</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Ocelot.rc" />
   </ItemGroup>
 </Project>

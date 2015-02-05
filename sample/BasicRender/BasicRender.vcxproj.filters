@@ -7,7 +7,4 @@
   <ItemGroup>
     <ClInclude Include="BasicRenderApp.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="shader.hlsl" />
-  </ItemGroup>
 </Project>

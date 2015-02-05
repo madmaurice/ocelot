@@ -20,6 +20,7 @@ public:
     String m_functionName;
 
 protected:
+    Shader();
     Shader(const String& filePath, const String& functionName);
     ComPtr<ID3DBlob> m_blob;
 };
