@@ -3,12 +3,34 @@
 #include "shader.h"
 #include "graphic/dxUtil.h"
 #include <d3dcompiler.h>
+#include <windows.h>
 
 OC_NS_BG;
 
 namespace
 {
-    bool CompileShaderFromFile(const char* fileName, const char* entryPoint, const char* shaderModel, ID3DBlob** blobOut)
+    static const char* s_hlslFileDir = "../../src/graphic/shader/hlsl/";
+
+    String findHlslFile(const char* path)
+    {
+        // Check current dir
+        DWORD attribute = GetFileAttributes(path);
+        if (attribute != INVALID_FILE_ATTRIBUTES)
+            return path;
+
+        // Check hlsl dir 
+        String hlslDirPath(s_hlslFileDir);
+        hlslDirPath += path;
+
+        attribute = GetFileAttributes(hlslDirPath.c_str());
+        if (attribute != INVALID_FILE_ATTRIBUTES)
+            return hlslDirPath;
+
+        // Not found
+        return "";
+    }
+
+    bool compileShaderFromFile(const char* fileName, const char* entryPoint, const char* shaderModel, ID3DBlob** blobOut)
     {
         HRESULT hr = S_OK;
         bool retVal = true;
@@ -95,12 +117,15 @@ void PixelShader::bindPS(ID3D11DeviceContext* context)
 // -------------------------
 VertexShader ShaderCompiler::compileVS(ID3D11Device* device, const char* path, const char* functionName, const char* profile)
 {
-    VertexShader retVS(path, functionName);
-    OC_LOG_INFO("Compiling vertex shader : file=" << path << ", func=" << functionName);
+    String hlslFilePath = findHlslFile(path);
+    OC_ASSERT_MSG(hlslFilePath.length() > 0, "Hlsl file not found!");
+
+    VertexShader retVS(hlslFilePath, functionName);
+    OC_LOG_INFO("Compiling vertex shader : file=" << hlslFilePath << ", func=" << functionName);
 
     // Compile the vertex shader
     ComPtr<ID3DBlob> vsBlob = nullptr;
-    if (!CompileShaderFromFile(path, functionName, profile, vsBlob.GetAddressOf()))
+    if (!compileShaderFromFile(hlslFilePath.c_str(), functionName, profile, vsBlob.GetAddressOf()))
     {
         return retVS;
     }
@@ -114,12 +139,15 @@ VertexShader ShaderCompiler::compileVS(ID3D11Device* device, const char* path, c
 
 PixelShader ShaderCompiler::compilePS(ID3D11Device* device, const char* path, const char* functionName, const char* profile)
 {
-    PixelShader retPS(path, functionName);
-    OC_LOG_INFO("Compiling pixel shader : file=" << path << ", func=" << functionName);
+    String hlslFilePath = findHlslFile(path);
+    OC_ASSERT_MSG(hlslFilePath.length() > 0, "Hlsl file not found!");
+
+    PixelShader retPS(hlslFilePath, functionName);
+    OC_LOG_INFO("Compiling pixel shader : file=" << hlslFilePath << ", func=" << functionName);
 
     // Compile the pixel shader
     ComPtr<ID3DBlob> psBlob = nullptr;
-    if (CompileShaderFromFile(path, functionName, profile, psBlob.GetAddressOf()))
+    if (compileShaderFromFile(hlslFilePath.c_str(), functionName, profile, psBlob.GetAddressOf()))
     {
         retPS.m_blob = psBlob;
     }
