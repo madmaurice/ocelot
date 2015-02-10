@@ -7,6 +7,8 @@
 
 OC_NS_BG;
 
+class GeometryBuilder;
+
 struct GraphicSystemConfig
 {
     bool m_fullScreen;
@@ -33,12 +35,11 @@ public:
 
     void clear();
     void present();
-    // NOTE: Update might be needed later (with scene...)
-    //void update(float elapsed);
 
-    // TODO : remove methods below
     ComPtr<ID3D11Device> getDevice() { return m_dxDevice; }
     ComPtr<ID3D11DeviceContext> getDeviceContext() { return m_dxImmediateContext; }
+
+    std::shared_ptr<GeometryBuilder> getGeometryBuilder() { return m_geoBuilder; }
 
 private:
 
@@ -52,6 +53,9 @@ private:
     ComPtr<ID3D11RenderTargetView> m_backBufferRTV;
     ComPtr<ID3D11Texture2D> m_depthStencilBuffer;
     ComPtr<ID3D11DepthStencilView> m_depthStencilView;
+
+    // Utils
+    std::shared_ptr<GeometryBuilder> m_geoBuilder;
 
     D3D11_VIEWPORT m_viewport;
 

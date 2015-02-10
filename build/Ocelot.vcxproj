@@ -28,6 +28,10 @@
     <ClCompile Include="..\src\graphic\buffer\indexBuffer.cpp" />
     <ClCompile Include="..\src\graphic\buffer\vertexBuffer.cpp" />
     <ClCompile Include="..\src\graphic\graphicSystem.cpp" />
+    <ClCompile Include="..\src\graphic\model\geometryBuilder.cpp" />
+    <ClCompile Include="..\src\graphic\model\mesh.cpp" />
+    <ClCompile Include="..\src\graphic\model\model.cpp" />
+    <ClCompile Include="..\src\graphic\model\shape.cpp" />
     <ClCompile Include="..\src\graphic\shader\colorEffect.cpp" />
     <ClCompile Include="..\src\graphic\shader\effect.cpp" />
     <ClCompile Include="..\src\graphic\shader\shader.cpp" />
@@ -66,7 +70,12 @@
     <ClInclude Include="..\src\graphic\buffer\indexBuffer.h" />
     <ClInclude Include="..\src\graphic\buffer\vertexBuffer.h" />
     <ClInclude Include="..\src\graphic\dxUtil.h" />
+    <ClInclude Include="..\src\graphic\graphicDevice.h" />
     <ClInclude Include="..\src\graphic\graphicSystem.h" />
+    <ClInclude Include="..\src\graphic\model\geometryBuilder.h" />
+    <ClInclude Include="..\src\graphic\model\mesh.h" />
+    <ClInclude Include="..\src\graphic\model\model.h" />
+    <ClInclude Include="..\src\graphic\model\shape.h" />
     <ClInclude Include="..\src\graphic\shader\colorEffect.h" />
     <ClInclude Include="..\src\graphic\shader\effect.h" />
     <ClInclude Include="..\src\graphic\shader\shader.h" />

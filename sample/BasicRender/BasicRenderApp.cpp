@@ -39,7 +39,7 @@ namespace
     }
 }
 
-Cube::Cube()
+ColorCube::ColorCube()
 {
     // Top vertices
     m_vertices[0].pos = Vector3(-1.0f, 1.0f, -1.0f);

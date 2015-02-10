@@ -3,11 +3,13 @@
 
 #include "graphicSystem.h"
 #include "graphic/dxUtil.h"
+#include "graphic/model/geometryBuilder.h"
 
 OC_NS_BG;
 
 GraphicSystem::GraphicSystem(HWND hwnd, uint32 windowWidth, uint32 windowHeight)
-    : m_hwnd(hwnd)
+    : m_geoBuilder(nullptr)
+    , m_hwnd(hwnd)
     , m_backBufferWidth(windowWidth)
     , m_backBufferHeigth(windowHeight)
 {
@@ -133,6 +135,8 @@ bool GraphicSystem::initialize(const GraphicSystemConfig& config)
     // The remaining steps that need to be carried out for d3d creation
     // also need to be executed every time the window is resized.
     bindDefaultBuffers();
+
+    m_geoBuilder.reset(new GeometryBuilder(m_dxDevice));
 
     OC_LOG_INFO("GraphicSystem initialize completed");
     return true;

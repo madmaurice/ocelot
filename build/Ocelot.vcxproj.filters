@@ -31,6 +31,9 @@
     <Filter Include="graphic\shader\hlsl">
       <UniqueIdentifier>{08454a55-52dc-4e36-b9eb-8af170389f5c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graphic\model">
+      <UniqueIdentifier>{a25844d5-3fbd-409e-aace-fd84a1dbdbe3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\core\logging\logger.cpp">
@@ -108,6 +111,18 @@
     </ClCompile>
     <ClCompile Include="..\src\graphic\shader\shader.cpp">
       <Filter>graphic\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphic\model\mesh.cpp">
+      <Filter>graphic\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphic\model\model.cpp">
+      <Filter>graphic\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphic\model\shape.cpp">
+      <Filter>graphic\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphic\model\geometryBuilder.cpp">
+      <Filter>graphic\model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +227,21 @@
       <Filter>graphic\shader</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="..\src\graphic\model\mesh.h">
+      <Filter>graphic\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\model\model.h">
+      <Filter>graphic\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\model\shape.h">
+      <Filter>graphic\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\graphicDevice.h">
+      <Filter>graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\model\geometryBuilder.h">
+      <Filter>graphic\model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\graphic\buffer\constantBuffer.inl">

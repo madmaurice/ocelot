@@ -20,10 +20,10 @@ struct Vertex
     Vector4 color;
 };
 
-class Cube
+class ColorCube
 {
 public:
-    Cube();
+    ColorCube();
     Vertex m_vertices[8];
 };
 
@@ -40,7 +40,7 @@ private:
     virtual void updateImpl(float elapsed);
     virtual void renderImpl();
 
-    Cube m_cube;
+    ColorCube m_cube;
     float m_time;
     Matrix4 m_world;
     Matrix4 m_view;
