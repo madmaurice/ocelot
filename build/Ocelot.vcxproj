@@ -32,6 +32,7 @@
     <ClCompile Include="..\src\graphic\model\mesh.cpp" />
     <ClCompile Include="..\src\graphic\model\model.cpp" />
     <ClCompile Include="..\src\graphic\model\shape.cpp" />
+    <ClCompile Include="..\src\graphic\shader\basicEffect.cpp" />
     <ClCompile Include="..\src\graphic\shader\colorEffect.cpp" />
     <ClCompile Include="..\src\graphic\shader\effect.cpp" />
     <ClCompile Include="..\src\graphic\shader\shader.cpp" />
@@ -76,6 +77,7 @@
     <ClInclude Include="..\src\graphic\model\mesh.h" />
     <ClInclude Include="..\src\graphic\model\model.h" />
     <ClInclude Include="..\src\graphic\model\shape.h" />
+    <ClInclude Include="..\src\graphic\shader\basicEffect.h" />
     <ClInclude Include="..\src\graphic\shader\colorEffect.h" />
     <ClInclude Include="..\src\graphic\shader\effect.h" />
     <ClInclude Include="..\src\graphic\shader\shader.h" />
@@ -96,6 +98,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\graphic\shader\hlsl\color.hlsl">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\graphic\shader\hlsl\basicEffect.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\src\graphic\shader\hlsl\lights.hlsl">
       <FileType>Document</FileType>
     </None>
   </ItemGroup>

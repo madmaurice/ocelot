@@ -8,23 +8,18 @@
 #include "graphic/buffer/constantBuffer.h"
 #include "graphic/buffer/indexBuffer.h"
 #include "graphic/buffer/vertexBuffer.h"
-#include "graphic/shader/colorEffect.h"
+#include "graphic/model/shape.h"
+#include "graphic/shader/basicEffect.h"
 #include "math/math.h"
 
 
 OC_NS_BG;
 
-struct Vertex
+struct DrawData
 {
-    Vector3 pos;
-    Vector4 color;
-};
-
-class ColorCube
-{
-public:
-    ColorCube();
-    Vertex m_vertices[8];
+    Cube m_cubeMesh;
+    Material m_material;
+    Matrix4 m_world;
 };
 
 class BasicRenderApp : public Application
@@ -40,19 +35,18 @@ private:
     virtual void updateImpl(float elapsed);
     virtual void renderImpl();
 
-    ColorCube m_cube;
+    std::vector<DrawData> m_drawData;
+    DirectionalLight m_dirLights[3];
+
     float m_time;
-    Matrix4 m_world;
     Matrix4 m_view;
     Matrix4 m_projection;
+
+    BasicEffect m_basicEffect;
 
     // NOTE : temporary...
     ComPtr<ID3D11Device> m_dxDevice;
     ComPtr<ID3D11DeviceContext> m_dxImmediateContext;
-
-    VertexBuffer                        m_vertexBuffer;
-    IndexBuffer                         m_indexBuffer;
-    ColorEffect                         m_colorEffect;
 
     ComPtr<ID3D11InputLayout>           m_inputLayout;
 };

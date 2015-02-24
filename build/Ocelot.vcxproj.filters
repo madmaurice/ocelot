@@ -124,6 +124,9 @@
     <ClCompile Include="..\src\graphic\model\geometryBuilder.cpp">
       <Filter>graphic\model</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\graphic\shader\basicEffect.cpp">
+      <Filter>graphic\shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\core\logging\logEvent.h">
@@ -242,12 +245,21 @@
     <ClInclude Include="..\src\graphic\model\geometryBuilder.h">
       <Filter>graphic\model</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\graphic\shader\basicEffect.h">
+      <Filter>graphic\shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\graphic\buffer\constantBuffer.inl">
       <Filter>graphic\buffer</Filter>
     </None>
     <None Include="..\src\graphic\shader\hlsl\color.hlsl">
+      <Filter>graphic\shader\hlsl</Filter>
+    </None>
+    <None Include="..\src\graphic\shader\hlsl\basicEffect.hlsl">
+      <Filter>graphic\shader\hlsl</Filter>
+    </None>
+    <None Include="..\src\graphic\shader\hlsl\lights.hlsl">
       <Filter>graphic\shader\hlsl</Filter>
     </None>
   </ItemGroup>

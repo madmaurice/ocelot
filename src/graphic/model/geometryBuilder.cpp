@@ -12,7 +12,7 @@ GeometryBuilder::GeometryBuilder(const ComPtr<ID3D11Device>& dxDevice)
 Cube GeometryBuilder::createCube(float width, float height, float depth)
 {
     Cube cube(width, height, depth);
-    cube.buildBuffers(m_dxDevice.Get());
+    cube.buildMesh(m_dxDevice.Get());
     return cube;
 }
 
