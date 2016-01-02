@@ -16,25 +16,25 @@ LoggingConfig::~LoggingConfig()
 {
 }
 
-LogLevel LoggingConfig::getLogLevel() const
+LogLevel LoggingConfig::GetLogLevel() const
 {
     return m_configData->m_logLevel;
 }
 
-void LoggingConfig::setLogLevel(LogLevel level)
+void LoggingConfig::SetLogLevel(LogLevel level)
 {
     m_configData->m_logLevel = level;
 }
 
-const std::vector<std::unique_ptr<ILogAppender> >& LoggingConfig::getAllAppenders() const
+const Vector<std::unique_ptr<ILogAppender> >& LoggingConfig::GetAllAppenders() const
 {
     return m_configData->m_appenders;
 }
 
-void LoggingConfig::addAppender(std::unique_ptr<ILogAppender> appender)
+void LoggingConfig::AddAppender(std::unique_ptr<ILogAppender> appender)
 {
-    ILogAppender* app = getAppender<ILogAppender>(appender->getName());
-    OC_ASSERT_MSG(app == nullptr, std::string("Appender '" + appender->getName() + "' is already added").c_str());
+    ILogAppender* app = GetAppender<ILogAppender>(appender->GetName());
+    OC_ASSERT_MSG(app == nullptr, String("Appender '" + appender->GetName() + "' is already added").c_str());
     
     if (!app)
     {
@@ -42,14 +42,14 @@ void LoggingConfig::addAppender(std::unique_ptr<ILogAppender> appender)
     }
 }
 
-void LoggingConfig::removeAppender(const std::string& name)
+void LoggingConfig::RemoveAppender(const String& name)
 {
     auto& vect = m_configData->m_appenders;
     auto it = std::begin(vect);
 
     while (it != std::end(vect)) 
     {
-        if ((*it)->getName() == name)
+        if ((*it)->GetName() == name)
         {
             vect.erase(it);
             return;

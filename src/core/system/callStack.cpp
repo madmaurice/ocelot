@@ -1,5 +1,5 @@
 
-#include "callStack.h"
+#include "CallStack.h"
 #include <windows.h>
 #include <DbgHelp.h>
 
@@ -7,7 +7,7 @@ OC_NS_BG;
 
 namespace
 {
-    StackFrame addressToStackFrame(uint64 address)
+    StackFrame AddressToStackFrame(uint64 address)
     {
         StackFrame frame;
         const HANDLE processHandle = GetCurrentProcess();
@@ -48,49 +48,49 @@ CallStack::CallStack(const std::vector<uint64>& addresses )
 {
 }
 
-void CallStack::append(uint64 address)
+void CallStack::Append(uint64 address)
 {
     m_stack->push_back(address);
 }
 
-void CallStack::remove(uint32 position)
+void CallStack::Remove(uint32 position)
 {
     OC_ASSERT(position <= m_stack->size());
     m_stack->erase(m_stack->begin() + position);
 }
 
-size_t CallStack::getSize() const
+size_t CallStack::GetSize() const
 {
     return m_stack->size();
 }
 
-StackTrace CallStack::getTrace() const
+StackTrace CallStack::GetTrace() const
 {
     StackTrace trace;
     int i = 0;
     for (const auto& address : *m_stack)
     {
-        StackFrame frame = addressToStackFrame(address);
+        StackFrame frame = AddressToStackFrame(address);
         frame.m_depth = i++;
         trace.push_back(frame);
     }
     return trace;
 }
 
-StackFrame CallStack::getFrame(size_t position) const
+StackFrame CallStack::GetFrame(size_t position) const
 {
     OC_ASSERT(position <= m_stack->size());
-    StackFrame frame = addressToStackFrame((*m_stack)[position]);
+    StackFrame frame = AddressToStackFrame((*m_stack)[position]);
     frame.m_depth = position;
     return frame;
 }
 
 StackFrame CallStack::operator[](size_t position) const
 {
-    return getFrame(position);
+    return GetFrame(position);
 }
 
-String CallStack::toString() const
+String CallStack::ToString() const
 {
     std::stringstream sstream;
     DWORD64 displacement = 0;
@@ -132,7 +132,7 @@ std::ostream& operator<<(std::ostream& os, const StackFrame& frame)
 
 std::ostream& operator<<(std::ostream& os, const CallStack& stackTrace)
 {
-    os << stackTrace.toString();
+    os << stackTrace.ToString();
     return os;
 }
 

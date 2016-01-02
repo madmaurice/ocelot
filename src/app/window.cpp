@@ -1,11 +1,11 @@
 
-#include "app/window.h"
+#include "app/Window.h"
 
 OC_NS_BG;
 
 namespace
 {
-    LRESULT CALLBACK windowProcImpl( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam )
+    LRESULT CALLBACK WindowProcImpl( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam )
     {
         LONG_PTR func = GetWindowLongPtr(hwnd, 0);
 
@@ -34,16 +34,16 @@ Window::Window(const String& caption)
 
 Window::~Window()
 {
-    shutdown();
+    Shutdown();
 }
 
-bool Window::initialize(WndProc wndProc)
+bool Window::Initialize(WndProc wndProc)
 {
     m_wndProc = wndProc;
 
     WNDCLASS wc;
     wc.style         = CS_HREDRAW | CS_VREDRAW;
-    wc.lpfnWndProc   = windowProcImpl; 
+    wc.lpfnWndProc   = WindowProcImpl; 
     wc.cbClsExtra    = 0;
     wc.cbWndExtra    = sizeof(m_wndProc);
     wc.hInstance     = 0;
@@ -97,12 +97,12 @@ bool Window::initialize(WndProc wndProc)
 
     // The UpdateWindow function updates the client area of the specified window by sending a 
     // WM_PAINT message to the window if the window's update region is not empty. 
-    UpdateWindow(m_hWnd);
+    ::UpdateWindow(m_hWnd);
 
     return true;
 }
 
-void Window::shutdown()
+void Window::Shutdown()
 {
     if (m_hWnd)
         DestroyWindow(m_hWnd);
@@ -110,75 +110,77 @@ void Window::shutdown()
     m_hWnd = 0;
 }
 
-HWND Window::getHandle()
+HWND Window::GetHandle()
 {
     return m_hWnd;
 }
 
-void Window::setWidth(uint32 width)
+void Window::SetWidth(uint32 width)
 {
     m_width = width;
+    UpdateWindow();
 }
 
-void Window::setHeight(uint32 height)
+void Window::SetHeight(uint32 height)
 {
     m_height = height;
+    UpdateWindow();
 }
 
-int Window::getWidth()
+int Window::GetWidth()
 {
     return m_width;
 }
 
-int Window::getHeight()
+int Window::GetHeight()
 {
     return m_height;
 }
 
-int Window::getLeft()
+int Window::GetLeft()
 {
     return m_left;
 }
 
-int Window::getTop()
+int Window::GetTop()
 {
     return m_top;
 }
 
-void Window::setSize(uint32 width, uint32 height)
+void Window::SetSize(uint32 width, uint32 height)
 {
     m_width = width;
     m_height = height;
-    updateWindow();
+    UpdateWindow();
 }
 
-void Window::setPosition(uint32 left, uint32 top)
+void Window::SetPosition(uint32 left, uint32 top)
 {
     m_left = left;
     m_top = top;
-    updateWindow();
+    UpdateWindow();
 }
 
-void Window::resize(int width, int height)
+void Window::Resize(int width, int height)
 {
     m_width = width;
     m_height = height;
-    updateWindow();
+    UpdateWindow();
 }
 
-void Window::setCaption(const String& caption)
+void Window::SetCaption(const String& caption)
 {
     m_caption = caption;
     SetWindowText(m_hWnd, caption.c_str());
 }
 
-void Window::setStyle(DWORD dStyle)
+void Window::SetStyle(DWORD dStyle)
 {
     m_style = dStyle;
-    updateWindow();
+    UpdateWindow();
 }
 
-void Window::updateWindow()
+void Window::UpdateWindow()
 {
     OC_ASSERT(m_hWnd != NULL);
 

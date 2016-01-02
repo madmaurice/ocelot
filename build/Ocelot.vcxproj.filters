@@ -25,242 +25,194 @@
     <Filter Include="graphic\buffer">
       <UniqueIdentifier>{685f9ea2-5473-44db-8708-7c23257b6b43}</UniqueIdentifier>
     </Filter>
-    <Filter Include="graphic\shader">
-      <UniqueIdentifier>{f8773408-6a53-4c57-a77d-5a65e8835523}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="graphic\shader\hlsl">
-      <UniqueIdentifier>{08454a55-52dc-4e36-b9eb-8af170389f5c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="graphic\model">
       <UniqueIdentifier>{a25844d5-3fbd-409e-aace-fd84a1dbdbe3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graphic\util">
+      <UniqueIdentifier>{41595ec1-45b1-400d-9a76-c0b67558b790}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\core\logging\logger.cpp">
-      <Filter>core\logging</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\core\logging\loggingConfig.cpp">
-      <Filter>core\logging</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\core\logging\logEvent.cpp">
-      <Filter>core\logging</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\core\logging\logLevel.cpp">
-      <Filter>core\logging</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\core\logging\logAppender.cpp">
-      <Filter>core\logging</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\core\logging\logFormatter.cpp">
-      <Filter>core\logging</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\math\matrix3.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\math\vector2.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\math\vector3.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\math\vector4.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\math\matrix4.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\app\application.cpp">
-      <Filter>app</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\app\window.cpp">
-      <Filter>app</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\pch.cpp" />
-    <ClCompile Include="..\src\core\system\stackWalker.cpp">
-      <Filter>core\system</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\core\system\assert.cpp">
-      <Filter>core\system</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\core\system\callStack.cpp">
-      <Filter>core\system</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\core\system\timer.cpp">
-      <Filter>core\system</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\app\fpsCounter.cpp">
+    <ClCompile Include="..\src\app\Application.cpp">
       <Filter>app</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\graphic\graphicSystem.cpp">
+    <ClCompile Include="..\src\app\Window.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphic\buffer\IndexBuffer.cpp">
+      <Filter>graphic\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphic\buffer\VertexBuffer.cpp">
+      <Filter>graphic\buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphic\model\Mesh.cpp">
+      <Filter>graphic\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphic\model\Model.cpp">
+      <Filter>graphic\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphic\model\Shape.cpp">
+      <Filter>graphic\model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphic\GraphicSystem.cpp">
       <Filter>graphic</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\app\event.cpp">
-      <Filter>app</Filter>
+    <ClCompile Include="..\src\graphic\util\GeometryBuilder.cpp">
+      <Filter>graphic\util</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\graphic\buffer\indexBuffer.cpp">
-      <Filter>graphic\buffer</Filter>
+    <ClCompile Include="..\src\math\Matrix3.cpp">
+      <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\graphic\buffer\vertexBuffer.cpp">
-      <Filter>graphic\buffer</Filter>
+    <ClCompile Include="..\src\math\Matrix4.cpp">
+      <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\graphic\shader\colorEffect.cpp">
-      <Filter>graphic\shader</Filter>
+    <ClCompile Include="..\src\math\Vector2.cpp">
+      <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\graphic\shader\effect.cpp">
-      <Filter>graphic\shader</Filter>
+    <ClCompile Include="..\src\math\Vector3.cpp">
+      <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\graphic\shader\shader.cpp">
-      <Filter>graphic\shader</Filter>
+    <ClCompile Include="..\src\math\Vector4.cpp">
+      <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\graphic\model\mesh.cpp">
-      <Filter>graphic\model</Filter>
+    <ClCompile Include="..\src\core\logging\LogAppender.cpp">
+      <Filter>core\logging</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\graphic\model\model.cpp">
-      <Filter>graphic\model</Filter>
+    <ClCompile Include="..\src\core\logging\LogEvent.cpp">
+      <Filter>core\logging</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\graphic\model\shape.cpp">
-      <Filter>graphic\model</Filter>
+    <ClCompile Include="..\src\core\logging\LogFormatter.cpp">
+      <Filter>core\logging</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\graphic\model\geometryBuilder.cpp">
-      <Filter>graphic\model</Filter>
+    <ClCompile Include="..\src\core\logging\LoggingConfig.cpp">
+      <Filter>core\logging</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\graphic\shader\basicEffect.cpp">
-      <Filter>graphic\shader</Filter>
+    <ClCompile Include="..\src\core\logging\LogLevel.cpp">
+      <Filter>core\logging</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\system\Assert.cpp">
+      <Filter>core\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\system\CallStack.cpp">
+      <Filter>core\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\system\StackWalker.cpp">
+      <Filter>core\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\system\Timer.cpp">
+      <Filter>core\system</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\logging\Logger.cpp">
+      <Filter>core\logging</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\core\logging\logEvent.h">
+    <ClInclude Include="..\src\pch.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="..\src\app\Application.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\app\Window.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\buffer\ConstantBuffer.h">
+      <Filter>graphic\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\buffer\IndexBuffer.h">
+      <Filter>graphic\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\buffer\VertexBuffer.h">
+      <Filter>graphic\buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\model\Mesh.h">
+      <Filter>graphic\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\model\Model.h">
+      <Filter>graphic\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\model\Shape.h">
+      <Filter>graphic\model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\GraphicSystem.h">
+      <Filter>graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\util\DxUtil.h">
+      <Filter>graphic\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\util\GeometryBuilder.h">
+      <Filter>graphic\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\math\Math.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\math\Matrix3.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\math\Matrix4.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\math\Vector2.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\math\Vector3.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\math\Vector4.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\logging\LogAppender.h">
       <Filter>core\logging</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\core\logging\logger.h">
+    <ClInclude Include="..\src\core\logging\LogEvent.h">
       <Filter>core\logging</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\core\logging\loggingConfig.h">
+    <ClInclude Include="..\src\core\logging\LogFormatter.h">
       <Filter>core\logging</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\core\logging\logLevel.h">
+    <ClInclude Include="..\src\core\logging\Logging.h">
       <Filter>core\logging</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\core\defines.h">
+    <ClInclude Include="..\src\core\logging\LoggingConfig.h">
+      <Filter>core\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\logging\LogLevel.h">
+      <Filter>core\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\system\Assert.h">
+      <Filter>core\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\system\CallStack.h">
+      <Filter>core\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\system\StackWalker.h">
+      <Filter>core\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\system\Timer.h">
+      <Filter>core\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\system\Types.h">
+      <Filter>core\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\util\NonCopyable.h">
+      <Filter>core\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\Defines.h">
       <Filter>core</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\core\logging\logging.h">
+    <ClInclude Include="..\src\core\logging\Logger.h">
       <Filter>core\logging</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\core\logging\logAppender.h">
-      <Filter>core\logging</Filter>
+    <ClInclude Include="..\src\core\system\Containers.h">
+      <Filter>core\system</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\core\logging\logFormatter.h">
-      <Filter>core\logging</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\util\pointer.h">
+    <ClInclude Include="..\src\core\util\ComPtr.h">
       <Filter>core\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\math\matrix3.h">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\math\vector2.h">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\math\vector3.h">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\math\vector4.h">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\math\matrix4.h">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\app\application.h">
-      <Filter>app</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\app\window.h">
-      <Filter>app</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\pch.h" />
-    <ClInclude Include="..\src\core\system\stackWalker.h">
-      <Filter>core\system</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\system\types.h">
-      <Filter>core\system</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\system\assert.h">
-      <Filter>core\system</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\system\callStack.h">
-      <Filter>core\system</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\util\nonCopyable.h">
-      <Filter>core\util</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\system\timer.h">
-      <Filter>core\system</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\app\fpsCounter.h">
-      <Filter>app</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\graphic\graphicSystem.h">
-      <Filter>graphic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\graphic\dxUtil.h">
-      <Filter>graphic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\app\event.h">
-      <Filter>app</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\math\math.h">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\graphic\buffer\constantBuffer.h">
-      <Filter>graphic\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\graphic\buffer\indexBuffer.h">
-      <Filter>graphic\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\graphic\buffer\vertexBuffer.h">
-      <Filter>graphic\buffer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\graphic\shader\colorEffect.h">
-      <Filter>graphic\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\graphic\shader\effect.h">
-      <Filter>graphic\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\graphic\shader\shader.h">
-      <Filter>graphic\shader</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="..\src\graphic\model\mesh.h">
-      <Filter>graphic\model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\graphic\model\model.h">
-      <Filter>graphic\model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\graphic\model\shape.h">
-      <Filter>graphic\model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\graphic\graphicDevice.h">
-      <Filter>graphic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\graphic\model\geometryBuilder.h">
-      <Filter>graphic\model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\graphic\shader\basicEffect.h">
-      <Filter>graphic\shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\graphic\buffer\constantBuffer.inl">
+    <None Include="..\src\graphic\buffer\ConstantBuffer.inl">
       <Filter>graphic\buffer</Filter>
-    </None>
-    <None Include="..\src\graphic\shader\hlsl\color.hlsl">
-      <Filter>graphic\shader\hlsl</Filter>
-    </None>
-    <None Include="..\src\graphic\shader\hlsl\basicEffect.hlsl">
-      <Filter>graphic\shader\hlsl</Filter>
-    </None>
-    <None Include="..\src\graphic\shader\hlsl\lights.hlsl">
-      <Filter>graphic\shader\hlsl</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

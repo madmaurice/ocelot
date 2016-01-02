@@ -1,6 +1,6 @@
 
 #include "vertexBuffer.h"
-#include "graphic/dxUtil.h"
+#include "graphic/util/DxUtil.h"
 
 OC_NS_BG;
 
@@ -10,7 +10,7 @@ VertexBuffer::VertexBuffer()
 {
 }
 
-void VertexBuffer::initialize(ID3D11Device* device, size_t byteWidth, const void* data)
+void VertexBuffer::Initialize(ID3D11Device* device, size_t byteWidth, const void* data)
 {
     D3D11_BUFFER_DESC bd;
     ZeroMemory(&bd, sizeof(bd));

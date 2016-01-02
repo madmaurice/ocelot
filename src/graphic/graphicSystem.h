@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "core\util\nonCopyable.h"
-#include "core\util\pointer.h"
+#include "core/util/nonCopyable.h"
+#include "core/util/ComPtr.h"
 #include <d3d11.h>
 
 OC_NS_BG;
@@ -24,26 +24,26 @@ public:
     GraphicSystem(HWND hwnd, uint32 windowWidth = 1024, uint32 windowHeight = 768);
     ~GraphicSystem();
 
-    bool initialize();
-    bool initialize(const GraphicSystemConfig& config);
-    void shutdown();
+    bool Initialize();
+    bool Initialize(const GraphicSystemConfig& config);
+    void Shutdown();
 
-    uint32 getBackBufferWidth() const;
-    uint32 getBackBufferHeigth() const;
+    uint32 GetBackBufferWidth() const;
+    uint32 GetBackBufferHeigth() const;
 
-    void resize(uint32 width, uint32 heigth);
+    void Resize(uint32 width, uint32 heigth);
 
-    void clear();
-    void present();
+    void Clear();
+    void Present();
 
-    ComPtr<ID3D11Device> getDevice() { return m_dxDevice; }
-    ComPtr<ID3D11DeviceContext> getDeviceContext() { return m_dxImmediateContext; }
+    ComPtr<ID3D11Device> GetDevice() { return m_dxDevice; }
+    ComPtr<ID3D11DeviceContext> GetDeviceContext() { return m_dxImmediateContext; }
 
-    std::shared_ptr<GeometryBuilder> getGeometryBuilder() { return m_geoBuilder; }
+    std::shared_ptr<GeometryBuilder> GetGeometryBuilder() { return m_geoBuilder; }
 
 private:
 
-    void bindDefaultBuffers();
+    void BindDefaultBuffers();
 
     GraphicSystemConfig m_config;
 

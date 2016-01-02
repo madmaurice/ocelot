@@ -1,5 +1,5 @@
 
-#include "logAppender.h"
+#include "LogAppender.h"
 #include <iostream>
 #include <windows.h>
 
@@ -25,31 +25,31 @@ LogAppenderBase::~LogAppenderBase()
     OC_UNUSED(toto);
 }
 
-ILogFormatter& LogAppenderBase::getFormatter()
+ILogFormatter& LogAppenderBase::GetFormatter()
 {
     return *m_formatter;
 }
 
-void LogAppenderBase::setFormatter(const std::shared_ptr<ILogFormatter>& formatter)
+void LogAppenderBase::SetFormatter(const std::shared_ptr<ILogFormatter>& formatter)
 {
     m_formatter = formatter;
 }
 
-std::string LogAppenderBase::formatLogEvent(const LogEvent& logEvent)
+String LogAppenderBase::FormatLogEvent(const LogEvent& logEvent)
 {
     std::stringstream sstream;
-    m_formatter->applyFormat(logEvent, sstream);
+    m_formatter->ApplyFormat(logEvent, sstream);
     return sstream.str();
 }
 
-std::string DebugConsoleAppender::getName()
+String DebugConsoleAppender::GetName()
 {
     return "DebugConsole";
 }
 
-void DebugConsoleAppender::append(const LogEvent& logEvent)
+void DebugConsoleAppender::Append(const LogEvent& logEvent)
 {
-    std::string logString = formatLogEvent(logEvent) + "\n";
+    String logString = FormatLogEvent(logEvent) + "\n";
     OutputDebugString(logString.c_str());
 }
 
@@ -71,18 +71,16 @@ StdOutAppender::StdOutAppender()
 StdOutAppender::StdOutAppender(const std::shared_ptr<ILogFormatter>& formatter)
     : LogAppenderBase(formatter)
 {
-    int toto;
-    OC_UNUSED(toto);
 }
 
-std::string StdOutAppender::getName()
+String StdOutAppender::GetName()
 {
     return "StdOut";
 }
 
-void StdOutAppender::append(const LogEvent& logEvent)
+void StdOutAppender::Append(const LogEvent& logEvent)
 {
-    std::string logString = formatLogEvent(logEvent);
+    String logString = FormatLogEvent(logEvent);
     std::cout << logString << std::endl;
 }
 

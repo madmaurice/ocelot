@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "core/logging/loggingConfig.h"
-#include "core/logging/logLevel.h"
+#include "core/logging/LoggingConfig.h"
+#include "core/logging/LogLevel.h"
 #include <string>
 
 OC_NS_BG;
@@ -10,22 +10,22 @@ OC_NS_BG;
 class Logger
 {
 public:
-    static Logger& getInstance();
+    static Logger& GetInstance();
 
-    static void init(const LoggingConfig& config);
+    static void Init(const LoggingConfig& config);
 
-    LoggingConfig& getConfig();
+    LoggingConfig& GetConfig();
 
-    void debug(std::string msg, const char* file, uint32 line);
-    void info(std::string msg, const char* file, uint32 line);
-    void warn(std::string msg, const char* file, uint32 line);
-    void error(std::string msg, const char* file, uint32 line);
-    void always(std::string msg, const char* file, uint32 line);
+    void Debug(const String& msg, const char* file, uint32 line);
+    void Info(const String& msg, const char* file, uint32 line);
+    void Warn(const String& msg, const char* file, uint32 line);
+    void Error(const String& msg, const char* file, uint32 line);
+    void Always(const String& msg, const char* file, uint32 line);
 
 private:
     Logger();
 
-    void processLog(LogLevel level, std::string msg, const char* file, uint32 line);
+    void ProcessLog(LogLevel level, const String& msg, const char* file, uint32 line);
 
     LoggingConfig   m_config;
 };

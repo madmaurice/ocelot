@@ -1,5 +1,5 @@
 
-#include "stackWalker.h"
+#include "StackWalker.h"
 #include <windows.h>
 #include <DbgHelp.h>
 #include <sstream>
@@ -10,15 +10,15 @@ class StackWalkerImpl
 {
 public:
 
-    bool init();
-    void shutdown();
+    bool Init();
+    void Shutdown();
 
-    CallStack generateCallStack(uint32 maxDepth, uint32 startDepth);
+    CallStack GenerateCallStack(uint32 maxDepth, uint32 startDepth);
 private:
     static const uint32 MAX_DEPTH = 20;
 };
 
-bool StackWalkerImpl::init()
+bool StackWalkerImpl::Init()
 {
     // Init symbols
     uint32 symOpts = SymGetOptions();
@@ -46,12 +46,12 @@ bool StackWalkerImpl::init()
     return true;
 }
 
-void StackWalkerImpl::shutdown()
+void StackWalkerImpl::Shutdown()
 {
     SymCleanup(GetCurrentProcess());
 }
 
-CallStack StackWalkerImpl::generateCallStack(uint32 maxDepth, uint32 startDepth)
+CallStack StackWalkerImpl::GenerateCallStack(uint32 maxDepth, uint32 startDepth)
 {
     startDepth += 1; // Increment to remove the getCallStack call
     const uint32 depth = maxDepth > 0 ? maxDepth : MAX_DEPTH;
@@ -118,24 +118,24 @@ CallStack StackWalkerImpl::generateCallStack(uint32 maxDepth, uint32 startDepth)
 //---------- StackWalker ----------//
 std::unique_ptr<StackWalkerImpl> StackWalker::m_pImpl = nullptr;
 
-CallStack StackWalker::getCallStack(uint32 maxDepth, uint32 startDepth)
+CallStack StackWalker::GetCallStack(uint32 maxDepth, uint32 startDepth)
 {
     OC_ASSERT_MSG(m_pImpl.get() != nullptr, "StackWalker not initialized");
-    return m_pImpl->generateCallStack(maxDepth, startDepth);
+    return m_pImpl->GenerateCallStack(maxDepth, startDepth);
 }
 
-bool StackWalker::init()
+bool StackWalker::Init()
 {
     OC_ASSERT_MSG(m_pImpl.get() == nullptr, "StackWalker already initialized");
     m_pImpl.reset(new StackWalkerImpl());
 
-    return m_pImpl->init();
+    return m_pImpl->Init();
 }
 
-void StackWalker::shutdown()
+void StackWalker::Shutdown()
 {
     OC_ASSERT_MSG(m_pImpl.get() != nullptr, "StackWalker not initialized");
-    m_pImpl->shutdown();
+    m_pImpl->Shutdown();
 
     m_pImpl.reset(nullptr);
 }

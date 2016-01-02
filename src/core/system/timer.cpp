@@ -1,5 +1,5 @@
 
-#include "core/system/timer.h"
+#include "core/system/Timer.h"
 #include <windows.h>
 
 OC_NS_BG;
@@ -20,7 +20,7 @@ Timer::Timer() :
 
 // Returns the total time elapsed since Reset() was called, NOT counting any
 // time when the clock is stopped.
-float Timer::getElapsed() const
+float Timer::GetElapsed() const
 {
 	// If we are stopped, do not count the time that has passed since we stopped.
 	// Moreover, if we previously already had a pause, the distance 
@@ -52,12 +52,12 @@ float Timer::getElapsed() const
 	}
 }
 
-float Timer::getDelta() const
+float Timer::GetDelta() const
 {
 	return (float)m_deltaTime;
 }
 
-void Timer::reset()
+void Timer::Reset()
 {
 	int64 currTime;
 	QueryPerformanceCounter((LARGE_INTEGER*)&currTime);
@@ -68,7 +68,7 @@ void Timer::reset()
 	m_stopped  = false;
 }
 
-void Timer::start()
+void Timer::Start()
 {
 	__int64 startTime;
 	QueryPerformanceCounter((LARGE_INTEGER*)&startTime);
@@ -88,7 +88,7 @@ void Timer::start()
 	}
 }
 
-void Timer::stop()
+void Timer::Stop()
 {
 	if(!m_stopped)
 	{
@@ -100,7 +100,7 @@ void Timer::stop()
 	}
 }
 
-void Timer::tick()
+void Timer::Tick()
 {
 	if(m_stopped)
 	{

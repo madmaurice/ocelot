@@ -2,8 +2,8 @@
 #pragma once
 
 #include "graphicSystem.h"
-#include "graphic/dxUtil.h"
-#include "graphic/model/geometryBuilder.h"
+#include "graphic/util/DxUtil.h"
+#include "graphic/util/GeometryBuilder.h"
 
 OC_NS_BG;
 
@@ -19,14 +19,14 @@ GraphicSystem::~GraphicSystem()
 {
 }
 
-bool GraphicSystem::initialize()
+bool GraphicSystem::Initialize()
 {
     // No MSAA
     GraphicSystemConfig config = { false, false, 1, 0, D3D_DRIVER_TYPE_HARDWARE };
-    return initialize(config);
+    return Initialize(config);
 }
 
-bool GraphicSystem::initialize(const GraphicSystemConfig& config)
+bool GraphicSystem::Initialize(const GraphicSystemConfig& config)
 {
     OC_LOG_INFO("GraphicSystem initializing");
     
@@ -134,7 +134,7 @@ bool GraphicSystem::initialize(const GraphicSystemConfig& config)
 
     // The remaining steps that need to be carried out for d3d creation
     // also need to be executed every time the window is resized.
-    bindDefaultBuffers();
+    BindDefaultBuffers();
 
     m_geoBuilder.reset(new GeometryBuilder(m_dxDevice));
 
@@ -142,7 +142,7 @@ bool GraphicSystem::initialize(const GraphicSystemConfig& config)
     return true;
 }
 
-void GraphicSystem::shutdown()
+void GraphicSystem::Shutdown()
 {
     // Before shutting down set to windowed mode or when you release the swap chain it will throw an exception.
     if (m_swapChain.Get() != nullptr)
@@ -160,17 +160,17 @@ void GraphicSystem::shutdown()
     }
 }
 
-uint32 GraphicSystem::getBackBufferWidth() const
+uint32 GraphicSystem::GetBackBufferWidth() const
 {
     return m_backBufferWidth;
 }
 
-uint32 GraphicSystem::getBackBufferHeigth() const
+uint32 GraphicSystem::GetBackBufferHeigth() const
 {
     return m_backBufferHeigth;
 }
 
-void GraphicSystem::resize(uint32 width, uint32 heigth)
+void GraphicSystem::Resize(uint32 width, uint32 heigth)
 {
     OC_ASSERT(m_dxImmediateContext.Get());
     OC_ASSERT(m_dxDevice.Get());
@@ -189,11 +189,11 @@ void GraphicSystem::resize(uint32 width, uint32 heigth)
     // NOTE: If we do not resize the buffers the display will be stretched to the window size
     DXCall(m_swapChain->ResizeBuffers(1, m_backBufferWidth, m_backBufferHeigth, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
 
-    bindDefaultBuffers();
+    BindDefaultBuffers();
 }
 
 // This complete the back buffer init or resize by setting the default render target and viewport.
-void GraphicSystem::bindDefaultBuffers()
+void GraphicSystem::BindDefaultBuffers()
 {
     ComPtr<ID3D11Texture2D> backBuffer;
     DXCall(m_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(backBuffer.GetAddressOf())));
@@ -234,13 +234,13 @@ void GraphicSystem::bindDefaultBuffers()
     m_dxImmediateContext->RSSetViewports(1, &vp);
 }
 
-void GraphicSystem::clear()
+void GraphicSystem::Clear()
 {
     m_dxImmediateContext->ClearRenderTargetView(m_backBufferRTV.Get(), reinterpret_cast<const float*>(&Colors::SteelBlue));
     m_dxImmediateContext->ClearDepthStencilView(m_depthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }
 
-void GraphicSystem::present()
+void GraphicSystem::Present()
 {
     DXCall(m_swapChain->Present(0, 0));
 }

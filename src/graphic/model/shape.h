@@ -11,7 +11,7 @@ public:
     Cube();
     Cube(float width, float height, float depth);
 
-    void buildMesh(ID3D11Device* device);
+    void BuildMesh(ID3D11Device* device);
 
     float m_width;
     float m_height;
@@ -24,7 +24,7 @@ public:
     Sphere();
     Sphere(float radius, uint32 sliceCount, uint32 stackCount);
 
-    void buildMesh(ID3D11Device* device);
+    void BuildMesh(ID3D11Device* device);
 
     float m_radius;
     uint32 m_sliceCount;
@@ -37,7 +37,7 @@ public:
     Cylinder();
     Cylinder(float bottomRadius, float topRadius, float height, uint32 sliceCount, uint32 stackCount);
 
-    void buildMesh(ID3D11Device* device);
+    void BuildMesh(ID3D11Device* device);
 
     float m_bottomRadius;
     float m_topRadius;
@@ -52,7 +52,7 @@ public:
     Grid();
     Grid(float width, float depth, uint32 rows, uint32 columns);
 
-    void buildMesh(ID3D11Device* device);
+    void BuildMesh(ID3D11Device* device);
 
     float m_width;
     float m_depth;

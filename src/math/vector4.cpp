@@ -1,7 +1,7 @@
 
-#include "vector4.h"
-#include "vector3.h"
-#include "vector2.h"
+#include "Vector4.h"
+#include "Vector3.h"
+#include "Vector2.h"
 #include <cmath>
 
 OC_NS_BG;
@@ -48,7 +48,7 @@ Vector4& Vector4::operator= (const Vector4& vector)
     return *this;
 }
 
-void Vector4::setZero()
+void Vector4::SetZero()
 {
     x = 0.0f;
     y = 0.0f;
@@ -56,9 +56,9 @@ void Vector4::setZero()
     w = 0.0f;
 }
 
-void Vector4::normalize()
+void Vector4::Normalize()
 {
-    float invMag = ( 1.0f / length() );
+    float invMag = ( 1.0f / Length() );
 
     x *= invMag;
     y *= invMag;
@@ -66,7 +66,7 @@ void Vector4::normalize()
     w *= invMag;
 }
 
-float Vector4::length()
+float Vector4::Length()
 {
     float length = 0.0f;
 
@@ -78,7 +78,7 @@ float Vector4::length()
     return( sqrt(length) );
 }
 
-float Vector4::dot(Vector4& vector)
+float Vector4::Dot(Vector4& vector)
 {
     float ret = 0.0f;
 
@@ -187,7 +187,7 @@ Vector4 Vector4::operator/ (float scalar) const
     }
     else
     {
-        quot.setZero();
+        quot.SetZero();
     }
 
     return( quot );
@@ -268,7 +268,7 @@ Vector4& Vector4::operator/= (float scalar)
     }
     else
     {
-        setZero();
+        SetZero();
     }
 
     return *this;
@@ -284,7 +284,7 @@ Vector4& Vector4::operator/= (const Vector4& vector)
     return *this;
 }
 
-void Vector4::clamp()
+void Vector4::Clamp()
 {
     if ( x > 1.0f ) x = 1.0f;
     if ( x < 0.0f ) x = 0.0f;
@@ -299,11 +299,11 @@ void Vector4::clamp()
     if ( w < 0.0f ) w = 0.0f;
 }
 
-uint32 Vector4::toARGB()
+uint32 Vector4::ToARGB()
 {
     uint32 result = 0;
 
-    clamp();
+    Clamp();
 
     result += (uint32)(255 * z);
     result += ((uint32)(255 * y) << 8);
@@ -313,11 +313,11 @@ uint32 Vector4::toARGB()
     return( result );
 }
 
-uint32 Vector4::toRGBA()
+uint32 Vector4::ToRGBA()
 {
     uint32 result = 0;
 
-    clamp();
+    Clamp();
 
     result += (uint32)(255 * w);
     result += ((uint32)(255 * z) << 8);
@@ -327,7 +327,7 @@ uint32 Vector4::toRGBA()
     return( result );
 }
 
-void Vector4::fromARGB(uint32 color)
+void Vector4::FromARGB(uint32 color)
 {
     x = (float)((color & 0x00ff0000) >> 16)/(255.0f);	// red channel
     y = (float)((color & 0x0000ff00) >> 8)/(255.0f);	// green channel

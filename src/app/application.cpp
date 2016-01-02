@@ -1,24 +1,23 @@
-#include "app/application.h"
-#include "graphic/graphicSystem.h"
+#include "app/Application.h"
+#include "graphic/GraphicSystem.h"
 #include <functional>
 
 OC_NS_BG;
 
 namespace 
 {
-    void updateWindowCaption(Window& window, const String& appName, const FpsCounter& fps)
+    void UpdateWindowCaption(Window& window, const String& appName, const FpsCounter& fps)
     {
         std::ostringstream outs;   
         outs << appName << "    "
-            << "FPS: " << fps.getFps() << "    " 
-            << "Frame Time: " << fps.getFrameTimeMs() << " (ms)";
-        window.setCaption(outs.str());
+            << "FPS: " << fps.GetFps() << "    " 
+            << "Frame Time: " << fps.GetFrameTimeMs() << " (ms)";
+        window.SetCaption(outs.str());
     }
 }
 
 Application::Application(const String& name)
-    : m_eventDispatcher(new EventDispatcher())
-    , m_paused(false)
+    : m_paused(false)
     , m_resizing(false)
     , m_minimized(false)
     , m_maximized(false)
@@ -34,37 +33,37 @@ Application::~Application()
     OC_ASSERT(m_shutdown == true);
 }
 
-bool Application::initialize()
+bool Application::Initialize()
 {
     LoggingConfig logConfig;
-    logConfig.addAppender(std::make_unique<DebugConsoleAppender>());
-    logConfig.setLogLevel(LogLevel::Debug);
-    return initialize(logConfig);
+    logConfig.AddAppender(std::make_unique<DebugConsoleAppender>());
+    logConfig.SetLogLevel(LogLevel::Debug);
+    return Initialize(logConfig);
 }
 
-bool Application::initialize(const LoggingConfig& config)
+bool Application::Initialize(const LoggingConfig& config)
 {
     using namespace std::placeholders;
 
-    Logger::init(config);
+    Logger::Init(config);
 
     OC_LOG_INFO("Logging configured");
 
-    Window::WndProc wndProc = std::bind(&Application::wndProc, this, _1, _2, _3, _4);
-    if (!m_window.initialize(wndProc))
+    Window::WndProc wndProc = std::bind(&Application::WndProc, this, _1, _2, _3, _4);
+    if (!m_window.Initialize(wndProc))
     {
         OC_LOG_ERROR("Application initialization failed : Window init failed!");
         return false;
     }
 
-    m_graphic.reset(new GraphicSystem(m_window.getHandle(), m_window.getWidth(), m_window.getHeight()));
-    if (!m_graphic->initialize())
+    m_graphic.reset(new GraphicSystem(m_window.GetHandle(), m_window.GetWidth(), m_window.GetHeight()));
+    if (!m_graphic->Initialize())
     {
         OC_LOG_ERROR("Application initialization failed : Graphic init failed!");
         return false;
     }
 
-    if (!initializeImpl())
+    if (!InitializeImpl())
     {
         OC_LOG_ERROR(m_name + " initialization failed");
         return false;
@@ -74,24 +73,24 @@ bool Application::initialize(const LoggingConfig& config)
     return true;
 }
 
-void Application::shutdown()
+void Application::Shutdown()
 {
     OC_LOG_INFO(m_name + " is shutting down");
 
     if (!m_shutdown)
     {
-        shutdownImpl();
-        m_graphic->shutdown();
-        m_window.shutdown();
+        ShutdownImpl();
+        m_graphic->Shutdown();
+        m_window.Shutdown();
 
         m_shutdown = true;
     }
 }
 
-void Application::run()
+void Application::Run()
 {
     // Call update (limit FPS?)
-    m_timer.reset();
+    m_timer.Reset();
 
     MSG msg  = {0};
 
@@ -103,7 +102,7 @@ void Application::run()
             if (msg.message == WM_QUIT)
             {
                 running = false;
-                shutdown();
+                Shutdown();
                 return;
             }
 
@@ -111,13 +110,13 @@ void Application::run()
             DispatchMessage(&msg);
         }
 
-        m_timer.tick();
+        m_timer.Tick();
 
         if (!m_paused)
         {
             // Call the overloaded application update and render functions.
-            update();
-            render();
+            Update();
+            Render();
 
             // TODO : better frame rate limit...
             Sleep(15);
@@ -129,37 +128,37 @@ void Application::run()
     }
 }
 
-void Application::update()
+void Application::Update()
 {
-    m_fpsCounter.updateFrame(m_timer.getElapsed());
+    m_fpsCounter.UpdateFrame(m_timer.GetElapsed());
 
     // Update FPS on window title
-    updateWindowCaption(m_window, m_name, m_fpsCounter);
+    UpdateWindowCaption(m_window, m_name, m_fpsCounter);
 
-    const float delta = m_timer.getDelta();
-    updateImpl(delta);
+    const float delta = m_timer.GetDelta();
+    UpdateImpl(delta);
 }
 
-void Application::render()
+void Application::Render()
 {
-    m_graphic->clear();
+    m_graphic->Clear();
 
-    renderImpl();
+    RenderImpl();
 
     // TODO : render debug HUD
-    m_graphic->present();
+    m_graphic->Present();
 }
 
-void Application::onResize(uint32 width, uint32 height)
+void Application::OnResize(uint32 width, uint32 height)
 {
     OC_LOG_DEBUG("Application::onResize : width=" << width << ", height=" << height);
-    m_graphic->resize(width, height);
+    m_graphic->Resize(width, height);
 }
 
-LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+LRESULT Application::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
-    static uint16 windowWidth  = static_cast<uint16>(m_window.getWidth());
-    static uint16 windowHeight = static_cast<uint16>(m_window.getHeight());
+    static uint16 windowWidth  = static_cast<uint16>(m_window.GetWidth());
+    static uint16 windowHeight = static_cast<uint16>(m_window.GetHeight());
 
     switch(msg)
     {
@@ -170,12 +169,12 @@ LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
         if( LOWORD(wParam) == WA_INACTIVE )
         {
             m_paused = true;
-            m_timer.stop();
+            m_timer.Stop();
         }
         else
         {
             m_paused = false;
-            m_timer.start();
+            m_timer.Start();
         }
         return 0;
 
@@ -202,7 +201,7 @@ LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 m_paused = false;
                 m_minimized = false;
                 m_maximized = true;
-                onResize(windowWidth, windowHeight);
+                OnResize(windowWidth, windowHeight);
             }
             else if(wParam == SIZE_RESTORED)
             {
@@ -211,14 +210,14 @@ LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 {
                     m_paused = false;
                     m_minimized = false;
-                    onResize(windowWidth, windowHeight);
+                    OnResize(windowWidth, windowHeight);
                 }
                 // Restoring from maximized state?
                 else if(m_maximized)
                 {
                     m_paused = false;
                     m_maximized = false;
-                    onResize(windowWidth, windowHeight);
+                    OnResize(windowWidth, windowHeight);
                 }
                 else if(m_resizing)
                 {
@@ -233,7 +232,7 @@ LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 }
                 else // API call such as SetWindowPos or SwapChain->SetFullscreenState.
                 {
-                    onResize(windowWidth, windowHeight);
+                    OnResize(windowWidth, windowHeight);
                 }
             }
             return 0;
@@ -243,7 +242,7 @@ LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_ENTERSIZEMOVE:
         m_paused = true;
         m_resizing  = true;
-        m_timer.stop();
+        m_timer.Stop();
         return 0;
 
         // WM_EXITSIZEMOVE is sent when the user releases the resize bars.
@@ -251,8 +250,8 @@ LRESULT Application::wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_EXITSIZEMOVE:
         m_paused = false;
         m_resizing  = false;
-        m_timer.start();
-        onResize(windowWidth, windowHeight);
+        m_timer.Start();
+        OnResize(windowWidth, windowHeight);
         return 0;
 
         // WM_DESTROY is sent when the window is being destroyed.

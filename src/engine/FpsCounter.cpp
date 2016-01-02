@@ -1,5 +1,5 @@
 
-#include "fpsCounter.h"
+#include "FpsCounter.h"
 
 OC_NS_BG;
 
@@ -10,7 +10,7 @@ FpsCounter::FpsCounter()
 {
 }
 
-void FpsCounter::updateFrame(float runningTime)
+void FpsCounter::UpdateFrame(float runningTime)
 {
     ++m_frameCount;
 
@@ -25,12 +25,12 @@ void FpsCounter::updateFrame(float runningTime)
     }
 }
 
-uint32 FpsCounter::getFps() const
+uint32 FpsCounter::GetFps() const
 {
     return m_fps;
 }
 
-float FpsCounter::getFrameTimeMs() const
+float FpsCounter::GetFrameTimeMs() const
 {
     return m_fps > 0 ? 1000 / (float)m_fps : 0;
 }

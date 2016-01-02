@@ -10,7 +10,7 @@ class GeometryBuilder
 public:
     GeometryBuilder(const ComPtr<ID3D11Device>& dxDevice);
 
-    Cube createCube(float width, float height, float depth);
+    Cube CreateCube(float width, float height, float depth);
 
 private:
 

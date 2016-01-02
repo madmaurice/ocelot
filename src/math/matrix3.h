@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "vector3.h"
+#include "Vector3.h"
 
 OC_NS_BG;
 
@@ -15,21 +15,21 @@ public:
             float m21, float m22, float m23,
             float m31, float m32, float m33);
     
-    void rotationX(float radians);
-    void rotationY(float radians);
-    void rotationZ(float radians);
-    void rotation(Vector3& rot);
-    void rotationZYX(Vector3& rot);
-    void rotationEuler(Vector3& axis, float angle);
-    void orthonormalize();
+    void RotationX(float radians);
+    void RotationY(float radians);
+    void RotationZ(float radians);
+    void Rotation(Vector3& rot);
+    void RotationZYX(Vector3& rot);
+    void RotationEuler(Vector3& axis, float angle);
+    void Orthonormalize();
 
-    void setZero();
-    void setIdentity();
-    void setTranspose();
+    void SetZero();
+    void SetIdentity();
+    void SetTranspose();
 
-    Matrix3 zero();
-    Matrix3 identity();
-    Matrix3 transpose();
+    Matrix3 Zero();
+    Matrix3 Identity();
+    Matrix3 Transpose();
 
     // Operators
     Matrix3& operator= (const Matrix3& matrix);
@@ -40,10 +40,10 @@ public:
     float operator[] (uint32 pos) const;
     float& operator[] (uint32 pos);
 
-    void setRow(uint32 row, const Vector3& vector);
-    Vector3 getRow(uint32 row) const;
-    void setColumn(uint32 col, const Vector3& vector);
-    Vector3 getColumn(uint32 col) const;
+    void SetRow(uint32 row, const Vector3& vector);
+    Vector3 GetRow(uint32 row) const;
+    void SetColumn(uint32 col, const Vector3& vector);
+    Vector3 GetColumn(uint32 col) const;
 
     // Comparison
     bool operator== (const Matrix3& matrix) const;
@@ -82,7 +82,7 @@ public:
 protected:
     float m_data[3*3];
 
-    static uint32 index(uint32 row, uint32 col); // row*N + col
+    static uint32 Index(uint32 row, uint32 col); // row*N + col
 };
 
 OC_NS_END;

@@ -15,11 +15,11 @@ public:
     Vector4(const Vector4& vector);
 
     // Operations
-    void clamp();
-    float dot(Vector4& vector);
-    void setZero();
-    void normalize();
-    float length(); // Magnitude
+    void Clamp();
+    float Dot(Vector4& vector);
+    void SetZero();
+    void Normalize();
+    float Length(); // Magnitude
 
     Vector4& operator= (const Vector4& vector);
 
@@ -47,10 +47,10 @@ public:
     Vector4& operator/= (float fScalar);
     Vector4& operator/= (const Vector4& vector);
 
-    uint32 toARGB();
-    uint32 toRGBA();
+    uint32 ToARGB();
+    uint32 ToRGBA();
 
-    void fromARGB(uint32 color);
+    void FromARGB(uint32 color);
 
     Vector3 xyz() const;
     Vector2 xy() const;

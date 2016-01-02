@@ -9,16 +9,16 @@ public:
 	Timer();
 
     // Total time in seconds (without paused duration)
-	float getElapsed() const;
+	float GetElapsed() const;
 
     // Delta time between ticks in seconds
-	float getDelta() const;
+	float GetDelta() const;
 
-	void start();
-	void stop();
-	void reset();
+	void Start();
+	void Stop();
+	void Reset();
 
-	void tick();
+	void Tick();
 
 private:
 	double m_secondsPerCount;

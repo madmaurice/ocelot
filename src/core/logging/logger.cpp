@@ -1,11 +1,11 @@
 
-#include "logger.h"
-#include "core/logging/logEvent.h"
+#include "Logger.h"
+#include "core/logging/LogEvent.h"
 #include <iostream>
 
 OC_NS_BG;
 
-Logger& Logger::getInstance()
+Logger& Logger::GetInstance()
 {
     // Guaranteed to be destroyed.
     // Instantiated on first use.
@@ -13,55 +13,55 @@ Logger& Logger::getInstance()
     return instance;
 }
 
-void Logger::init(const LoggingConfig& config)
+void Logger::Init(const LoggingConfig& config)
 {
-    Logger& logger = getInstance();
+    Logger& logger = GetInstance();
     logger.m_config = config;
 }
 
-LoggingConfig& Logger::getConfig()
+LoggingConfig& Logger::GetConfig()
 {
     return m_config;
 }
 
-void Logger::debug(std::string msg, const char* file, uint32 line)
+void Logger::Debug(const String& msg, const char* file, uint32 line)
 {
-    processLog(LogLevel::Debug, msg, file, line);
+    ProcessLog(LogLevel::Debug, msg, file, line);
 }
 
-void Logger::info(std::string msg, const char* file, uint32 line)
+void Logger::Info(const String& msg, const char* file, uint32 line)
 {
-    processLog(LogLevel::Info, msg, file, line);
+    ProcessLog(LogLevel::Info, msg, file, line);
 }
 
-void Logger::warn(std::string msg, const char* file, uint32 line)
+void Logger::Warn(const String& msg, const char* file, uint32 line)
 {
-    processLog(LogLevel::Warn, msg, file, line);
+    ProcessLog(LogLevel::Warn, msg, file, line);
 }
 
-void Logger::error(std::string msg, const char* file, uint32 line)
+void Logger::Error(const String& msg, const char* file, uint32 line)
 {
-    processLog(LogLevel::Error, msg, file, line);
+    ProcessLog(LogLevel::Error, msg, file, line);
 }
 
-void Logger::always(std::string msg, const char* file, uint32 line)
+void Logger::Always(const String& msg, const char* file, uint32 line)
 {
-    processLog(LogLevel::Always, msg, file, line);
+    ProcessLog(LogLevel::Always, msg, file, line);
 }
 
 Logger::Logger()
 {
 }
 
-void Logger::processLog(LogLevel level, std::string msg, const char* file, uint32 line)
+void Logger::ProcessLog(LogLevel level, const String& msg, const char* file, uint32 line)
 {
-    if (level >= m_config.getLogLevel())
+    if (level >= m_config.GetLogLevel())
     {
         LogEvent log(level, msg, file, line);
 
-        for (auto& appender : m_config.getAllAppenders())
+        for (auto& appender : m_config.GetAllAppenders())
         {
-            appender->append(log);
+            appender->Append(log);
         }
     }
 }

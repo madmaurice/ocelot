@@ -17,7 +17,7 @@ ConstantBuffer<T>::ConstantBuffer(bool dynamicUsage)
 }
 
 template <class T>
-void ConstantBuffer<T>::initialize(ID3D11Device* device)
+void ConstantBuffer<T>::Initialize(ID3D11Device* device)
 {
     D3D11_BUFFER_DESC cbd;
     cbd.Usage = D3D11_USAGE_DYNAMIC;
@@ -38,7 +38,7 @@ void ConstantBuffer<T>::initialize(ID3D11Device* device)
 }
 
 template <class T>
-void ConstantBuffer<T>::applyChanges(ID3D11DeviceContext* deviceContext)
+void ConstantBuffer<T>::ApplyChanges(ID3D11DeviceContext* deviceContext)
 {
     OC_ASSERT(m_buffer.Get() != nullptr);
 

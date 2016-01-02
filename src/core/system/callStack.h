@@ -13,28 +13,28 @@ struct StackFrame
 
 std::ostream& operator<<(std::ostream& os, const StackFrame& frame);
 
-typedef std::vector<StackFrame> StackTrace;
+typedef Vector<StackFrame> StackTrace;
 
 class CallStack
 {
 public:
 
     CallStack();
-    CallStack(const std::vector<uint64>& addresses);
+    CallStack(const Vector<uint64>& addresses);
 
-    void append(uint64 address);
-    void remove(size_t position);
+    void Append(uint64 address);
+    void Remove(size_t position);
 
-    size_t getSize() const;
+    size_t GetSize() const;
 
-    StackTrace getTrace() const;
-    StackFrame getFrame(size_t position) const;
+    StackTrace GetTrace() const;
+    StackFrame GetFrame(size_t position) const;
     StackFrame operator[](size_t position) const;
 
-    String toString() const;
+    String ToString() const;
 
 private:
-    typedef std::shared_ptr<std::vector<uint64>> StackPtr;
+    typedef std::shared_ptr<Vector<uint64>> StackPtr;
     StackPtr m_stack;
 };
 

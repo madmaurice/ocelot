@@ -5,15 +5,15 @@
 #include "gtest/gtest.h"
 
 #include "pch.h"
-#include "core/logging/logger.h"
-#include "core/logging/loggingConfig.h"
+#include "core/logging/Logger.h"
+#include "core/logging/LoggingConfig.h"
 
-using namespace oc;
+using namespace OC;
 
 class LoggingTestFormater : public ILogFormatter
 {
 public:
-    virtual void applyFormat(const LogEvent& logEvent, std::ostream& ostream)
+    virtual void ApplyFormat(const LogEvent& logEvent, std::ostream& ostream)
     {
         ostream << logEvent.m_message;
     }
@@ -26,15 +26,15 @@ public:
     {
     }
 
-    virtual std::string getName()
+    virtual std::string GetName() override
     {
         return "LoggingTestAppender";
     }
 
-    virtual void append(const LogEvent& logEvent)
+    virtual void Append(const LogEvent& logEvent) override
     {
         std::stringstream sstream;
-        m_formatter->applyFormat(logEvent, sstream);
+        m_formatter->ApplyFormat(logEvent, sstream);
         m_output.push_back(sstream.str());
     }
 
@@ -62,8 +62,8 @@ protected:
     virtual void SetUp()
     {
         m_appender = new LoggingTestAppender();
-        m_config.addAppender(std::unique_ptr<LoggingTestAppender>(m_appender));
-        Logger::init(m_config);
+        m_config.AddAppender(std::unique_ptr<LoggingTestAppender>(m_appender));
+        Logger::Init(m_config);
     }
 
     virtual void TearDown()
@@ -80,7 +80,7 @@ typedef LoggingFixture LOGGING;
 TEST_F(LOGGING, ConfigLogLevel) 
 {
     // Debug
-    m_config.setLogLevel(LogLevel::Debug);
+    m_config.SetLogLevel(LogLevel::Debug);
 
     OC_LOG_DEBUG("Test");
     OC_LOG_INFO("Test");
@@ -92,7 +92,7 @@ TEST_F(LOGGING, ConfigLogLevel)
 
     // Info
     m_appender->clear();
-    m_config.setLogLevel(LogLevel::Info);
+    m_config.SetLogLevel(LogLevel::Info);
 
     OC_LOG_DEBUG("Test");
     OC_LOG_INFO("Test");
@@ -104,7 +104,7 @@ TEST_F(LOGGING, ConfigLogLevel)
 
     // Warn
     m_appender->clear();
-    m_config.setLogLevel(LogLevel::Warn);
+    m_config.SetLogLevel(LogLevel::Warn);
 
     OC_LOG_DEBUG("Test");
     OC_LOG_INFO("Test");
@@ -116,7 +116,7 @@ TEST_F(LOGGING, ConfigLogLevel)
 
     // Error
     m_appender->clear();
-    m_config.setLogLevel(LogLevel::Error);
+    m_config.SetLogLevel(LogLevel::Error);
 
     OC_LOG_DEBUG("Test");
     OC_LOG_INFO("Test");
@@ -128,7 +128,7 @@ TEST_F(LOGGING, ConfigLogLevel)
 
     // Always
     m_appender->clear();
-    m_config.setLogLevel(LogLevel::Always);
+    m_config.SetLogLevel(LogLevel::Always);
 
     OC_LOG_DEBUG("Test");
     OC_LOG_INFO("Test");
@@ -144,35 +144,35 @@ TEST_F(LOGGING, ConfigLogAppender)
     class FakeAppender : public LogAppenderBase
     {
     public:
-        virtual std::string getName()
+        virtual String GetName() override
         {
             return "FakeAppender";
         }
 
-        virtual void append(const LogEvent& logEvent)
+        virtual void Append(const LogEvent& logEvent) override
         {
             OC_UNUSED(logEvent);
         }
     };
 
-    const std::string loggingAppender("LoggingTestAppender");
-    const std::string fakeAppender("FakeAppender");
+    const String loggingAppender("LoggingTestAppender");
+    const String fakeAppender("FakeAppender");
 
-    ILogAppender* appender = m_config.getAppender<ILogAppender>(loggingAppender);
+    ILogAppender* appender = m_config.GetAppender<ILogAppender>(loggingAppender);
     EXPECT_NE(nullptr, appender);
 
-    appender = m_config.getAppender<ILogAppender>(fakeAppender);
+    appender = m_config.GetAppender<ILogAppender>(fakeAppender);
     EXPECT_EQ(nullptr, appender);
 
-    m_config.addAppender(std::make_unique<FakeAppender>());
+    m_config.AddAppender(std::make_unique<FakeAppender>());
 
-    appender = m_config.getAppender<ILogAppender>(fakeAppender);
+    appender = m_config.GetAppender<ILogAppender>(fakeAppender);
     EXPECT_NE(nullptr, appender);
 
-    const std::vector<std::unique_ptr<ILogAppender> >& allAppender = m_config.getAllAppenders();
+    const Vector<std::unique_ptr<ILogAppender> >& allAppender = m_config.GetAllAppenders();
     EXPECT_EQ(2, allAppender.size());
 
-    m_config.removeAppender(fakeAppender);
+    m_config.RemoveAppender(fakeAppender);
     EXPECT_EQ(1, allAppender.size());
 }
 

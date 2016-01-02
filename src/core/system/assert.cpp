@@ -4,7 +4,7 @@
 #include <sstream>
 #include <windows.h>
 
-void oc::ocAssert(const char* check, const char* msg, const char* file, uint32 line)
+void OC::OcAssert(const char* check, const char* msg, const char* file, uint32 line)
 {
     std::stringstream sstream;
     sstream << "Assertion failed : '" << check << "' in " << file << ":" << line;
@@ -21,9 +21,11 @@ void oc::ocAssert(const char* check, const char* msg, const char* file, uint32 l
     {
         MessageBoxA(nullptr, sstream.str().c_str(), "Assert !", MB_OK | MB_ICONERROR);
     }
+
+    Vector<int> toto;
 }
 
-void oc::ocAssert(const char* msg, const char* file, uint32 line)
+void OC::OcAssert(const char* msg, const char* file, uint32 line)
 {
     std::stringstream sstream;
     sstream << "Assertion failed : '" << msg << "' in " << file << ":" << line;

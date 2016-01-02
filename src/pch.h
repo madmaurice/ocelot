@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "core/defines.h"
-#include "core/system/types.h"
-#include "core/system/assert.h"
-#include "core/logging/logging.h"
+#include "core/Defines.h"
+#include "core/system/Types.h"
+#include "core/system/Assert.h"
+#include "core/logging/Logging.h"

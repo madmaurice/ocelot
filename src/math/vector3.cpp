@@ -1,5 +1,5 @@
 
-#include "vector3.h"
+#include "Vector3.h"
 #include <cmath>
 #include <algorithm>
 
@@ -26,16 +26,16 @@ Vector3::Vector3(const Vector3& vector)
 	z = vector.z;
 }
 
-void Vector3::setZero()
+void Vector3::SetZero()
 {
 	x = 0.0f;
 	y = 0.0f;
 	z = 0.0f;
 }
 
-void Vector3::normalize()
+void Vector3::Normalize()
 {
-	float mag = length();
+	float mag = Length();
 	if ( 0.0f == mag ) mag = 0.0001f;
 
 	float invMag = ( 1.0f / mag );
@@ -45,7 +45,7 @@ void Vector3::normalize()
 	z *= invMag;
 }
 
-float Vector3::length()
+float Vector3::Length()
 {
 	float length = 0.0f;
 
@@ -56,7 +56,7 @@ float Vector3::length()
 	return sqrt(length);
 }
 
-Vector3 Vector3::perpendicular()
+Vector3 Vector3::Perpendicular()
 {
     float xAbs = fabs( x );
     float yAbs = fabs( y );
@@ -64,14 +64,14 @@ Vector3 Vector3::perpendicular()
     float minVal = std::min( std::min( xAbs, yAbs ), zAbs );
 
     if ( xAbs == minVal )
-        return cross( Vector3( 1.0f, 0.0f, 0.0f ) );
+        return Cross( Vector3( 1.0f, 0.0f, 0.0f ) );
     else if ( yAbs == minVal )
-        return cross( Vector3( 0.0f, 1.0f, 0.0f ) );
+        return Cross( Vector3( 0.0f, 1.0f, 0.0f ) );
     else
-        return cross( Vector3( 0.0f, 0.0f, 1.0f ) );
+        return Cross( Vector3( 0.0f, 0.0f, 1.0f ) );
 }
 
-Vector3 Vector3::cross(const Vector3& vector) const
+Vector3 Vector3::Cross(const Vector3& vector) const
 {
 	Vector3 ret; 
 	
@@ -82,7 +82,7 @@ Vector3 Vector3::cross(const Vector3& vector) const
 	return ret;
 }
 
-float Vector3::dot(const Vector3& vector) const
+float Vector3::Dot(const Vector3& vector) const
 {
 	float ret = 0.0f;
 	
@@ -93,7 +93,7 @@ float Vector3::dot(const Vector3& vector) const
 	return ret;
 }
 
-void Vector3::clamp()
+void Vector3::Clamp()
 {
 	if ( x > 1.0f ) x = 1.0f;
 	if ( x < 0.0f ) x = 0.0f;
@@ -105,14 +105,14 @@ void Vector3::clamp()
 	if ( z < 0.0f ) z = 0.0f;
 }
 
-Vector3 Vector3::random()
+Vector3 Vector3::Random()
 {
 	float x = static_cast<float>( (double)rand() / RAND_MAX ) * 2.0f - 1.0f;
 	float y = static_cast<float>( (double)rand() / RAND_MAX ) * 2.0f - 1.0f;
 	float z = static_cast<float>( (double)rand() / RAND_MAX ) * 2.0f - 1.0f;
 	
 	Vector3 random = Vector3( x, y, z );
-	random.normalize();
+	random.Normalize();
 
 	return random;
 }
@@ -214,7 +214,7 @@ Vector3 Vector3::operator/ (float scalar) const
 	}
 	else
 	{
-		quot.setZero();
+		quot.SetZero();
 	}
 
 	return quot;
@@ -288,7 +288,7 @@ Vector3& Vector3::operator/= (float scalar)
 	}
 	else
 	{
-		setZero();
+		SetZero();
 	}
 
 	return *this;
@@ -303,34 +303,34 @@ Vector3& Vector3::operator/= (const Vector3& vector)
     return *this;
 }
 
-Vector3 Vector3::clamp(const Vector3& A)
+Vector3 Vector3::Clamp(const Vector3& A)
 {
     Vector3 vec = A;
-    vec.clamp();
+    vec.Clamp();
     return vec;
 }
 
-Vector3 Vector3::cross(const Vector3& A, const Vector3& B)
+Vector3 Vector3::Cross(const Vector3& A, const Vector3& B)
 {    
-    return A.cross(B);
+    return A.Cross(B);
 }
 
-float Vector3::dot(const Vector3& A, const Vector3& B)
+float Vector3::Dot(const Vector3& A, const Vector3& B)
 {    
-    return A.dot(B);
+    return A.Dot(B);
 }
 
-Vector3 Vector3::normalize(const Vector3& A)
+Vector3 Vector3::Normalize(const Vector3& A)
 {
     Vector3 vec = A;
-    vec.normalize();
+    vec.Normalize();
     return vec;
 }
 
-Vector3 Vector3::perpendicular(const Vector3& A)
+Vector3 Vector3::Perpendicular(const Vector3& A)
 {
     Vector3 vec = A;
-    return vec.perpendicular();    
+    return vec.Perpendicular();    
 }
 
 OC_NS_END;

@@ -1,27 +1,26 @@
 
 #pragma once
 
-#include "logLevel.h"
+#include "LogLevel.h"
 
 OC_NS_BG;
 
-std::string LogLevelUtil::logLeveltoString(LogLevel level)
+String LogLevelUtil::LogLeveltoString(LogLevel level)
 {
     switch (level)
     {
-    case oc::LogLevel::Debug:
+    case LogLevel::Debug:
         return "Debug";
-    case oc::LogLevel::Info:
+    case LogLevel::Info:
         return "Info";
-    case oc::LogLevel::Warn:
+    case LogLevel::Warn:
         return "Warn";
-    case oc::LogLevel::Error:
+    case LogLevel::Error:
         return "Error";
-    case oc::LogLevel::Always:
+    case LogLevel::Always:
         return "Always";
     default:
         {
-            //OC_ASSERT_FORCE("Unknown log level");
         }
         return "";
     }

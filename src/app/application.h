@@ -1,11 +1,10 @@
 
 #pragma once
 
-#include "app/event.h"
-#include "app/fpsCounter.h"
-#include "app/window.h"
-#include "core/system/timer.h"
-#include "graphic/graphicSystem.h"
+#include "app/Window.h"
+#include "core/system/Timer.h"
+#include "engine/FpsCounter.h"
+#include "graphic/GraphicSystem.h"
 
 OC_NS_BG;
 
@@ -15,33 +14,32 @@ public:
     Application(const String& name);
     virtual ~Application();
 
-    bool initialize();
-    bool initialize(const LoggingConfig& config);
+    bool Initialize();
+    bool Initialize(const LoggingConfig& config);
 
-    void shutdown();
+    void Shutdown();
 
     // Starts main loop
-    void run();
+    void Run();
 
 protected:
-    std::shared_ptr<EventDispatcher> m_eventDispatcher;
     std::unique_ptr<GraphicSystem> m_graphic;
 
 private:
 
-    virtual bool initializeImpl() = 0;
-    virtual void shutdownImpl() = 0;
+    virtual bool InitializeImpl() = 0;
+    virtual void ShutdownImpl() = 0;
 
-    virtual void updateImpl(float elapsed) = 0;
-    virtual void renderImpl() = 0;
+    virtual void UpdateImpl(float elapsed) = 0;
+    virtual void RenderImpl() = 0;
 
     // Called each frame
-    void update();
-    void render();
+    void Update();
+    void Render();
 
-    void onResize(uint32 width, uint32 height);
+    void OnResize(uint32 width, uint32 height);
 
-    LRESULT wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+    LRESULT WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
     bool m_paused;
     bool m_resizing;

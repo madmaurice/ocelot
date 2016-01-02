@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "core/logging/logEvent.h"
-#include "core/logging/logFormatter.h"
+#include "core/logging/LogEvent.h"
+#include "core/logging/LogFormatter.h"
 #include <memory>
 
 OC_NS_BG;
@@ -11,11 +11,11 @@ class ILogAppender
 {
 public:
     virtual ~ILogAppender();
-    virtual std::string getName() = 0;
-    virtual void append(const LogEvent& logEvent) = 0;
+    virtual String GetName() = 0;
+    virtual void Append(const LogEvent& logEvent) = 0;
 
-    virtual ILogFormatter& getFormatter() = 0;
-    virtual void setFormatter(const std::shared_ptr<ILogFormatter>& formatter) = 0;
+    virtual ILogFormatter& GetFormatter() = 0;
+    virtual void SetFormatter(const std::shared_ptr<ILogFormatter>& formatter) = 0;
 };
 
 class LogAppenderBase : public ILogAppender
@@ -25,13 +25,11 @@ public:
     LogAppenderBase(const std::shared_ptr<ILogFormatter>& formatter);
     virtual ~LogAppenderBase();
 
-    virtual std::string getName() = 0;
-    virtual void append(const LogEvent& logEvent) = 0;
+    ILogFormatter& GetFormatter();
+    void SetFormatter(const std::shared_ptr<ILogFormatter>& formatter);
 
-    virtual ILogFormatter& getFormatter();
-    virtual void setFormatter(const std::shared_ptr<ILogFormatter>& formatter);
 protected:
-    std::string formatLogEvent(const LogEvent& logEvent);
+    String FormatLogEvent(const LogEvent& logEvent);
 
     std::shared_ptr<ILogFormatter> m_formatter;
 };
@@ -42,8 +40,8 @@ public:
     DebugConsoleAppender();
     DebugConsoleAppender(const std::shared_ptr<ILogFormatter>& formatter);
 
-    virtual std::string getName();
-    virtual void append(const LogEvent& logEvent);
+    virtual String GetName() override;
+    virtual void Append(const LogEvent& logEvent) override;
 };
 
 class StdOutAppender : public LogAppenderBase
@@ -52,8 +50,8 @@ public:
     StdOutAppender();
     StdOutAppender(const std::shared_ptr<ILogFormatter>& formatter);
 
-    virtual std::string getName();
-    virtual void append(const LogEvent& logEvent);
+    virtual String GetName() override;
+    virtual void Append(const LogEvent& logEvent) override;
 };
 
 OC_NS_END;

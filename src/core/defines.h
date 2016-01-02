@@ -1,7 +1,7 @@
 
 #pragma once
 
-#define OC_NS_BG namespace oc {
+#define OC_NS_BG namespace OC {
 #define OC_NS_END }
 
 // http://stackoverflow.com/questions/1946445/c-c-how-to-use-the-do-while0-construct-without-compiler-warnings-like-c412

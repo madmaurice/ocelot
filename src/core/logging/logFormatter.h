@@ -10,7 +10,7 @@ class ILogFormatter
 public:
     virtual ~ILogFormatter();
 
-    virtual void applyFormat(const LogEvent& logEvent, std::ostream& ostream) = 0;
+    virtual void ApplyFormat(const LogEvent& logEvent, std::ostream& ostream) = 0;
 };
 
 
@@ -20,7 +20,7 @@ class LogFormatter : public ILogFormatter
 public:
     virtual ~LogFormatter();
 
-    virtual void applyFormat(const LogEvent& logEvent, std::ostream& ostream);
+    virtual void ApplyFormat(const LogEvent& logEvent, std::ostream& ostream) override;
 };
 
 OC_NS_END;

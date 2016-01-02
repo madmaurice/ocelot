@@ -9,10 +9,10 @@ class StackWalkerImpl;
 class StackWalker
 {
 public:
-    static bool init();
-    static void shutdown();
+    static bool Init();
+    static void Shutdown();
 
-    static CallStack getCallStack(uint32 maxDepth, uint32 startDepth = 0);
+    static CallStack GetCallStack(uint32 maxDepth, uint32 startDepth = 0);
 
 private:
     static std::unique_ptr<StackWalkerImpl> m_pImpl;

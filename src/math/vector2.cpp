@@ -1,5 +1,5 @@
 
-#include "vector2.h"
+#include "Vector2.h"
 #include <cmath>
 
 OC_NS_BG;
@@ -30,21 +30,21 @@ Vector2& Vector2::operator= (const Vector2& rhs)
     return *this;
 }
 
-void Vector2::setZero()
+void Vector2::SetZero()
 {
 	x = 0.0f;
 	y = 0.0f;
 }
 
-void Vector2::normalize()
+void Vector2::Normalize()
 {
-	float invMag = (1.0f / length());
+	float invMag = (1.0f / Length());
 
 	x *= invMag;
 	y *= invMag;
 }
 
-float Vector2::length()
+float Vector2::Length()
 {
 	float length = 0.0f;
 
@@ -54,7 +54,7 @@ float Vector2::length()
 	return sqrtf(length);
 }
 
-void Vector2::clamp()
+void Vector2::Clamp()
 {
 	if ( x > 1.0f ) x = 1.0f;
 	if ( x < 0.0f ) x = 0.0f;
@@ -129,7 +129,7 @@ Vector2 Vector2::operator/ (float scalar) const
 	}
 	else
 	{
-		quot.setZero();
+		quot.SetZero();
 	}
 
 	return quot;
@@ -179,7 +179,7 @@ Vector2& Vector2::operator/= (float scalar)
 	}
 	else
 	{
-		setZero();
+		SetZero();
 	}
 
 	return *this;

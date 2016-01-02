@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "core/util/nonCopyable.h"
+#include "core/util/NonCopyable.h"
 #include <windows.h>
 #include <functional>
 
@@ -16,31 +16,31 @@ public:
     explicit Window(const String& caption = "OCWindow");
     ~Window();
 
-    bool initialize(WndProc wndProc);
-    void shutdown();
+    bool Initialize(WndProc wndProc);
+    void Shutdown();
 
-    HWND getHandle();
+    HWND GetHandle();
 
-    void setWidth(uint32 width);
-    void setHeight(uint32 height);
+    void SetWidth(uint32 width);
+    void SetHeight(uint32 height);
 
-    int getWidth();
-    int getHeight();
+    int GetWidth();
+    int GetHeight();
 
-    int getLeft();
-    int getTop();
+    int GetLeft();
+    int GetTop();
 
-    void setSize(uint32 width, uint32 height);
-    void setPosition(uint32 left, uint32 top);
+    void SetSize(uint32 width, uint32 height);
+    void SetPosition(uint32 left, uint32 top);
 
-    void resize(int width, int height);
+    void Resize(int width, int height);
 
-    void setCaption(const String& caption);
-    void setStyle(DWORD dStyle);
+    void SetCaption(const String& caption);
+    void SetStyle(DWORD dStyle);
 
 protected:
 
-    void updateWindow();
+    void UpdateWindow();
 
     HWND    m_hWnd;
     String	m_caption;

@@ -9,10 +9,10 @@ GeometryBuilder::GeometryBuilder(const ComPtr<ID3D11Device>& dxDevice)
 {
 }
 
-Cube GeometryBuilder::createCube(float width, float height, float depth)
+Cube GeometryBuilder::CreateCube(float width, float height, float depth)
 {
     Cube cube(width, height, depth);
-    cube.buildMesh(m_dxDevice.Get());
+    cube.BuildMesh(m_dxDevice.Get());
     return cube;
 }
 

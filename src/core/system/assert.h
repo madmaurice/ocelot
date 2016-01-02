@@ -1,10 +1,10 @@
 
 #pragma once
 
-namespace oc
+namespace OC
 {
-    void ocAssert(const char* msg, const char* file, uint32 line);
-    void ocAssert(const char* check, const char* msg, const char* file, uint32 line);
+    void OcAssert(const char* msg, const char* file, uint32 line);
+    void OcAssert(const char* check, const char* msg, const char* file, uint32 line);
 }
 
 #if defined(OC_DEBUG)
@@ -16,7 +16,7 @@ namespace oc
     { \
         if (!(check)) \
         { \
-            oc::ocAssert(#check, nullptr, __FILE__, __LINE__); \
+            OC::OcAssert(#check, nullptr, __FILE__, __LINE__); \
             __debugbreak(); \
         } \
     } while(0) \
@@ -29,7 +29,7 @@ namespace oc
     { \
         if (!(check)) \
         { \
-            oc::ocAssert(#check, msg, __FILE__, __LINE__); \
+            OC::OcAssert(#check, msg, __FILE__, __LINE__); \
             __debugbreak(); \
         } \
     } while(0) \

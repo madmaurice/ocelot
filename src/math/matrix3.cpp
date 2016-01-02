@@ -1,5 +1,5 @@
 
-#include "matrix3.h"
+#include "Matrix3.h"
 #include <cstring>
 #include <cmath>
 
@@ -48,7 +48,7 @@ Matrix3& Matrix3::operator= (const Matrix3& matrix)
     return *this;
 }
 
-void Matrix3::rotationX(float radians)
+void Matrix3::RotationX(float radians)
 {
     float sin = sinf(radians);
 	float cos = cosf(radians);
@@ -66,7 +66,7 @@ void Matrix3::rotationX(float radians)
 	m_data[8] = cos;
 }
 
-void Matrix3::rotationY(float radians)
+void Matrix3::RotationY(float radians)
 {
 	float sin = sinf(radians);
 	float cos = cosf(radians);
@@ -84,7 +84,7 @@ void Matrix3::rotationY(float radians)
 	m_data[8] = cos;
 }
 
-void Matrix3::rotationZ(float radians)
+void Matrix3::RotationZ(float radians)
 {
 	float sin = sinf(radians);
 	float cos = cosf(radians);
@@ -102,33 +102,33 @@ void Matrix3::rotationZ(float radians)
 	m_data[8] = 1.0f;
 }
 
-void Matrix3::rotation(Vector3& rot)
+void Matrix3::Rotation(Vector3& rot)
 {
 	Matrix3 matrixRot1;
 	Matrix3 matrixRot2;
 	
-	matrixRot1.rotationZ(rot.z);
-	matrixRot2.rotationX(rot.x);
+	matrixRot1.RotationZ(rot.z);
+	matrixRot2.RotationX(rot.x);
 	matrixRot1 *= matrixRot2;
-	matrixRot2.rotationY(rot.y);
+	matrixRot2.RotationY(rot.y);
 	matrixRot1 *= matrixRot2;
 	*this = matrixRot1;
 }
 
-void Matrix3::rotationZYX(Vector3& rot)
+void Matrix3::RotationZYX(Vector3& rot)
 {
 	Matrix3 matrixRot1;
 	Matrix3 matrixRot2;
 	
-	matrixRot1.rotationZ(rot.z);
-	matrixRot2.rotationY(rot.y);
+	matrixRot1.RotationZ(rot.z);
+	matrixRot2.RotationY(rot.y);
 	matrixRot1 *= matrixRot2;
-	matrixRot2.rotationX(rot.x);
+	matrixRot2.RotationX(rot.x);
 	matrixRot1 *= matrixRot2;
 	*this = matrixRot1;
 }
 
-void Matrix3::rotationEuler(Vector3& axis, float angle)
+void Matrix3::RotationEuler(Vector3& axis, float angle)
 {
 	float s = sinf(angle);
 	float c = cosf(angle);
@@ -147,7 +147,7 @@ void Matrix3::rotationEuler(Vector3& axis, float angle)
 	m_data[8] = t*axis.z*axis.z + c;
 }
 
-void Matrix3::orthonormalize()
+void Matrix3::Orthonormalize()
 {
 	// This method is taken from the Wild Magic library v3.11, available at
 	// http://www.geometrictools.com.
@@ -218,12 +218,12 @@ float& Matrix3::operator[] (uint32 pos)
 
 float Matrix3::operator() (uint32 row, uint32 col) const
 {
-    return m_data[index(row,col)];
+    return m_data[Index(row,col)];
 }
 
 float& Matrix3::operator() (uint32 row, uint32 col)
 {
-    return m_data[index(row,col)];
+    return m_data[Index(row,col)];
 }
 
 bool Matrix3::operator== (const Matrix3& matrix) const
@@ -244,11 +244,11 @@ Matrix3 Matrix3::operator* (const Matrix3& matrix) const
 	{
 		for (uint32 col = 0; col < 3; col++)
 		{
-			uint32 i = index(row, col);
+			uint32 i = Index(row, col);
 			prod.m_data[i] = 0.0f;
 			for (uint32 mid = 0; mid < 3; mid++)
 			{
-				prod.m_data[i] += m_data[index(row, mid)] * matrix.m_data[index(mid, col)];
+				prod.m_data[i] += m_data[Index(row, mid)] * matrix.m_data[Index(mid, col)];
 			}
 		}
 	}
@@ -345,11 +345,11 @@ Matrix3& Matrix3::operator*= (const Matrix3& matrix)
 	{
 		for ( uint32 col = 0; col < 3; col++ )
 		{
-			uint32 i = index( row, col );
+			uint32 i = Index( row, col );
 			m_data[i] = 0.0f;
 			for ( uint32 mid = 0; mid < 3; mid++ )
 			{
-				m_data[i] += prod.m_data[index(row, mid)] * matrix.m_data[index(mid, col)];
+				m_data[i] += prod.m_data[Index(row, mid)] * matrix.m_data[Index(mid, col)];
 			}
 		}
 	}
@@ -373,63 +373,63 @@ Matrix3& Matrix3::operator/= (float scalar)
 	return *this;
 }
 
-void Matrix3::setZero()
+void Matrix3::SetZero()
 {
 	memset(m_data, 0, 3*3*sizeof(float));
 }
 
-void Matrix3::setIdentity()
+void Matrix3::SetIdentity()
 {
 	for (uint32 row = 0; row < 3; row++)
 	{
 		for (uint32 col = 0; col < 3; col++)
 		{
 			if (row == col)
-                m_data[index(row,col)] = 1.0f;
+                m_data[Index(row,col)] = 1.0f;
 			else
-				m_data[index(row,col)] = 0.0f;
+				m_data[Index(row,col)] = 0.0f;
 		}
 	}
 }
 
-void Matrix3::setTranspose()
+void Matrix3::SetTranspose()
 {
 	Matrix3 transpose;
 
 	for ( uint32 row = 0; row < 3; row++ )
 	{
 		for ( uint32 col = 0; col < 3; col++ )
-			transpose.m_data[index(row,col)] = m_data[index(col,row)];
+			transpose.m_data[Index(row,col)] = m_data[Index(col,row)];
 	}
     
 	memcpy(m_data, transpose.m_data, 3*3*sizeof(float));
 }
 
-Matrix3 Matrix3::zero()
+Matrix3 Matrix3::Zero()
 {
 	return Matrix3(true);
 }
 
-Matrix3 Matrix3::identity()
+Matrix3 Matrix3::Identity()
 {
     return Matrix3(1.0f, 0.0f, 0.0f,
                    0.0f, 1.0f, 0.0f,
                    0.0f, 0.0f, 1.0f);
 }
 
-Matrix3 Matrix3::transpose()
+Matrix3 Matrix3::Transpose()
 {
 	Matrix3 transpose;
 
 	for ( uint32 row = 0; row < 3; row++ )
 	{
 		for ( uint32 col = 0; col < 3; col++ )
-			transpose.m_data[index(row,col)] = m_data[index(col,row)];
+			transpose.m_data[Index(row,col)] = m_data[Index(col,row)];
 	}
 	return transpose;
 }
 
-uint32 Matrix3::index( uint32 row, uint32 col )
+uint32 Matrix3::Index( uint32 row, uint32 col )
 {
     return (3*row + col);
 }
@@ -441,37 +441,37 @@ Vector3 Matrix3::operator* (const Vector3& vector) const
     {
         vectProd[col] = 0.0f;
         for (uint32 row = 0; row < 3; row++)
-            vectProd[col] += m_data[index(row,col)] * vector[row];
+            vectProd[col] += m_data[Index(row,col)] * vector[row];
     }
     return vectProd;
 }
 
-void Matrix3::setRow(uint32 row, const Vector3& vector)
+void Matrix3::SetRow(uint32 row, const Vector3& vector)
 {
 	for ( uint32 col = 0; col < 3; col++ )
-        m_data[index(row,col)] = vector[col];
+        m_data[Index(row,col)] = vector[col];
 }
 
-Vector3 Matrix3::getRow(uint32 row) const
+Vector3 Matrix3::GetRow(uint32 row) const
 {
 	Vector3 vRow;
 	for ( uint32 col = 0; col < 3; col++ )
-        vRow[col] = m_data[index(row,col)];
+        vRow[col] = m_data[Index(row,col)];
 
 	return vRow;
 }
 
-void Matrix3::setColumn(uint32 col, const Vector3& vector)
+void Matrix3::SetColumn(uint32 col, const Vector3& vector)
 {
 	for ( uint32 row = 0; row < 3; row++ )
-        m_data[index(row,col)] = vector[row];
+        m_data[Index(row,col)] = vector[row];
 }
 
-Vector3 Matrix3::getColumn(uint32 col) const
+Vector3 Matrix3::GetColumn(uint32 col) const
 {
 	Vector3 vCol;
 	for ( uint32 row = 0; row < 3; row++ )
-		vCol[row] = m_data[index(row,col)];
+		vCol[row] = m_data[Index(row,col)];
 
 	return vCol;
 }

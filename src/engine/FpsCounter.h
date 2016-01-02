@@ -9,10 +9,10 @@ public:
     FpsCounter();
 
     // Need to be called on every frames
-    void updateFrame(float runningTime);
+    void UpdateFrame(float runningTime);
 
-    uint32 getFps() const;
-    float getFrameTimeMs() const;
+    uint32 GetFps() const;
+    float GetFrameTimeMs() const;
 
 private:
     uint32 m_fps;

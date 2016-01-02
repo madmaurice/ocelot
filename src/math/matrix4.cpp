@@ -1,7 +1,7 @@
 
-#include "matrix4.h"
-#include "vector3.h"
-#include "vector4.h"
+#include "Matrix4.h"
+#include "Vector3.h"
+#include "Vector4.h"
 #include <cmath>
 #include <cstring>
 
@@ -59,7 +59,7 @@ Matrix4& Matrix4::operator= (const Matrix4& matrix)
     return *this;
 }
 
-void Matrix4::rotationX(float radians)
+void Matrix4::RotationX(float radians)
 {
     float sin = sinf( radians );
 	float cos = cosf( radians );
@@ -85,7 +85,7 @@ void Matrix4::rotationX(float radians)
 	m_data[15] = 1.0f;
 }
 
-void Matrix4::rotationY(float radians)
+void Matrix4::RotationY(float radians)
 {
 	float sin = sinf(radians);
 	float cos = cosf(radians);
@@ -111,7 +111,7 @@ void Matrix4::rotationY(float radians)
 	m_data[15] = 1.0f;
 }
 
-void Matrix4::rotationZ(float radians)
+void Matrix4::RotationZ(float radians)
 {
 	float sin = sinf( radians );
 	float cos = cosf( radians );
@@ -137,7 +137,7 @@ void Matrix4::rotationZ(float radians)
 	m_data[15] = 1.0f;
 }
 
-void Matrix4::scale(float fScale)
+void Matrix4::Scale(float fScale)
 {
 	m_data[ 0] = fScale;
 	m_data[ 1] = 0.0f;
@@ -160,7 +160,7 @@ void Matrix4::scale(float fScale)
 	m_data[15] = 1.0f;
 }
 
-void Matrix4::translate(float x, float y, float z)
+void Matrix4::Translate(float x, float y, float z)
 {
 	m_data[ 0] = 1.0f;
 	m_data[ 1] = 0.0f;
@@ -183,7 +183,7 @@ void Matrix4::translate(float x, float y, float z)
 	m_data[15] = 1.0f;
 }
 
-Matrix4 Matrix4::inverse() const
+Matrix4 Matrix4::Inverse() const
 {
     float a0 = m_data[ 0]*m_data[ 5] - m_data[ 1]*m_data[ 4];
     float a1 = m_data[ 0]*m_data[ 6] - m_data[ 2]*m_data[ 4];
@@ -228,99 +228,99 @@ Matrix4 Matrix4::inverse() const
     return kInv;
 }
 
-Vector3 Matrix4::getBasisX() const
+Vector3 Matrix4::GetBasisX() const
 {
 	Vector3 basis;
 
 	for (uint32 i = 0; i < 3; i++)
-        basis[i] = m_data[index(0,i)];
+        basis[i] = m_data[Index(0,i)];
 	
 	return basis;
 }
 
-Vector3 Matrix4::getBasisY() const
+Vector3 Matrix4::GetBasisY() const
 {
 	Vector3 basis;
 
 	for (uint32 i = 0; i < 3; i++)
-        basis[i] = m_data[index(1,i)];
+        basis[i] = m_data[Index(1,i)];
 	
 	return basis;
 }
 
-Vector3 Matrix4::getBasisZ() const
+Vector3 Matrix4::GetBasisZ() const
 {
 	Vector3 basis;
 
 	for (uint32 i = 0; i < 3; i++)
-        basis[i] = m_data[index(2,i)];
+        basis[i] = m_data[Index(2,i)];
 	
 	return basis;
 }
 
-Vector3 Matrix4::getTranslation() const
+Vector3 Matrix4::GetTranslation() const
 {
 	Vector3 pos;
 
 	for (uint32 i = 0; i < 3; i++)
-		pos[i] = m_data[index(3,i)];
+		pos[i] = m_data[Index(3,i)];
 
 	return pos;
 }
 
-void Matrix4::setTranslation(const Vector3& trans)
+void Matrix4::SetTranslation(const Vector3& trans)
 {
 	for (uint32 i = 0; i < 3; i++)
-		m_data[index(3,i)] = trans[i];
+		m_data[Index(3,i)] = trans[i];
 }
 
-Matrix3 Matrix4::getRotation() const
+Matrix3 Matrix4::GetRotation() const
 {
 	Matrix3 matrix;
 
-	matrix.setRow( 0, getBasisX() );
-	matrix.setRow( 1, getBasisY() );
-	matrix.setRow( 2, getBasisZ() );
+	matrix.SetRow( 0, GetBasisX() );
+	matrix.SetRow( 1, GetBasisY() );
+	matrix.SetRow( 2, GetBasisZ() );
 
 	return matrix;
 }
 
-void Matrix4::setRotation(const Matrix3& rot)
+void Matrix4::SetRotation(const Matrix3& rot)
 {
 	for (uint32 i = 0; i < 3; i++)
 		for (uint32 j = 0; j < 3; j++)
-            m_data[index(i,j)] = rot[(3*i+j)];
+            m_data[Index(i,j)] = rot[(3*i+j)];
 }
 
-Matrix4 Matrix4::rotationMatrixX(float radians)
+Matrix4 Matrix4::RotationMatrixX(float radians)
 {
 	Matrix4 ret;
-	ret.rotationX(radians);
+	ret.RotationX(radians);
 	return ret;
 }
 
-Matrix4 Matrix4::rotationMatrixY(float radians)
+Matrix4 Matrix4::RotationMatrixY(float radians)
 {
 	Matrix4 ret;
-	ret.rotationY(radians);
+	ret.RotationY(radians);
 	return ret;
 }
 
-Matrix4 Matrix4::rotationMatrixZ(float radians)
+Matrix4 Matrix4::RotationMatrixZ(float radians)
 {
 	Matrix4 ret;
-	ret.rotationZ(radians);
+	ret.RotationZ(radians);
 	return ret;
 }
 
-Matrix4 Matrix4::scaleMatrix(float scale)
+Matrix4 Matrix4::ScaleMatrix(float scale)
 {
 	Matrix4 ret;
-	ret.scale(scale);
+	ret.Scale(scale);
 	return ret;
 }
 
-Matrix4 Matrix4::scaleMatrix(const Vector3& scale)
+Matrix4 Matrix4::ScaleMatrix(const Vector3& scale)
 {
 	Matrix4 ret;
 
@@ -347,7 +347,7 @@ Matrix4 Matrix4::scaleMatrix(const Vector3& scale)
 	return ret;
 }
 
-Matrix4 Matrix4::scaleMatrixXYZ(float x, float y, float z)
+Matrix4 Matrix4::ScaleMatrixXYZ(float x, float y, float z)
 {
 	Matrix4 ret;
 
@@ -374,26 +374,26 @@ Matrix4 Matrix4::scaleMatrixXYZ(float x, float y, float z)
 	return ret;
 }
 
-Matrix4 Matrix4::translationMatrix(float x, float y, float z)
+Matrix4 Matrix4::TranslationMatrix(float x, float y, float z)
 {
 	Matrix4 ret;
-	ret.translate(x, y, z);
+	ret.Translate(x, y, z);
 	return ret;
 }
 
-Matrix4 Matrix4::lookAtLHMatrix(Vector3& eye, Vector3& at, Vector3& up)
+Matrix4 Matrix4::LookAtLHMatrix(Vector3& eye, Vector3& at, Vector3& up)
 {
 	// This method is based on the method of the same name from the D3DX library.
 
 	Matrix4 ret;
 
 	Vector3 zaxis = at - eye; 
-	zaxis.normalize();
+	zaxis.Normalize();
 	
-	Vector3 xaxis = up.cross(zaxis);
-	xaxis.normalize();
+	Vector3 xaxis = up.Cross(zaxis);
+	xaxis.Normalize();
 
-	Vector3 yaxis = zaxis.cross(xaxis);
+	Vector3 yaxis = zaxis.Cross(xaxis);
 
 	ret.m_data[ 0] = xaxis.x;
 	ret.m_data[ 1] = yaxis.x;
@@ -410,15 +410,15 @@ Matrix4 Matrix4::lookAtLHMatrix(Vector3& eye, Vector3& at, Vector3& up)
 	ret.m_data[10] = zaxis.z;
 	ret.m_data[11] = 0.0f;
 
-	ret.m_data[12] = -(xaxis.dot(eye));
-	ret.m_data[13] = -(yaxis.dot(eye));
-	ret.m_data[14] = -(zaxis.dot(eye));
+	ret.m_data[12] = -(xaxis.Dot(eye));
+	ret.m_data[13] = -(yaxis.Dot(eye));
+	ret.m_data[14] = -(zaxis.Dot(eye));
 	ret.m_data[15] = 1.0f;
 
 	return ret;
 }
 
-Matrix4 Matrix4::perspectiveFovLHMatrix(float fovy, float aspect, float zn, float zf)
+Matrix4 Matrix4::PerspectiveFovLHMatrix(float fovy, float aspect, float zn, float zf)
 {
 	// This method is based on the method of the same name from the D3DX library.
 
@@ -454,7 +454,7 @@ Matrix4 Matrix4::perspectiveFovLHMatrix(float fovy, float aspect, float zn, floa
 	return ret;
 }
 
-Matrix4 Matrix4::orthographicLHMatrix(float zn, float zf, float width, float height)
+Matrix4 Matrix4::OrthographicLHMatrix(float zn, float zf, float width, float height)
 {
 	// This method is based on the method of the same name from the D3DX library.
 
@@ -500,12 +500,12 @@ float& Matrix4::operator[] (uint32 iPos)
 
 float Matrix4::operator() (uint32 row, uint32 col) const
 {
-    return m_data[index(row,col)];
+    return m_data[Index(row,col)];
 }
 
 float& Matrix4::operator() (uint32 row, uint32 col)
 {
-    return m_data[index(row,col)];
+    return m_data[Index(row,col)];
 }
 
 bool Matrix4::operator== (const Matrix4& matrix) const
@@ -526,12 +526,12 @@ Matrix4 Matrix4::operator* (const Matrix4& matrix) const
 	{
 		for (uint32 col = 0; col < 4; col++)
 		{
-			uint32 i = index(row, col);
+			uint32 i = Index(row, col);
 			prod.m_data[i] = 0.0f;
 			for (uint32 mid = 0; mid < 4; mid++)
 			{
 				prod.m_data[i] += 
-					m_data[index(row, mid)] * matrix.m_data[index(mid, col)];
+					m_data[Index(row, mid)] * matrix.m_data[Index(mid, col)];
 			}
 		}
 	}
@@ -628,12 +628,12 @@ Matrix4& Matrix4::operator*= (const Matrix4& matrix)
 	{
 		for ( uint32 col = 0; col < 4; col++ )
 		{
-			uint32 i = index(row, col);
+			uint32 i = Index(row, col);
 			m_data[i] = 0.0f;
 			for ( uint32 mid = 0; mid < 4; mid++ )
 			{
 				m_data[i] += 
-					prod.m_data[index(row, mid)] * matrix.m_data[index(mid, col)];
+					prod.m_data[Index(row, mid)] * matrix.m_data[Index(mid, col)];
 			}
 		}
 	}
@@ -657,46 +657,46 @@ Matrix4& Matrix4::operator/= (float scalar)
 	return *this;
 }
 
-void Matrix4::setZero()
+void Matrix4::SetZero()
 {
 	memset( m_data,0,4*4*sizeof(float) );
 }
 
-void Matrix4::setIdentity()
+void Matrix4::SetIdentity()
 {
 	for ( uint32 row = 0; row < 4; row++ ) 
 	{
 		for ( uint32 col = 0; col < 4; col++ )
 		{
 			if ( row == col )
-                m_data[index(row,col)] = 1.0f;
+                m_data[Index(row,col)] = 1.0f;
 			else
-				m_data[index(row,col)] = 0.0f;
+				m_data[Index(row,col)] = 0.0f;
 		}
 	}
 }
 
-void Matrix4::setTranspose()
+void Matrix4::SetTranspose()
 {
 	Matrix4 mTranspose;
 
 	for ( uint32 row = 0; row < 4; row++ )
 	{
 		for ( uint32 col = 0; col < 4; col++ )
-			mTranspose.m_data[index(row,col)] = m_data[index(col,row)];
+			mTranspose.m_data[Index(row,col)] = m_data[Index(col,row)];
 	}
     
 	memcpy( m_data, mTranspose.m_data, 4*4*sizeof(float) );
 }
 
-Matrix4 Matrix4::zero()
+Matrix4 Matrix4::Zero()
 {
 	Matrix4 matrix = Matrix4( true );
 
 	return matrix;
 }
 
-Matrix4 Matrix4::identity()
+Matrix4 Matrix4::Identity()
 {
     return Matrix4(1.0f, 0.0f, 0.0f, 0.0f,
                    0.0f, 1.0f, 0.0f, 0.0f,
@@ -704,20 +704,20 @@ Matrix4 Matrix4::identity()
                    0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-Matrix4 Matrix4::transpose()
+Matrix4 Matrix4::Transpose()
 {
 	Matrix4 transpose;
 
 	for ( uint32 row = 0; row < 4; row++ )
 	{
 		for ( uint32 col = 0; col < 4; col++ )
-			transpose.m_data[index(row,col)] = m_data[index(col,row)];
+			transpose.m_data[Index(row,col)] = m_data[Index(col,row)];
 	}
 
 	return transpose;
 }
 
-uint32 Matrix4::index(uint32 row, uint32 col)
+uint32 Matrix4::Index(uint32 row, uint32 col)
 {
     return (4*row + col);
 }
@@ -729,43 +729,43 @@ Vector4 Matrix4::operator* (const Vector4& vector) const
     {
         prod[col] = 0.0f;
         for ( uint32 row = 0; row < 4; row++ )
-            prod[col] += m_data[index(row,col)] * vector[row];
+            prod[col] += m_data[Index(row,col)] * vector[row];
     }
     return prod;
 }
 
-void Matrix4::setRow(uint32 row, const Vector4& vector)
+void Matrix4::SetRow(uint32 row, const Vector4& vector)
 {
 	for ( uint32 col = 0; col < 4; col++ )
-        m_data[index(row,col)] = vector[col];
+        m_data[Index(row,col)] = vector[col];
 }
 
-void Matrix4::setRow(uint32 row, const Vector3& vector)
+void Matrix4::SetRow(uint32 row, const Vector3& vector)
 {
     for ( uint32 col = 0; col < 3; col++ )
-        m_data[index(row,col)] = vector[col];
+        m_data[Index(row,col)] = vector[col];
 }
 
-Vector4 Matrix4::getRow(uint32 row) const
+Vector4 Matrix4::GetRow(uint32 row) const
 {
 	Vector4 vector;
 	for ( uint32 col = 0; col < 4; col++ )
-        vector[col] = m_data[index(row,col)];
+        vector[col] = m_data[Index(row,col)];
 
 	return vector;
 }
 
-void Matrix4::setColumn(uint32 col, const Vector4& vector)
+void Matrix4::SetColumn(uint32 col, const Vector4& vector)
 {
 	for ( uint32 row = 0; row < 4; row++ )
-        m_data[index(row,col)] = vector[row];
+        m_data[Index(row,col)] = vector[row];
 }
 
-Vector4 Matrix4::getColumn(uint32 col) const
+Vector4 Matrix4::GetColumn(uint32 col) const
 {
 	Vector4 vector;
 	for ( uint32 row = 0; row < 4; row++ )
-		vector[row] = m_data[index(row,col)];
+		vector[row] = m_data[Index(row,col)];
 
 	return vector;
 }

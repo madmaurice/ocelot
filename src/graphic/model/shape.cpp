@@ -17,7 +17,7 @@ Cube::Cube(float width, float height, float depth)
 {
 }
 
-void Cube::buildMesh(ID3D11Device* device)
+void Cube::BuildMesh(ID3D11Device* device)
 {
     // Create the vertices.
     MeshVertex v[24];
@@ -111,7 +111,7 @@ Sphere::Sphere(float radius, uint32 sliceCount, uint32 stackCount)
 {
 }
 
-void Sphere::buildMesh(ID3D11Device* device)
+void Sphere::BuildMesh(ID3D11Device* device)
 {
     m_vertices.clear();
     m_indices.clear();
@@ -146,7 +146,7 @@ void Sphere::buildMesh(ID3D11Device* device)
             v.m_position.y = m_radius*cosf(phi);
             v.m_position.z = m_radius*sinf(phi)*sinf(theta);
 
-            v.m_normal = Vector3::normalize(v.m_position);
+            v.m_normal = Vector3::Normalize(v.m_position);
 
             v.m_texCoord.x = theta / OC_2PI;
             v.m_texCoord.y = phi / OC_PI;
@@ -223,7 +223,7 @@ Cylinder::Cylinder(float bottomRadius, float topRadius, float height, uint32 sli
 {
 }
 
-void Cylinder::buildMesh(ID3D11Device* device)
+void Cylinder::BuildMesh(ID3D11Device* device)
 {
     // TODO
     OC_UNUSED(device);
@@ -245,7 +245,7 @@ Grid::Grid(float width, float depth, uint32 rows, uint32 columns)
 {
 }
 
-void Grid::buildMesh(ID3D11Device* device)
+void Grid::BuildMesh(ID3D11Device* device)
 {
     uint32 m = m_rows;
     uint32 n = m_columns;

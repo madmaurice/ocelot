@@ -14,7 +14,7 @@ enum class LogLevel
 
 namespace LogLevelUtil
 {
-    std::string logLeveltoString(LogLevel level);
+    String LogLeveltoString(LogLevel level);
 };
 
 OC_NS_END;

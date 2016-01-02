@@ -11,36 +11,30 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\app\application.cpp" />
-    <ClCompile Include="..\src\app\event.cpp" />
-    <ClCompile Include="..\src\app\fpsCounter.cpp" />
-    <ClCompile Include="..\src\app\window.cpp" />
-    <ClCompile Include="..\src\core\logging\logAppender.cpp" />
-    <ClCompile Include="..\src\core\logging\logEvent.cpp" />
-    <ClCompile Include="..\src\core\logging\logFormatter.cpp" />
-    <ClCompile Include="..\src\core\logging\logger.cpp" />
-    <ClCompile Include="..\src\core\logging\loggingConfig.cpp" />
-    <ClCompile Include="..\src\core\logging\logLevel.cpp" />
-    <ClCompile Include="..\src\core\system\assert.cpp" />
-    <ClCompile Include="..\src\core\system\callStack.cpp" />
-    <ClCompile Include="..\src\core\system\stackWalker.cpp" />
-    <ClCompile Include="..\src\core\system\timer.cpp" />
-    <ClCompile Include="..\src\graphic\buffer\indexBuffer.cpp" />
-    <ClCompile Include="..\src\graphic\buffer\vertexBuffer.cpp" />
-    <ClCompile Include="..\src\graphic\graphicSystem.cpp" />
-    <ClCompile Include="..\src\graphic\model\geometryBuilder.cpp" />
-    <ClCompile Include="..\src\graphic\model\mesh.cpp" />
-    <ClCompile Include="..\src\graphic\model\model.cpp" />
-    <ClCompile Include="..\src\graphic\model\shape.cpp" />
-    <ClCompile Include="..\src\graphic\shader\basicEffect.cpp" />
-    <ClCompile Include="..\src\graphic\shader\colorEffect.cpp" />
-    <ClCompile Include="..\src\graphic\shader\effect.cpp" />
-    <ClCompile Include="..\src\graphic\shader\shader.cpp" />
-    <ClCompile Include="..\src\math\matrix3.cpp" />
-    <ClCompile Include="..\src\math\matrix4.cpp" />
-    <ClCompile Include="..\src\math\vector2.cpp" />
-    <ClCompile Include="..\src\math\vector3.cpp" />
-    <ClCompile Include="..\src\math\vector4.cpp" />
+    <ClCompile Include="..\src\app\Application.cpp" />
+    <ClCompile Include="..\src\app\Window.cpp" />
+    <ClCompile Include="..\src\core\logging\LogAppender.cpp" />
+    <ClCompile Include="..\src\core\logging\LogEvent.cpp" />
+    <ClCompile Include="..\src\core\logging\LogFormatter.cpp" />
+    <ClCompile Include="..\src\core\logging\Logger.cpp" />
+    <ClCompile Include="..\src\core\logging\LoggingConfig.cpp" />
+    <ClCompile Include="..\src\core\logging\LogLevel.cpp" />
+    <ClCompile Include="..\src\core\system\Assert.cpp" />
+    <ClCompile Include="..\src\core\system\CallStack.cpp" />
+    <ClCompile Include="..\src\core\system\StackWalker.cpp" />
+    <ClCompile Include="..\src\core\system\Timer.cpp" />
+    <ClCompile Include="..\src\graphic\buffer\IndexBuffer.cpp" />
+    <ClCompile Include="..\src\graphic\buffer\VertexBuffer.cpp" />
+    <ClCompile Include="..\src\graphic\GraphicSystem.cpp" />
+    <ClCompile Include="..\src\graphic\model\Mesh.cpp" />
+    <ClCompile Include="..\src\graphic\model\Model.cpp" />
+    <ClCompile Include="..\src\graphic\model\Shape.cpp" />
+    <ClCompile Include="..\src\graphic\util\GeometryBuilder.cpp" />
+    <ClCompile Include="..\src\math\Matrix3.cpp" />
+    <ClCompile Include="..\src\math\Matrix4.cpp" />
+    <ClCompile Include="..\src\math\Vector2.cpp" />
+    <ClCompile Include="..\src\math\Vector3.cpp" />
+    <ClCompile Include="..\src\math\Vector4.cpp" />
     <ClCompile Include="..\src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -48,66 +42,47 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\app\application.h" />
-    <ClInclude Include="..\src\app\event.h" />
-    <ClInclude Include="..\src\app\fpsCounter.h" />
-    <ClInclude Include="..\src\app\window.h" />
-    <ClInclude Include="..\src\core\defines.h" />
-    <ClInclude Include="..\src\core\logging\logAppender.h" />
-    <ClInclude Include="..\src\core\logging\logEvent.h" />
-    <ClInclude Include="..\src\core\logging\logFormatter.h" />
-    <ClInclude Include="..\src\core\logging\logger.h" />
-    <ClInclude Include="..\src\core\logging\logging.h" />
-    <ClInclude Include="..\src\core\logging\loggingConfig.h" />
-    <ClInclude Include="..\src\core\logging\logLevel.h" />
-    <ClInclude Include="..\src\core\system\assert.h" />
-    <ClInclude Include="..\src\core\system\callStack.h" />
-    <ClInclude Include="..\src\core\system\stackWalker.h" />
-    <ClInclude Include="..\src\core\system\timer.h" />
-    <ClInclude Include="..\src\core\system\types.h" />
-    <ClInclude Include="..\src\core\util\nonCopyable.h" />
-    <ClInclude Include="..\src\core\util\pointer.h" />
-    <ClInclude Include="..\src\graphic\buffer\constantBuffer.h" />
-    <ClInclude Include="..\src\graphic\buffer\indexBuffer.h" />
-    <ClInclude Include="..\src\graphic\buffer\vertexBuffer.h" />
-    <ClInclude Include="..\src\graphic\dxUtil.h" />
-    <ClInclude Include="..\src\graphic\graphicDevice.h" />
-    <ClInclude Include="..\src\graphic\graphicSystem.h" />
-    <ClInclude Include="..\src\graphic\model\geometryBuilder.h" />
-    <ClInclude Include="..\src\graphic\model\mesh.h" />
-    <ClInclude Include="..\src\graphic\model\model.h" />
-    <ClInclude Include="..\src\graphic\model\shape.h" />
-    <ClInclude Include="..\src\graphic\shader\basicEffect.h" />
-    <ClInclude Include="..\src\graphic\shader\colorEffect.h" />
-    <ClInclude Include="..\src\graphic\shader\effect.h" />
-    <ClInclude Include="..\src\graphic\shader\shader.h" />
-    <ClInclude Include="..\src\math\math.h" />
-    <ClInclude Include="..\src\math\matrix3.h" />
-    <ClInclude Include="..\src\math\matrix4.h" />
-    <ClInclude Include="..\src\math\vector2.h" />
-    <ClInclude Include="..\src\math\vector3.h" />
-    <ClInclude Include="..\src\math\vector4.h" />
+    <ClInclude Include="..\src\app\Application.h" />
+    <ClInclude Include="..\src\app\Window.h" />
+    <ClInclude Include="..\src\core\Defines.h" />
+    <ClInclude Include="..\src\core\logging\LogAppender.h" />
+    <ClInclude Include="..\src\core\logging\LogEvent.h" />
+    <ClInclude Include="..\src\core\logging\LogFormatter.h" />
+    <ClInclude Include="..\src\core\logging\Logger.h" />
+    <ClInclude Include="..\src\core\logging\Logging.h" />
+    <ClInclude Include="..\src\core\logging\LoggingConfig.h" />
+    <ClInclude Include="..\src\core\logging\LogLevel.h" />
+    <ClInclude Include="..\src\core\system\Assert.h" />
+    <ClInclude Include="..\src\core\system\CallStack.h" />
+    <ClInclude Include="..\src\core\system\Containers.h" />
+    <ClInclude Include="..\src\core\system\StackWalker.h" />
+    <ClInclude Include="..\src\core\system\Timer.h" />
+    <ClInclude Include="..\src\core\system\Types.h" />
+    <ClInclude Include="..\src\core\util\NonCopyable.h" />
+    <ClInclude Include="..\src\core\util\ComPtr.h" />
+    <ClInclude Include="..\src\graphic\buffer\ConstantBuffer.h" />
+    <ClInclude Include="..\src\graphic\buffer\IndexBuffer.h" />
+    <ClInclude Include="..\src\graphic\buffer\VertexBuffer.h" />
+    <ClInclude Include="..\src\graphic\GraphicSystem.h" />
+    <ClInclude Include="..\src\graphic\model\Mesh.h" />
+    <ClInclude Include="..\src\graphic\model\Model.h" />
+    <ClInclude Include="..\src\graphic\model\Shape.h" />
+    <ClInclude Include="..\src\graphic\util\DxUtil.h" />
+    <ClInclude Include="..\src\graphic\util\GeometryBuilder.h" />
+    <ClInclude Include="..\src\math\Math.h" />
+    <ClInclude Include="..\src\math\Matrix3.h" />
+    <ClInclude Include="..\src\math\Matrix4.h" />
+    <ClInclude Include="..\src\math\Vector2.h" />
+    <ClInclude Include="..\src\math\Vector3.h" />
+    <ClInclude Include="..\src\math\Vector4.h" />
     <ClInclude Include="..\src\pch.h" />
     <ClInclude Include="resource.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\src\graphic\buffer\constantBuffer.inl" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Ocelot.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\graphic\shader\hlsl\color.hlsl">
-      <FileType>Document</FileType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\src\graphic\shader\hlsl\basicEffect.hlsl">
-      <FileType>Document</FileType>
-    </None>
-    <None Include="..\src\graphic\shader\hlsl\lights.hlsl">
-      <FileType>Document</FileType>
-    </None>
+    <None Include="..\src\graphic\buffer\ConstantBuffer.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{73B1D1B0-6661-4A2A-AC16-D07986750881}</ProjectGuid>

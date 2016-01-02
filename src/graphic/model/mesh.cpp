@@ -1,5 +1,5 @@
 
-#include "mesh.h"
+#include "Mesh.h"
 
 OC_NS_BG;
 
@@ -21,21 +21,21 @@ MeshVertexDeclaration MeshVertex::getVertexDeclaration()
 
 void Mesh::buildBuffers(ID3D11Device* device)
 {
-    m_vertexBuffer.initialize(device, m_vertices);
-    m_indexBuffer.initialize(device, m_indices);
+    m_vertexBuffer.Initialize(device, m_vertices);
+    m_indexBuffer.Initialize(device, m_indices);
 }
 
-VertexBuffer Mesh::getVertexBuffer()
+VertexBuffer Mesh::GetVertexBuffer()
 {
     return m_vertexBuffer;
 }
 
-IndexBuffer Mesh::getIndexBuffer()
+IndexBuffer Mesh::GetIndexBuffer()
 {
     return m_indexBuffer;
 }
 
-DXGI_FORMAT Mesh::getIndexBufferFormat() const
+DXGI_FORMAT Mesh::GetIndexBufferFormat() const
 {
     return DXGI_FORMAT_R32_UINT;
 }

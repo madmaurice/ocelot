@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "matrix3.h"
-#include "vector4.h"
+#include "Matrix3.h"
+#include "Vector4.h"
 
 OC_NS_BG;
 
@@ -17,43 +17,43 @@ public:
             float m21, float m22, float m23, float m24,
             float m31, float m32, float m33, float m34,
             float m41, float m42, float m43, float m44);
-    Matrix4 inverse() const;
+    Matrix4 Inverse() const;
 
-    void rotationX(float radians);
-    void rotationY(float radians);
-    void rotationZ(float radians);
-    void scale(float scale);
-    void translate(float x, float y, float z);
+    void RotationX(float radians);
+    void RotationY(float radians);
+    void RotationZ(float radians);
+    void Scale(float scale);
+    void Translate(float x, float y, float z);
 
     // Returns first 3 members of a row (discard w row)
-    Vector3 getBasisX() const;
-    Vector3 getBasisY() const;
-    Vector3 getBasisZ() const;
+    Vector3 GetBasisX() const;
+    Vector3 GetBasisY() const;
+    Vector3 GetBasisZ() const;
 
-    Vector3 getTranslation() const;
-    Matrix3 getRotation() const;
+    Vector3 GetTranslation() const;
+    Matrix3 GetRotation() const;
 
-    void setRotation(const Matrix3& Rot);
-    void setTranslation(const Vector3& Trans);
+    void SetRotation(const Matrix3& Rot);
+    void SetTranslation(const Vector3& Trans);
 
-    static Matrix4 rotationMatrixX(float radians);
-    static Matrix4 rotationMatrixY(float radians);
-    static Matrix4 rotationMatrixZ(float radians);
-    static Matrix4 scaleMatrix(float scale);
-    static Matrix4 scaleMatrix(const Vector3& scale);
-    static Matrix4 scaleMatrixXYZ(float x, float y, float z);
-    static Matrix4 translationMatrix(float x, float y, float z);
-    static Matrix4 lookAtLHMatrix(Vector3& eye, Vector3& at, Vector3& up);
-    static Matrix4 perspectiveFovLHMatrix(float fovy, float aspect, float zn, float zf);
-    static Matrix4 orthographicLHMatrix(float zn, float zf, float width, float height);
+    static Matrix4 RotationMatrixX(float radians);
+    static Matrix4 RotationMatrixY(float radians);
+    static Matrix4 RotationMatrixZ(float radians);
+    static Matrix4 ScaleMatrix(float scale);
+    static Matrix4 ScaleMatrix(const Vector3& scale);
+    static Matrix4 ScaleMatrixXYZ(float x, float y, float z);
+    static Matrix4 TranslationMatrix(float x, float y, float z);
+    static Matrix4 LookAtLHMatrix(Vector3& eye, Vector3& at, Vector3& up);
+    static Matrix4 PerspectiveFovLHMatrix(float fovy, float aspect, float zn, float zf);
+    static Matrix4 OrthographicLHMatrix(float zn, float zf, float width, float height);
 
-    void setZero();
-    void setIdentity();
-    void setTranspose();
+    void SetZero();
+    void SetIdentity();
+    void SetTranspose();
 
-    static Matrix4 zero();
-    static Matrix4 identity();
-    Matrix4 transpose();
+    static Matrix4 Zero();
+    static Matrix4 Identity();
+    Matrix4 Transpose();
 
     // Operators
     Matrix4& operator= (const Matrix4& matrix);
@@ -64,11 +64,11 @@ public:
     float operator[] (uint32 pos) const;
     float& operator[] (uint32 pos);
 
-    void setRow(uint32 row, const Vector4& vector);
-    void setRow(uint32 row, const Vector3& vector);		
-    Vector4 getRow(uint32 row) const;        
-    void setColumn(uint32 col, const Vector4& vector);
-    Vector4 getColumn(uint32 col) const;
+    void SetRow(uint32 row, const Vector4& vector);
+    void SetRow(uint32 row, const Vector3& vector);		
+    Vector4 GetRow(uint32 row) const;        
+    void SetColumn(uint32 col, const Vector4& vector);
+    Vector4 GetColumn(uint32 col) const;
 
     // Comparison
     bool operator== (const Matrix4& matrix) const;
@@ -116,7 +116,7 @@ protected:
     float m_data[4*4];
 
     // Get the array index for row and col
-    static uint32 index(uint32 row, uint32 col); // row*N + col
+    static uint32 Index(uint32 row, uint32 col); // row*N + col
 };
 
 OC_NS_END;

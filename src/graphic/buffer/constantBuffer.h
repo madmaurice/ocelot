@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "core/util/pointer.h"
-#include "graphic/dxUtil.h"
+#include "core/util/ComPtr.h"
+#include "graphic/util/DxUtil.h"
 
 OC_NS_BG;
 
@@ -12,8 +12,8 @@ class ConstantBuffer : public NonCopyable
 public:
     explicit ConstantBuffer(bool dynamicUsage = true);
 
-    void initialize(ID3D11Device* device);
-    void applyChanges(ID3D11DeviceContext* deviceContext);
+    void Initialize(ID3D11Device* device);
+    void ApplyChanges(ID3D11DeviceContext* deviceContext);
 
     operator ID3D11Buffer* () { return m_buffer.Get(); }
     operator ID3D11Buffer** () { return m_buffer.GetAddressOf(); }

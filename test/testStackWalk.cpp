@@ -1,10 +1,10 @@
 
 #include "gtest/gtest.h"
-#include "core/system/stackWalker.h"
+#include "core/system/StackWalker.h"
 #include <iostream>
-#include "core/util/nonCopyable.h"
+#include "core/util/NonCopyable.h"
 
-using namespace oc;
+using namespace OC;
 
 class StackWalkFixture : public ::testing::Test
 {
@@ -13,12 +13,12 @@ public:
 protected:
     virtual void SetUp()
     {
-        StackWalker::init();
+        StackWalker::Init();
     }
 
     virtual void TearDown()
     {
-        StackWalker::shutdown();
+        StackWalker::Shutdown();
     }
 };
 
@@ -27,9 +27,9 @@ typedef StackWalkFixture STACK_WALK;
 
 TEST_F(STACK_WALK, GetStackTrace) 
 {
-    CallStack stack = StackWalker::getCallStack(50);
+    CallStack stack = StackWalker::GetCallStack(50);
     std::cout << stack << std::endl;
 
-    StackFrame frame = stack.getFrame(2);
+    StackFrame frame = stack.GetFrame(2);
     std::cout << frame << std::endl;
 }

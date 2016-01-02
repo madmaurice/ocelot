@@ -11,10 +11,10 @@ public:
     Vector2(const Vector2& Vector);
 
     // Operations
-    void clamp();
-    void setZero();
-    void normalize();
-    float length(); //Magnitude
+    void Clamp();
+    void SetZero();
+    void Normalize();
+    float Length(); //Magnitude
 
     Vector2& operator= (const Vector2& rhs);
 

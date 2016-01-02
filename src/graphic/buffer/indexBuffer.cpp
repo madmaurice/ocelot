@@ -1,6 +1,6 @@
 
 #include "indexBuffer.h"
-#include "graphic/dxUtil.h"
+#include "graphic/util/DxUtil.h"
 
 OC_NS_BG;
 
@@ -9,7 +9,7 @@ IndexBuffer::IndexBuffer()
 {
 }
 
-void IndexBuffer::initialize(ID3D11Device* device, const uint32* indices, uint32 numIndices)
+void IndexBuffer::Initialize(ID3D11Device* device, const uint32* indices, uint32 numIndices)
 {
     D3D11_BUFFER_DESC ibd;
     ibd.Usage = D3D11_USAGE_IMMUTABLE;
@@ -24,9 +24,9 @@ void IndexBuffer::initialize(ID3D11Device* device, const uint32* indices, uint32
     DXCall(device->CreateBuffer(&ibd, &iinitData, m_buffer.GetAddressOf()));
 }
 
-void IndexBuffer::initialize(ID3D11Device* device, const std::vector<uint32> indices)
+void IndexBuffer::Initialize(ID3D11Device* device, const std::vector<uint32> indices)
 {
-    initialize(device, &indices[0], indices.size());
+    Initialize(device, &indices[0], indices.size());
 }
 
 OC_NS_END;

@@ -1,5 +1,5 @@
 
-#include "logFormatter.h"
+#include "LogFormatter.h"
 #include <sstream>
 #include <iomanip>
 #include <ctime>
@@ -8,7 +8,7 @@ OC_NS_BG;
 
 namespace LogFormatterImpl
 {
-    void appendCurrentTime(std::ostream& ostream)
+    void AppendCurrentTime(std::ostream& ostream)
     {
         std::time_t epoch = time(NULL);
         struct tm now;
@@ -19,9 +19,9 @@ namespace LogFormatterImpl
         ostream << buffer;
     }
 
-    void appendLogLevel(std::ostream& ostream, LogLevel level)
+    void AppendLogLevel(std::ostream& ostream, LogLevel level)
     {
-        std::string levelString(LogLevelUtil::logLeveltoString(level));
+        std::string levelString(LogLevelUtil::LogLeveltoString(level));
         std::string outString(6, ' '); //Max log level length is 6
         outString.replace(0, levelString.size(), levelString);
 
@@ -37,11 +37,11 @@ LogFormatter::~LogFormatter()
 {
 }
 
-void LogFormatter::applyFormat(const LogEvent& logEvent, std::ostream& ostream)
+void LogFormatter::ApplyFormat(const LogEvent& logEvent, std::ostream& ostream)
 {
-    LogFormatterImpl::appendCurrentTime(ostream);
+    LogFormatterImpl::AppendCurrentTime(ostream);
     ostream << " - ";
-    LogFormatterImpl::appendLogLevel(ostream, logEvent.m_logLevel);
+    LogFormatterImpl::AppendLogLevel(ostream, logEvent.m_logLevel);
     ostream << " : " << logEvent.m_message;
 }
 

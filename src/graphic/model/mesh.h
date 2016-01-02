@@ -1,10 +1,10 @@
 
 #pragma once
 
-#include "math/vector2.h"
-#include "math/vector3.h"
-#include "graphic/buffer/indexBuffer.h"
-#include "graphic/buffer/vertexBuffer.h"
+#include "math/Vector2.h"
+#include "math/Vector3.h"
+#include "graphic/buffer/IndexBuffer.h"
+#include "graphic/buffer/VertexBuffer.h"
 #include <d3d11.h>
 
 
@@ -38,10 +38,10 @@ class Mesh
 {
 public:
 
-    VertexBuffer getVertexBuffer();
-    IndexBuffer getIndexBuffer();
+    VertexBuffer GetVertexBuffer();
+    IndexBuffer GetIndexBuffer();
 
-    DXGI_FORMAT getIndexBufferFormat() const;
+    DXGI_FORMAT GetIndexBufferFormat() const;
 
 protected:
 
@@ -50,8 +50,8 @@ protected:
     VertexBuffer    m_vertexBuffer;
     IndexBuffer     m_indexBuffer;
 
-    std::vector<MeshVertex> m_vertices;
-    std::vector<uint32> m_indices;
+    Vector<MeshVertex> m_vertices;
+    Vector<uint32> m_indices;
 };
 
 OC_NS_END;
