@@ -13,10 +13,10 @@ public:
     Matrix4();
     explicit Matrix4(bool toZero);
     Matrix4(const Matrix4& matrix);
-    Matrix4(float m11, float m12, float m13, float m14,
-            float m21, float m22, float m23, float m24,
-            float m31, float m32, float m33, float m34,
-            float m41, float m42, float m43, float m44);
+    Matrix4(float n11, float n12, float n13, float n14,
+            float n21, float n22, float n23, float n24,
+            float n31, float n32, float n33, float n34,
+            float n41, float n42, float n43, float n44);
     Matrix4 Inverse() const;
 
     void RotationX(float radians);

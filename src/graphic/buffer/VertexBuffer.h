@@ -13,7 +13,7 @@ class VertexBuffer
 public:
     VertexBuffer();
 
-    void Initialize(ID3D11Device* device, size_t byteWidth, const void* data);
+    void Initialize(ID3D11Device* device, uint32 byteWidth, const void* data);
 
     template<typename T>
     void Initialize(ID3D11Device* device, const std::vector<T> vertices);
@@ -28,7 +28,7 @@ private:
 template<typename T>
 void VertexBuffer::Initialize(ID3D11Device* device, const std::vector<T> vertices)
 {
-    Initialize(device, sizeof(T) * vertices.size(), &vertices[0]);
+    Initialize(device, sizeof(T) * static_cast<uint32>(vertices.size()), &vertices[0]);
 }
 
 OC_NS_END;

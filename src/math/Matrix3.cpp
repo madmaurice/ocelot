@@ -20,21 +20,21 @@ Matrix3::Matrix3(const Matrix3& matrix)
     memcpy(m_data, (void*)&matrix, 9*sizeof(float));
 }
 
-Matrix3::Matrix3(float m11, float m12, float m13,
-				 float m21, float m22, float m23,
-				 float m31, float m32, float m33)
+Matrix3::Matrix3(float n11, float n12, float n13,
+				 float n21, float n22, float n23,
+				 float n31, float n32, float n33)
 {
-	m_data[0] = m11;
-	m_data[1] = m12;
-	m_data[2] = m13;
+	m_data[0] = n11;
+	m_data[1] = n12;
+	m_data[2] = n13;
 
-	m_data[3] = m21;
-	m_data[4] = m22;
-	m_data[5] = m23;
+	m_data[3] = n21;
+	m_data[4] = n22;
+	m_data[5] = n23;
 
-	m_data[6] = m31;
-	m_data[7] = m32;
-	m_data[8] = m33;
+	m_data[6] = n31;
+	m_data[7] = n32;
+	m_data[8] = n33;
 }
 
 Matrix3& Matrix3::operator= (const Matrix3& matrix)

@@ -5,7 +5,6 @@
 #include <vector>
 #include "gtest/gtest.h"
 #include <windows.h>
-#include <DbgHelp.h>
 #include "core/system/types.h"
 
 

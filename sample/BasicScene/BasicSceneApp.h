@@ -4,7 +4,7 @@
 #include "app/Application.h"
 #include "core/util/ComPtr.h"
 #include "graphic/util/DxUtil.h"
-#include "graphic/GraphicSystem.h"
+#include "graphic/Graphic.h"
 #include "graphic/buffer/ConstantBuffer.h"
 #include "graphic/buffer/IndexBuffer.h"
 #include "graphic/buffer/VertexBuffer.h"

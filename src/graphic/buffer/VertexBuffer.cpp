@@ -10,7 +10,7 @@ VertexBuffer::VertexBuffer()
 {
 }
 
-void VertexBuffer::Initialize(ID3D11Device* device, size_t byteWidth, const void* data)
+void VertexBuffer::Initialize(ID3D11Device* device, uint32 byteWidth, const void* data)
 {
     D3D11_BUFFER_DESC bd;
     ZeroMemory(&bd, sizeof(bd));

@@ -1,5 +1,5 @@
 #include "app/Application.h"
-#include "graphic/GraphicSystem.h"
+#include "graphic/Graphic.h"
 #include <functional>
 
 OC_NS_BG;
@@ -56,8 +56,7 @@ bool Application::Initialize(const LoggingConfig& config)
         return false;
     }
 
-    m_graphic.reset(new GraphicSystem(m_window.GetHandle(), m_window.GetWidth(), m_window.GetHeight()));
-    if (!m_graphic->Initialize())
+    if (!Graphic::Initialize(m_window.GetHandle(), m_window.GetWidth(), m_window.GetHeight()))
     {
         OC_LOG_ERROR("Application initialization failed : Graphic init failed!");
         return false;
@@ -80,7 +79,7 @@ void Application::Shutdown()
     if (!m_shutdown)
     {
         ShutdownImpl();
-        m_graphic->Shutdown();
+        Graphic::Shutdown();
         m_window.Shutdown();
 
         m_shutdown = true;
@@ -141,18 +140,18 @@ void Application::Update()
 
 void Application::Render()
 {
-    m_graphic->Clear();
+    Graphic::Clear();
 
     RenderImpl();
 
     // TODO : render debug HUD
-    m_graphic->Present();
+    Graphic::Present();
 }
 
 void Application::OnResize(uint32 width, uint32 height)
 {
     OC_LOG_DEBUG("Application::onResize : width=" << width << ", height=" << height);
-    m_graphic->Resize(width, height);
+    Graphic::Resize(width, height);
 }
 
 LRESULT Application::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)

@@ -60,7 +60,7 @@ bool Window::Initialize(WndProc wndProc)
         return false;
     }
 
-    RECT R = { 0, 0, m_width, m_height };
+    RECT R = { 0, 0, (LONG)m_width, (LONG)m_height };
     AdjustWindowRect(&R, WS_OVERLAPPEDWINDOW, false);
     int width  = R.right - R.left;
     int height = R.bottom - R.top;

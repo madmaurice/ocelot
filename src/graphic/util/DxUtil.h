@@ -11,10 +11,10 @@
     __pragma(warning(disable:4127))                            \
     do                                                         \
     {                                                          \
-        HRESULT hr = (x);                                      \
-        if(FAILED(hr))                                         \
+        HRESULT _hr = (x);                                      \
+        if(FAILED(_hr))                                         \
         {                                                      \
-            DXTrace(__FILE__, (DWORD)__LINE__, hr, #x, true);  \
+            DXTrace(__FILE__, (DWORD)__LINE__, _hr, #x, true);  \
             __debugbreak();                                    \
         }                                                      \
     }                                                          \

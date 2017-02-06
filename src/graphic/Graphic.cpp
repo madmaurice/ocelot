@@ -1,35 +1,41 @@
 
 #pragma once
 
-#include "graphicSystem.h"
+#include "Graphic.h"
 #include "graphic/util/DxUtil.h"
 #include "graphic/util/GeometryBuilder.h"
 
 OC_NS_BG;
 
-GraphicSystem::GraphicSystem(HWND hwnd, uint32 windowWidth, uint32 windowHeight)
-    : m_geoBuilder(nullptr)
-    , m_hwnd(hwnd)
-    , m_backBufferWidth(windowWidth)
-    , m_backBufferHeigth(windowHeight)
-{
-}
+GraphicConfig Graphic::m_config;
+ComPtr<IDXGISwapChain> Graphic::m_swapChain;
+ComPtr<ID3D11RenderTargetView> Graphic::m_backBufferRTV;
+ComPtr<ID3D11Texture2D> Graphic::m_depthStencilBuffer;
+ComPtr<ID3D11DepthStencilView> Graphic::m_depthStencilView;
 
-GraphicSystem::~GraphicSystem()
-{
-}
+D3D11_VIEWPORT Graphic::m_viewport;
 
-bool GraphicSystem::Initialize()
+HWND Graphic::m_hwnd = 0;
+uint32 Graphic::m_backBufferWidth = 0;
+uint32 Graphic::m_backBufferHeigth = 0;
+
+GraphicDevice Graphic::m_dxDevice;
+GraphicDeviceContext Graphic::m_dxImmediateContext;
+
+bool Graphic::Initialize(HWND hwnd, uint32 windowWidth, uint32 windowHeight)
 {
     // No MSAA
-    GraphicSystemConfig config = { false, false, 1, 0, D3D_DRIVER_TYPE_HARDWARE };
-    return Initialize(config);
+    GraphicConfig config = { windowWidth, windowHeight, 1, 0, D3D_DRIVER_TYPE_HARDWARE, false, false };
+    m_backBufferHeigth = windowHeight;
+    m_backBufferHeigth = windowHeight;
+    return Initialize(hwnd, config);
 }
 
-bool GraphicSystem::Initialize(const GraphicSystemConfig& config)
+bool Graphic::Initialize(HWND hwnd, const GraphicConfig& config)
 {
     OC_LOG_INFO("GraphicSystem initializing");
-    
+
+    m_hwnd = hwnd;
     m_config = config;
 
     OC_ASSERT_MSG(m_config.m_MSAASample > 0, "Invalid MSAA samples!"); // Minimum is 1
@@ -136,13 +142,11 @@ bool GraphicSystem::Initialize(const GraphicSystemConfig& config)
     // also need to be executed every time the window is resized.
     BindDefaultBuffers();
 
-    m_geoBuilder.reset(new GeometryBuilder(m_dxDevice));
-
     OC_LOG_INFO("GraphicSystem initialize completed");
     return true;
 }
 
-void GraphicSystem::Shutdown()
+void Graphic::Shutdown()
 {
     // Before shutting down set to windowed mode or when you release the swap chain it will throw an exception.
     if (m_swapChain.Get() != nullptr)
@@ -160,17 +164,8 @@ void GraphicSystem::Shutdown()
     }
 }
 
-uint32 GraphicSystem::GetBackBufferWidth() const
-{
-    return m_backBufferWidth;
-}
 
-uint32 GraphicSystem::GetBackBufferHeigth() const
-{
-    return m_backBufferHeigth;
-}
-
-void GraphicSystem::Resize(uint32 width, uint32 heigth)
+void Graphic::Resize(uint32 width, uint32 heigth)
 {
     OC_ASSERT(m_dxImmediateContext.Get());
     OC_ASSERT(m_dxDevice.Get());
@@ -193,7 +188,7 @@ void GraphicSystem::Resize(uint32 width, uint32 heigth)
 }
 
 // This complete the back buffer init or resize by setting the default render target and viewport.
-void GraphicSystem::BindDefaultBuffers()
+void Graphic::BindDefaultBuffers()
 {
     ComPtr<ID3D11Texture2D> backBuffer;
     DXCall(m_swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(backBuffer.GetAddressOf())));
@@ -234,13 +229,13 @@ void GraphicSystem::BindDefaultBuffers()
     m_dxImmediateContext->RSSetViewports(1, &vp);
 }
 
-void GraphicSystem::Clear()
+void Graphic::Clear()
 {
     m_dxImmediateContext->ClearRenderTargetView(m_backBufferRTV.Get(), reinterpret_cast<const float*>(&Colors::SteelBlue));
     m_dxImmediateContext->ClearDepthStencilView(m_depthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }
 
-void GraphicSystem::Present()
+void Graphic::Present()
 {
     DXCall(m_swapChain->Present(0, 0));
 }

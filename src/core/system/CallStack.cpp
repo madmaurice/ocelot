@@ -1,7 +1,11 @@
 
 #include "CallStack.h"
 #include <windows.h>
+
+#pragma warning(push)
+#pragma warning(disable: 4091)
 #include <DbgHelp.h>
+#pragma warning(pop)
 
 OC_NS_BG;
 
@@ -43,8 +47,8 @@ CallStack::CallStack()
 {
 }
 
-CallStack::CallStack(const std::vector<uint64>& addresses )
-    : m_stack(new std::vector<uint64>(addresses))
+CallStack::CallStack(const Vector<uint64>& addresses )
+    : m_stack(std::make_shared<Vector<uint64>>(addresses))
 {
 }
 
@@ -53,7 +57,7 @@ void CallStack::Append(uint64 address)
     m_stack->push_back(address);
 }
 
-void CallStack::Remove(uint32 position)
+void CallStack::Remove(size_t position)
 {
     OC_ASSERT(position <= m_stack->size());
     m_stack->erase(m_stack->begin() + position);

@@ -11,7 +11,7 @@ class IndexBuffer
 public:
     IndexBuffer();
 
-    void Initialize(ID3D11Device* device, const uint32* indices, uint32 numIndices);
+    void Initialize(ID3D11Device* device, const uint32* indices, uint64 numIndices);
     void Initialize(ID3D11Device* device, const std::vector<uint32> indices);
 
     operator ID3D11Buffer* () { return m_buffer.Get(); }

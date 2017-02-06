@@ -2,9 +2,9 @@
 #pragma once
 
 #include "app/Window.h"
+#include "core/system/FpsCounter.h"
 #include "core/system/Timer.h"
-#include "engine/FpsCounter.h"
-#include "graphic/GraphicSystem.h"
+#include "graphic/Graphic.h"
 
 OC_NS_BG;
 
@@ -21,9 +21,6 @@ public:
 
     // Starts main loop
     void Run();
-
-protected:
-    std::unique_ptr<GraphicSystem> m_graphic;
 
 private:
 

@@ -1,8 +1,12 @@
 
 #include "StackWalker.h"
-#include <windows.h>
-#include <DbgHelp.h>
 #include <sstream>
+
+#include <windows.h>
+#pragma warning(push)
+#pragma warning(disable: 4091)
+#include <DbgHelp.h>
+#pragma warning(pop)
 
 OC_NS_BG;
 

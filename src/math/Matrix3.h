@@ -11,9 +11,9 @@ public:
     Matrix3();
     explicit Matrix3(bool toZero);
     Matrix3(const Matrix3& matrix);
-    Matrix3(float m11, float m12, float m13,
-            float m21, float m22, float m23,
-            float m31, float m32, float m33);
+    Matrix3(float n11, float n12, float n13,
+            float n21, float n22, float n23,
+            float n31, float n32, float n33);
     
     void RotationX(float radians);
     void RotationY(float radians);

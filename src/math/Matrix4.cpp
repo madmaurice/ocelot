@@ -22,30 +22,30 @@ Matrix4::Matrix4( const Matrix4& matrix )
     memcpy( m_data, (void*)&matrix, 16*sizeof(float) );
 }
 
-Matrix4::Matrix4(float m11, float m12, float m13, float m14,
-				 float m21, float m22, float m23, float m24,
-				 float m31, float m32, float m33, float m34,
-				 float m41, float m42, float m43, float m44)
+Matrix4::Matrix4(float n11, float n12, float n13, float n14,
+				 float n21, float n22, float n23, float n24,
+				 float n31, float n32, float n33, float n34,
+				 float n41, float n42, float n43, float n44)
 {
-	m_data[ 0] = m11;
-	m_data[ 1] = m12;
-	m_data[ 2] = m13;
-	m_data[ 3] = m14;
+	m_data[ 0] = n11;
+	m_data[ 1] = n12;
+	m_data[ 2] = n13;
+	m_data[ 3] = n14;
 
-	m_data[ 4] = m21;
-	m_data[ 5] = m22;
-	m_data[ 6] = m23;
-	m_data[ 7] = m24;
+	m_data[ 4] = n21;
+	m_data[ 5] = n22;
+	m_data[ 6] = n23;
+	m_data[ 7] = n24;
 
-	m_data[ 8] = m31;
-	m_data[ 9] = m32;
-	m_data[10] = m33;
-	m_data[11] = m34;
+	m_data[ 8] = n31;
+	m_data[ 9] = n32;
+	m_data[10] = n33;
+	m_data[11] = n34;
 
-	m_data[12] = m41;
-	m_data[13] = m42;
-	m_data[14] = m43;
-	m_data[15] = m44;
+	m_data[12] = n41;
+	m_data[13] = n42;
+	m_data[14] = n43;
+	m_data[15] = n44;
 }
 
 Matrix4& Matrix4::operator= (const Matrix4& matrix)

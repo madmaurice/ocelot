@@ -49,14 +49,8 @@
     <ClCompile Include="..\src\graphic\model\Mesh.cpp">
       <Filter>graphic\model</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\graphic\model\Model.cpp">
-      <Filter>graphic\model</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\graphic\model\Shape.cpp">
       <Filter>graphic\model</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\graphic\GraphicSystem.cpp">
-      <Filter>graphic</Filter>
     </ClCompile>
     <ClCompile Include="..\src\graphic\util\GeometryBuilder.cpp">
       <Filter>graphic\util</Filter>
@@ -106,6 +100,12 @@
     <ClCompile Include="..\src\core\logging\Logger.cpp">
       <Filter>core\logging</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\graphic\Graphic.cpp">
+      <Filter>graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\core\system\FpsCounter.cpp">
+      <Filter>core\system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\pch.h" />
@@ -128,14 +128,8 @@
     <ClInclude Include="..\src\graphic\model\Mesh.h">
       <Filter>graphic\model</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\graphic\model\Model.h">
-      <Filter>graphic\model</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\graphic\model\Shape.h">
       <Filter>graphic\model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\graphic\GraphicSystem.h">
-      <Filter>graphic</Filter>
     </ClInclude>
     <ClInclude Include="..\src\graphic\util\DxUtil.h">
       <Filter>graphic\util</Filter>
@@ -208,6 +202,12 @@
     </ClInclude>
     <ClInclude Include="..\src\core\util\ComPtr.h">
       <Filter>core\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\Graphic.h">
+      <Filter>graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\core\system\FpsCounter.h">
+      <Filter>core\system</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
