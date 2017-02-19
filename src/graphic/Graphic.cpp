@@ -26,8 +26,6 @@ bool Graphic::Initialize(HWND hwnd, uint32 windowWidth, uint32 windowHeight)
 {
     // No MSAA
     GraphicConfig config = { windowWidth, windowHeight, 1, 0, D3D_DRIVER_TYPE_HARDWARE, false, false };
-    m_backBufferHeigth = windowHeight;
-    m_backBufferHeigth = windowHeight;
     return Initialize(hwnd, config);
 }
 
@@ -37,6 +35,9 @@ bool Graphic::Initialize(HWND hwnd, const GraphicConfig& config)
 
     m_hwnd = hwnd;
     m_config = config;
+
+    m_backBufferWidth = m_config.m_windowWitdh;
+    m_backBufferHeigth = m_config.m_windowHeight;
 
     OC_ASSERT_MSG(m_config.m_MSAASample > 0, "Invalid MSAA samples!"); // Minimum is 1
 

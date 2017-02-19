@@ -38,7 +38,7 @@ public:
         m_output.push_back(sstream.str());
     }
 
-    uint32 count()
+    size_t count()
     {
         return m_output.size();
     }

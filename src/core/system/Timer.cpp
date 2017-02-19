@@ -57,6 +57,11 @@ float Timer::GetDelta() const
 	return (float)m_deltaTime;
 }
 
+float Timer::GetDeltaMs() const
+{
+    return (float)m_deltaTime * 1000.0f;
+}
+
 void Timer::Reset()
 {
 	int64 currTime;
@@ -70,8 +75,6 @@ void Timer::Reset()
 
 void Timer::Start()
 {
-	__int64 startTime;
-	QueryPerformanceCounter((LARGE_INTEGER*)&startTime);
 
 	// Accumulate the time elapsed between stop and start pairs.
 	//
@@ -80,6 +83,8 @@ void Timer::Start()
 	//  m_baseTime       m_stopTime        startTime     
 	if(m_stopped)
 	{
+        int64 startTime;
+        QueryPerformanceCounter((LARGE_INTEGER*)&startTime);
 		m_pausedTime += (startTime - m_stopTime);	
 
 		m_prevTime = startTime;

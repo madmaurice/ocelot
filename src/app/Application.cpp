@@ -4,27 +4,66 @@
 
 OC_NS_BG;
 
+
 namespace 
 {
-    void UpdateWindowCaption(Window& window, const String& appName, const FpsCounter& fps)
+    const static float s_targetFrameRateMs = (float)(1.0f / 60.0f) * 1000.0f;
+
+    class FpsCounter
+    {
+    public:
+        FpsCounter::FpsCounter()
+            : m_fps(0)
+            , m_frameCount(0)
+            , m_elapsedTime(0)
+        { }
+
+        // Need to be called on every frames
+        void FpsCounter::UpdateFrame(float runningTimeMs)
+        {
+            ++m_frameCount;
+            m_elapsedTime += runningTimeMs;
+
+            // Compute average over 1 seconds period
+            if (m_elapsedTime >= 1000.0f)
+            {
+                // Reset frame count for next average
+                m_fps = m_frameCount;
+
+                m_frameCount = 0;
+                m_elapsedTime = 0.0f;
+            }
+        }
+
+        uint32 GetFps() const { return m_fps; }
+        float GetFrameTimeMs() const { return m_fps > 0 ? 1000 / (float)m_fps : 0; }
+
+    private:
+        uint32 m_fps;
+        uint32 m_frameCount;
+        float m_elapsedTime;
+    };
+    static FpsCounter s_fpsCounter;
+
+    void UpdateWindowCaption(Window& window, const String& appName, uint32 fps, float frameTime)
     {
         std::ostringstream outs;   
         outs << appName << "    "
-            << "FPS: " << fps.GetFps() << "    " 
-            << "Frame Time: " << fps.GetFrameTimeMs() << " (ms)";
+            << "FPS: " << fps << "    " 
+            << "Frame Time: " << frameTime << " (ms)";
         window.SetCaption(outs.str());
     }
 }
 
 Application::Application(const String& name)
-    : m_paused(false)
+    : m_window(name)
+    , m_name(name)
+    , m_paused(false)
     , m_resizing(false)
     , m_minimized(false)
     , m_maximized(false)
     , m_shutdown(false)
     , m_initCompleted(false)
-    , m_window(name)
-    , m_name(name)
 {
 }
 
@@ -88,12 +127,12 @@ void Application::Shutdown()
 
 void Application::Run()
 {
-    // Call update (limit FPS?)
     m_timer.Reset();
 
     MSG msg  = {0};
 
     bool running = true;
+    float currentFrameTimeMs = s_targetFrameRateMs;
     while(running)
     {
         while (PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ))
@@ -110,32 +149,35 @@ void Application::Run()
         }
 
         m_timer.Tick();
-
-        if (!m_paused)
+        currentFrameTimeMs += m_timer.GetDeltaMs();
+        const bool runFrame = !m_paused && currentFrameTimeMs >= s_targetFrameRateMs;
+        if (runFrame)
         {
+            s_fpsCounter.UpdateFrame(currentFrameTimeMs);
+
             // Call the overloaded application update and render functions.
-            Update();
+            Update(currentFrameTimeMs);
             Render();
 
-            // TODO : better frame rate limit...
-            Sleep(15);
+            currentFrameTimeMs = 0;
         }
         else
         {
-            Sleep(100);
+            const int sleepTime = (int)(s_targetFrameRateMs - currentFrameTimeMs);
+            if (sleepTime > 1)
+            {
+                Sleep(sleepTime);
+            }
         }
     }
 }
 
-void Application::Update()
+void Application::Update(float elapsed)
 {
-    m_fpsCounter.UpdateFrame(m_timer.GetElapsed());
-
     // Update FPS on window title
-    UpdateWindowCaption(m_window, m_name, m_fpsCounter);
+    UpdateWindowCaption(m_window, m_name, s_fpsCounter.GetFps(), elapsed);
 
-    const float delta = m_timer.GetDelta();
-    UpdateImpl(delta);
+    UpdateImpl(elapsed);
 }
 
 void Application::Render()
@@ -146,6 +188,24 @@ void Application::Render()
 
     // TODO : render debug HUD
     Graphic::Present();
+}
+
+void Application::Pause()
+{
+    if (!IsDebuggerPresent() && !m_paused)
+    {
+        m_timer.Stop();
+        m_paused = true;
+    }
+}
+
+void Application::Unpause()
+{
+    if (!IsDebuggerPresent() && m_paused)
+    {
+        m_timer.Start();
+        m_paused = false;
+    }
 }
 
 void Application::OnResize(uint32 width, uint32 height)
@@ -167,13 +227,11 @@ LRESULT Application::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_ACTIVATE:
         if( LOWORD(wParam) == WA_INACTIVE )
         {
-            m_paused = true;
-            m_timer.Stop();
+            Pause();
         }
         else
         {
-            m_paused = false;
-            m_timer.Start();
+            Unpause();
         }
         return 0;
 
@@ -191,13 +249,13 @@ LRESULT Application::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
             windowHeight = HIWORD(lParam);
             if(wParam == SIZE_MINIMIZED)
             {
-                m_paused = true;
+                Pause();
                 m_minimized = true;
                 m_maximized = false;
             }
             else if(wParam == SIZE_MAXIMIZED)
             {
-                m_paused = false;
+                Unpause();
                 m_minimized = false;
                 m_maximized = true;
                 OnResize(windowWidth, windowHeight);
@@ -207,14 +265,14 @@ LRESULT Application::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 // Restoring from minimized state?
                 if( m_minimized )
                 {
-                    m_paused = false;
+                    Unpause();
                     m_minimized = false;
                     OnResize(windowWidth, windowHeight);
                 }
                 // Restoring from maximized state?
                 else if(m_maximized)
                 {
-                    m_paused = false;
+                    Unpause();
                     m_maximized = false;
                     OnResize(windowWidth, windowHeight);
                 }
@@ -239,7 +297,7 @@ LRESULT Application::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
         // WM_EXITSIZEMOVE is sent when the user grabs the resize bars.
     case WM_ENTERSIZEMOVE:
-        m_paused = true;
+        Pause();
         m_resizing  = true;
         m_timer.Stop();
         return 0;
@@ -247,7 +305,7 @@ LRESULT Application::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
         // WM_EXITSIZEMOVE is sent when the user releases the resize bars.
         // Here we reset everything based on the new window dimensions.
     case WM_EXITSIZEMOVE:
-        m_paused = false;
+        Unpause();
         m_resizing  = false;
         m_timer.Start();
         OnResize(windowWidth, windowHeight);

@@ -33,9 +33,6 @@ public:
     static GraphicDevice GetDevice() { return m_dxDevice; }
     static GraphicDeviceContext GetDeviceContext() { return m_dxImmediateContext; }
 
-    static uint32 GetBackBufferWidth();
-    static uint32 GetBackBufferHeigth();
-
     static void Resize(uint32 width, uint32 heigth);
 
     static void Clear();

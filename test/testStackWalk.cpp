@@ -28,8 +28,10 @@ typedef StackWalkFixture STACK_WALK;
 TEST_F(STACK_WALK, GetStackTrace) 
 {
     CallStack stack = StackWalker::GetCallStack(50);
+    std::cout << "STACK" << std::endl;
     std::cout << stack << std::endl;
 
-    StackFrame frame = stack.GetFrame(2);
+    std::cout << "FRAME 4" << std::endl;
+    StackFrame frame = stack.GetFrame(4);
     std::cout << frame << std::endl;
 }

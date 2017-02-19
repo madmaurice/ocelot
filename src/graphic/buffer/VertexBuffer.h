@@ -3,7 +3,6 @@
 
 #include <d3dx11.h>
 #include "core/util/ComPtr.h"
-#include "core/system/Containers.h"
 
 
 OC_NS_BG;

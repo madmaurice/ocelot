@@ -14,6 +14,9 @@ public:
     // Delta time between ticks in seconds
 	float GetDelta() const;
 
+    // Delta time between ticks in milliseconds
+	float GetDeltaMs() const;
+
 	void Start();
 	void Stop();
 	void Reset();

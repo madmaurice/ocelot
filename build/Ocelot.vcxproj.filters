@@ -103,9 +103,6 @@
     <ClCompile Include="..\src\graphic\Graphic.cpp">
       <Filter>graphic</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\core\system\FpsCounter.cpp">
-      <Filter>core\system</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\pch.h" />
@@ -197,17 +194,11 @@
     <ClInclude Include="..\src\core\logging\Logger.h">
       <Filter>core\logging</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\core\system\Containers.h">
-      <Filter>core\system</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\core\util\ComPtr.h">
       <Filter>core\util</Filter>
     </ClInclude>
     <ClInclude Include="..\src\graphic\Graphic.h">
       <Filter>graphic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\core\system\FpsCounter.h">
-      <Filter>core\system</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

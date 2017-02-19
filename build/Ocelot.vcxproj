@@ -29,7 +29,6 @@
     <ClCompile Include="..\src\core\logging\LogLevel.cpp" />
     <ClCompile Include="..\src\core\system\Assert.cpp" />
     <ClCompile Include="..\src\core\system\CallStack.cpp" />
-    <ClCompile Include="..\src\core\system\FpsCounter.cpp" />
     <ClCompile Include="..\src\core\system\StackWalker.cpp" />
     <ClCompile Include="..\src\core\system\Timer.cpp" />
     <ClCompile Include="..\src\graphic\buffer\IndexBuffer.cpp" />
@@ -65,8 +64,6 @@
     <ClInclude Include="..\src\core\logging\LogLevel.h" />
     <ClInclude Include="..\src\core\system\Assert.h" />
     <ClInclude Include="..\src\core\system\CallStack.h" />
-    <ClInclude Include="..\src\core\system\Containers.h" />
-    <ClInclude Include="..\src\core\system\FpsCounter.h" />
     <ClInclude Include="..\src\core\system\StackWalker.h" />
     <ClInclude Include="..\src\core\system\Timer.h" />
     <ClInclude Include="..\src\core\system\Types.h" />

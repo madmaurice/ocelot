@@ -2,7 +2,6 @@
 #pragma once
 
 #include "app/Window.h"
-#include "core/system/FpsCounter.h"
 #include "core/system/Timer.h"
 #include "graphic/Graphic.h"
 
@@ -31,12 +30,20 @@ private:
     virtual void RenderImpl() = 0;
 
     // Called each frame
-    void Update();
+    void Update(float elapsed);
     void Render();
+
+    void Pause();
+    void Unpause();
 
     void OnResize(uint32 width, uint32 height);
 
     LRESULT WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+    Timer m_timer;
+
+    Window m_window;
+    const String m_name;
 
     bool m_paused;
     bool m_resizing;
@@ -44,12 +51,6 @@ private:
     bool m_maximized;
     bool m_shutdown;
     bool m_initCompleted;
-
-    Timer m_timer;
-    FpsCounter m_fpsCounter;
-
-    Window m_window;
-    const String m_name;
 };
 
 OC_NS_END;
