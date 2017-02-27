@@ -22,15 +22,8 @@ namespace
 }
 
 Window::Window(const String& caption)
-    : m_hWnd(NULL)
-    , m_caption(caption)
-    , m_width(1024)
-    , m_height(768)
-    , m_left(200)
-    , m_top(150)
-    , m_style(WS_OVERLAPPEDWINDOW)
-{
-}
+    : m_caption(caption)
+{ }
 
 Window::~Window()
 {
@@ -105,14 +98,11 @@ bool Window::Initialize(WndProc wndProc)
 void Window::Shutdown()
 {
     if (m_hWnd)
+    {
         DestroyWindow(m_hWnd);
+    }
 
-    m_hWnd = 0;
-}
-
-HWND Window::GetHandle()
-{
-    return m_hWnd;
+    m_hWnd = nullptr;
 }
 
 void Window::SetWidth(uint32 width)
@@ -127,32 +117,6 @@ void Window::SetHeight(uint32 height)
     UpdateWindow();
 }
 
-int Window::GetWidth()
-{
-    return m_width;
-}
-
-int Window::GetHeight()
-{
-    return m_height;
-}
-
-int Window::GetLeft()
-{
-    return m_left;
-}
-
-int Window::GetTop()
-{
-    return m_top;
-}
-
-void Window::SetSize(uint32 width, uint32 height)
-{
-    m_width = width;
-    m_height = height;
-    UpdateWindow();
-}
 
 void Window::SetPosition(uint32 left, uint32 top)
 {
@@ -161,7 +125,7 @@ void Window::SetPosition(uint32 left, uint32 top)
     UpdateWindow();
 }
 
-void Window::Resize(int width, int height)
+void Window::Resize(uint32 width, uint32 height)
 {
     m_width = width;
     m_height = height;

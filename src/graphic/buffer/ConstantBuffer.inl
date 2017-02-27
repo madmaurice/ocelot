@@ -1,4 +1,5 @@
 
+#include "graphic/Graphic.h"
 
 OC_NS_BG;
 
@@ -17,7 +18,7 @@ ConstantBuffer<T>::ConstantBuffer(bool dynamicUsage)
 }
 
 template <class T>
-void ConstantBuffer<T>::Initialize(ID3D11Device* device)
+void ConstantBuffer<T>::Initialize()
 {
     D3D11_BUFFER_DESC cbd;
     cbd.Usage = D3D11_USAGE_DYNAMIC;
@@ -34,11 +35,11 @@ void ConstantBuffer<T>::Initialize(ID3D11Device* device)
         cbd.CPUAccessFlags = 0;
     }
 
-    DXCall(device->CreateBuffer(&cbd, nullptr, m_buffer.GetAddressOf()));
+    DXCall(Graphic::GetDevice()->CreateBuffer(&cbd, nullptr, m_buffer.GetAddressOf()));
 }
 
 template <class T>
-void ConstantBuffer<T>::ApplyChanges(ID3D11DeviceContext* deviceContext)
+void ConstantBuffer<T>::ApplyChanges()
 {
     OC_ASSERT(m_buffer.Get() != nullptr);
 
@@ -46,13 +47,13 @@ void ConstantBuffer<T>::ApplyChanges(ID3D11DeviceContext* deviceContext)
     if (m_dynamicUsage)
     {
         D3D11_MAPPED_SUBRESOURCE mappedResource;
-        DXCall(deviceContext->Map(m_buffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource));
+        DXCall(Graphic::GetDeviceContext()->Map(m_buffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource));
         CopyMemory(mappedResource.pData, &m_data, sizeof(T));
-        deviceContext->Unmap(m_buffer.Get(), 0);
+        Graphic::GetDeviceContext()->Unmap(m_buffer.Get(), 0);
     }
     else
     {
-        deviceContext->UpdateSubresource(m_buffer.Get(), 0, nullptr, &m_data, 0, 0);
+        Graphic::GetDeviceContext()->UpdateSubresource(m_buffer.Get(), 0, nullptr, &m_data, 0, 0);
     }
 }
 

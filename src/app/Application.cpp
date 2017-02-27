@@ -8,6 +8,9 @@ OC_NS_BG;
 namespace 
 {
     const static float s_targetFrameRateMs = (float)(1.0f / 60.0f) * 1000.0f;
+    const bool s_fullScreen = false;
+    const bool s_enableVSync = false;
+    const bool s_selectBestMSAAQuality = false;
 
     class FpsCounter
     {
@@ -50,7 +53,7 @@ namespace
         std::ostringstream outs;   
         outs << appName << "    "
             << "FPS: " << fps << "    " 
-            << "Frame Time: " << frameTime << " (ms)";
+            << "Frame Time: " << frameTime * 1000 << " (ms)";
         window.SetCaption(outs.str());
     }
 }
@@ -95,7 +98,8 @@ bool Application::Initialize(const LoggingConfig& config)
         return false;
     }
 
-    if (!Graphic::Initialize(m_window.GetHandle(), m_window.GetWidth(), m_window.GetHeight()))
+    GraphicConfig graphicConfig = { m_window.GetWidth(), m_window.GetHeight(), 1, 0, s_fullScreen, s_enableVSync, s_selectBestMSAAQuality };
+    if (!Graphic::Initialize(m_window.GetHandle(), graphicConfig))
     {
         OC_LOG_ERROR("Application initialization failed : Graphic init failed!");
         return false;
@@ -131,6 +135,7 @@ void Application::Run()
 
     MSG msg  = {0};
 
+
     bool running = true;
     float currentFrameTimeMs = s_targetFrameRateMs;
     while(running)
@@ -150,13 +155,13 @@ void Application::Run()
 
         m_timer.Tick();
         currentFrameTimeMs += m_timer.GetDeltaMs();
-        const bool runFrame = !m_paused && currentFrameTimeMs >= s_targetFrameRateMs;
+        const bool runFrame = !m_paused && (s_enableVSync || currentFrameTimeMs >= s_targetFrameRateMs);
         if (runFrame)
         {
             s_fpsCounter.UpdateFrame(currentFrameTimeMs);
 
             // Call the overloaded application update and render functions.
-            Update(currentFrameTimeMs);
+            Update(currentFrameTimeMs / 1000);
             Render();
 
             currentFrameTimeMs = 0;

@@ -42,8 +42,11 @@ private:
 
     Timer m_timer;
 
+protected:
     Window m_window;
     const String m_name;
+
+private:
 
     bool m_paused;
     bool m_resizing;

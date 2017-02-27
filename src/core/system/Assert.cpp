@@ -21,8 +21,6 @@ void OC::OcAssert(const char* check, const char* msg, const char* file, uint32 l
     {
         MessageBoxA(nullptr, sstream.str().c_str(), "Assert !", MB_OK | MB_ICONERROR);
     }
-
-    Vector<int> toto;
 }
 
 void OC::OcAssert(const char* msg, const char* file, uint32 line)

@@ -1,18 +1,18 @@
 
-#include "geometryBuilder.h"
+#include "GeometryBuilder.h"
+#include "graphic/Graphic.h"
 
 OC_NS_BG;
 
 
-GeometryBuilder::GeometryBuilder(const ComPtr<ID3D11Device>& dxDevice)
-    : m_dxDevice(dxDevice)
+GeometryBuilder::GeometryBuilder()
 {
 }
 
 Cube GeometryBuilder::CreateCube(float width, float height, float depth)
 {
     Cube cube(width, height, depth);
-    cube.BuildMesh(m_dxDevice.Get());
+    cube.BuildMesh(Graphic::GetDevice().Get());
     return cube;
 }
 

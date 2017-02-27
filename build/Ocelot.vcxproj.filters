@@ -31,6 +31,12 @@
     <Filter Include="graphic\util">
       <UniqueIdentifier>{41595ec1-45b1-400d-9a76-c0b67558b790}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graphic\shader">
+      <UniqueIdentifier>{1d14ccb2-43d7-4a91-99ae-4dc79050b0ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphic\shader\hlsl">
+      <UniqueIdentifier>{e9bc31d1-b50e-4a82-a58a-b9282ef084f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\pch.cpp" />
@@ -102,6 +108,9 @@
     </ClCompile>
     <ClCompile Include="..\src\graphic\Graphic.cpp">
       <Filter>graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\graphic\shader\Shader.cpp">
+      <Filter>graphic\shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -200,10 +209,22 @@
     <ClInclude Include="..\src\graphic\Graphic.h">
       <Filter>graphic</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\graphic\shader\Shader.h">
+      <Filter>graphic\shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\graphic\buffer\ConstantBuffer.inl">
       <Filter>graphic\buffer</Filter>
+    </None>
+    <None Include="..\src\graphic\shader\hlsl\basicEffect.hlsl">
+      <Filter>graphic\shader\hlsl</Filter>
+    </None>
+    <None Include="..\src\graphic\shader\hlsl\color.hlsl">
+      <Filter>graphic\shader\hlsl</Filter>
+    </None>
+    <None Include="..\src\graphic\shader\hlsl\lights.hlsl">
+      <Filter>graphic\shader\hlsl</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

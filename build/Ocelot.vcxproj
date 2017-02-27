@@ -36,6 +36,7 @@
     <ClCompile Include="..\src\graphic\Graphic.cpp" />
     <ClCompile Include="..\src\graphic\model\Mesh.cpp" />
     <ClCompile Include="..\src\graphic\model\Shape.cpp" />
+    <ClCompile Include="..\src\graphic\shader\Shader.cpp" />
     <ClCompile Include="..\src\graphic\util\GeometryBuilder.cpp" />
     <ClCompile Include="..\src\math\Matrix3.cpp" />
     <ClCompile Include="..\src\math\Matrix4.cpp" />
@@ -75,6 +76,7 @@
     <ClInclude Include="..\src\graphic\Graphic.h" />
     <ClInclude Include="..\src\graphic\model\Mesh.h" />
     <ClInclude Include="..\src\graphic\model\Shape.h" />
+    <ClInclude Include="..\src\graphic\shader\Shader.h" />
     <ClInclude Include="..\src\graphic\util\DxUtil.h" />
     <ClInclude Include="..\src\graphic\util\GeometryBuilder.h" />
     <ClInclude Include="..\src\math\Math.h" />
@@ -91,6 +93,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\graphic\buffer\ConstantBuffer.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\graphic\shader\hlsl\basicEffect.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\src\graphic\shader\hlsl\color.hlsl">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\src\graphic\shader\hlsl\lights.hlsl">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{73B1D1B0-6661-4A2A-AC16-D07986750881}</ProjectGuid>

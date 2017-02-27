@@ -12,8 +12,8 @@ class ConstantBuffer : public NonCopyable
 public:
     explicit ConstantBuffer(bool dynamicUsage = true);
 
-    void Initialize(ID3D11Device* device);
-    void ApplyChanges(ID3D11DeviceContext* deviceContext);
+    void Initialize();
+    void ApplyChanges();
 
     operator ID3D11Buffer* () { return m_buffer.Get(); }
     operator ID3D11Buffer** () { return m_buffer.GetAddressOf(); }

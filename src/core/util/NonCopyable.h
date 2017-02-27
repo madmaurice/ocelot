@@ -25,9 +25,9 @@ Here, C does not have any base class sub-objects of the same type, which allows 
 class NonCopyable
 {
 protected:
-    NonCopyable() {}
-    ~NonCopyable() {} /// Protected non-virtual destructor
-private: 
-    NonCopyable(const NonCopyable &);
-    NonCopyable& operator =(const NonCopyable &);
+    NonCopyable() = default;
+    ~NonCopyable() = default; /// Protected non-virtual destructor
+
+    NonCopyable(const NonCopyable &) = delete;
+    NonCopyable& operator =(const NonCopyable &) = delete;
 };  

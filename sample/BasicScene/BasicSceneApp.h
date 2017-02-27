@@ -8,7 +8,7 @@
 #include "graphic/buffer/ConstantBuffer.h"
 #include "graphic/buffer/IndexBuffer.h"
 #include "graphic/buffer/VertexBuffer.h"
-#include "graphic/model/Shape.h"
+#include "graphic/util/GeometryBuilder.h"
 #include "math/Math.h"
 
 
@@ -28,14 +28,16 @@ private:
     virtual void RenderImpl();
 
 
-    float m_time;
     Matrix4 m_view;
     Matrix4 m_projection;
 
-    ComPtr<ID3D11Device> m_dxDevice;
-    ComPtr<ID3D11DeviceContext> m_dxImmediateContext;
+    GraphicDevice m_dxDevice;
+    GraphicDeviceContext m_dxImmediateContext;
 
     ComPtr<ID3D11InputLayout>           m_inputLayout;
+
+    Cube m_cube;
+    Matrix4 m_world;
 };
 
 OC_NS_END;

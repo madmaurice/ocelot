@@ -19,21 +19,19 @@ public:
     bool Initialize(WndProc wndProc);
     void Shutdown();
 
-    HWND GetHandle();
+    HWND GetHandle() const { return m_hWnd; }
 
     void SetWidth(uint32 width);
     void SetHeight(uint32 height);
 
-    int GetWidth();
-    int GetHeight();
+    uint32 GetWidth() const { return m_width; }
+    uint32 GetHeight() const { return m_height; }
 
-    int GetLeft();
-    int GetTop();
+    uint32 GetLeft() const { return m_left; }
+    uint32 GetTop() const { return m_top; }
 
-    void SetSize(uint32 width, uint32 height);
     void SetPosition(uint32 left, uint32 top);
-
-    void Resize(int width, int height);
+    void Resize(uint32 width, uint32 height);
 
     void SetCaption(const String& caption);
     void SetStyle(DWORD dStyle);
@@ -42,14 +40,14 @@ protected:
 
     void UpdateWindow();
 
-    HWND    m_hWnd;
+    HWND    m_hWnd = nullptr;
     String	m_caption;
-    uint32	m_width;
-    uint32 	m_height;
-    uint32 	m_left;
-    uint32  m_top;
+    uint32	m_width = 1024;
+    uint32 	m_height = 768;
+    uint32 	m_left = 200;
+    uint32  m_top = 150;
 
-    DWORD	m_style;
+    DWORD	m_style = WS_OVERLAPPEDWINDOW;
     WndProc m_wndProc;
 };
 

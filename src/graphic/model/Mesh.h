@@ -18,7 +18,7 @@ struct MeshVertexDeclaration
 
 struct MeshVertex
 {
-    MeshVertex(){}
+    MeshVertex() = default;
     MeshVertex(const Vector3& p, const Vector3& n, const Vector2& uv)
         : m_position(p), m_normal(n), m_texCoord(uv){}
     MeshVertex(float px, float py, float pz,

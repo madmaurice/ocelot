@@ -3,6 +3,7 @@
 
 #include <d3dx11.h>
 #include <dxerr.h>
+#include "math/math.h"
 
 #if defined(OC_DEBUG)
 
@@ -14,7 +15,7 @@
         HRESULT _hr = (x);                                      \
         if(FAILED(_hr))                                         \
         {                                                      \
-            DXTrace(__FILE__, (DWORD)__LINE__, _hr, #x, true);  \
+            DXTraceA(__FILE__, (DWORD)__LINE__, _hr, #x, true);  \
             __debugbreak();                                    \
         }                                                      \
     }                                                          \
@@ -24,7 +25,6 @@
 #define DXCall(x) (x)
 #endif // OC_DEBUG
 
-#include "math/math.h"
 
 OC_NS_BG;
 

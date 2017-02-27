@@ -13,10 +13,10 @@ struct GraphicConfig
     uint32 m_windowHeight;
     uint32 m_MSAASample;
     uint32 m_MSAAQuality;
-    D3D_DRIVER_TYPE m_dxDriverType;
 
     bool m_fullScreen;
-    bool m_selectBestQuality;
+    bool m_enableVSync;
+    bool m_selectBestMSAAQuality;
 };
 
 typedef ComPtr<ID3D11Device> GraphicDevice;
@@ -29,6 +29,8 @@ public:
     static bool Initialize(HWND hwnd, uint32 windowWidth = 1024, uint32 windowHeight = 768);
     static bool Initialize(HWND hwnd, const GraphicConfig& config);
     static void Shutdown();
+
+    static const GraphicConfig& GetConfig() { return m_config; }
 
     static GraphicDevice GetDevice() { return m_dxDevice; }
     static GraphicDeviceContext GetDeviceContext() { return m_dxImmediateContext; }

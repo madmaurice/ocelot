@@ -25,7 +25,7 @@ GraphicDeviceContext Graphic::m_dxImmediateContext;
 bool Graphic::Initialize(HWND hwnd, uint32 windowWidth, uint32 windowHeight)
 {
     // No MSAA
-    GraphicConfig config = { windowWidth, windowHeight, 1, 0, D3D_DRIVER_TYPE_HARDWARE, false, false };
+    GraphicConfig config = { windowWidth, windowHeight, 1, 0, false, false, false };
     return Initialize(hwnd, config);
 }
 
@@ -51,7 +51,7 @@ bool Graphic::Initialize(HWND hwnd, const GraphicConfig& config)
 
     HRESULT hr = D3D11CreateDevice(
         0,                 // default adapter
-        m_config.m_dxDriverType,
+        D3D_DRIVER_TYPE_HARDWARE,
         0,                 // no software device
         createDeviceFlags,
         0,                 // default feature level array (select greatest supported -> DX11)
@@ -88,9 +88,9 @@ bool Graphic::Initialize(HWND hwnd, const GraphicConfig& config)
 
     // Validate quality
     OC_ASSERT(MSAAQuality > 0);
-    OC_ASSERT_MSG(m_config.m_selectBestQuality || m_config.m_MSAAQuality <= MSAAQuality -1, "Invalid MSAA quality");
+    OC_ASSERT_MSG(m_config.m_selectBestMSAAQuality || m_config.m_MSAAQuality <= MSAAQuality -1, "Invalid MSAA quality");
 
-    if (m_config.m_selectBestQuality)
+    if (m_config.m_selectBestMSAAQuality)
     {
         m_config.m_MSAAQuality = MSAAQuality - 1;
     }
@@ -238,7 +238,8 @@ void Graphic::Clear()
 
 void Graphic::Present()
 {
-    DXCall(m_swapChain->Present(0, 0));
+    uint32 interval = m_config.m_enableVSync ? 1 : 0;
+    DXCall(m_swapChain->Present(interval, 0));
 }
 
 OC_NS_END;
