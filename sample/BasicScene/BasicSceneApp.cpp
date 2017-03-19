@@ -288,7 +288,7 @@ void BasicSceneApp::RenderImpl()
 
     // World inverse transpose : used to keep normal vector orthogonal in case of non-uniform scaling matrix
     // If uniform scaling : the world matrix works
-    objParam.m_worldInvTranspose = m_world.Inverse().Transpose(); // Don't think I need to transpose here
+    objParam.m_worldInvTranspose = m_world.Inverse(); //.Transpose(); // Don't think I need to transpose here
     objParam.m_worldViewProj = (m_world * m_camera.GetViewProjection()).Transpose();
     objParam.m_material = s_material;
 
@@ -301,6 +301,13 @@ void BasicSceneApp::RenderImpl()
     m_dxImmediateContext->IASetIndexBuffer(m_cube.GetIndexBuffer(), DXGI_FORMAT_R32_UINT, 0);
 
     m_dxImmediateContext->DrawIndexed(36, 0, 0);
+}
+
+void BasicSceneApp::OnResize(uint32 width, uint32 height)
+{
+    Application::OnResize(width, height);
+    float aspect = static_cast<float>(Graphic::GetBackBufferWidth()) / static_cast<float>(Graphic::GetBackBufferHeigth());
+    m_camera.SetAspectRatio(aspect);
 }
 
 OC_NS_END;

@@ -67,6 +67,9 @@ public:
     void SetXRotation(float xRotation);
     void SetYRotation(float yRotation);
 
+    void SetAspectRatio(float aspect);
+    void SetFov(float fov);
+
 private:
     virtual void CreateProjection() override;
 

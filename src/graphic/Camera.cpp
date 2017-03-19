@@ -113,7 +113,7 @@ FirstPersonCamera::FirstPersonCamera(float aspectRatio, float fieldOfView, float
 
 void FirstPersonCamera::CreateProjection()
 {
-    m_projection = Matrix4::PerspectiveFovMatrixLH(m_fov, m_aspectRatio, m_nearZ, m_farZ);
+    m_projection = Matrix4::PerspectiveFovMatrixLH(m_aspectRatio, m_fov, m_nearZ, m_farZ);
     m_viewProjection = m_view * m_projection;
 }
 
@@ -127,6 +127,18 @@ void FirstPersonCamera::SetYRotation(float yRotation)
 {
     m_yRot = DirectX::XMScalarModAngle(yRotation);
     SetOrientation(Quaternion(m_xRot, m_yRot, 0));
+}
+
+void FirstPersonCamera::SetAspectRatio(float aspect)
+{
+    m_aspectRatio = aspect;
+    CreateProjection();
+}
+
+void FirstPersonCamera::SetFov(float fov)
+{
+    m_fov = fov;
+    CreateProjection();
 }
 
 OC_NS_END;

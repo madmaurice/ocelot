@@ -21,13 +21,17 @@ public:
     // Starts main loop
     void Run();
 
-private:
+protected:
 
     virtual bool InitializeImpl() = 0;
     virtual void ShutdownImpl() = 0;
 
     virtual void UpdateImpl(float elapsed) = 0;
     virtual void RenderImpl() = 0;
+
+    virtual void OnResize(uint32 width, uint32 height);
+
+private:
 
     // Called each frame
     void Update(float elapsed);
@@ -36,7 +40,6 @@ private:
     void Pause();
     void Unpause();
 
-    void OnResize(uint32 width, uint32 height);
 
     LRESULT WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 

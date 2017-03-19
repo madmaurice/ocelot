@@ -27,6 +27,8 @@ private:
     virtual void UpdateImpl(float elapsed);
     virtual void RenderImpl();
 
+    virtual void OnResize(uint32 width, uint32 height) override;
+
     FirstPersonCamera m_camera;
 
     GraphicDevice m_dxDevice;
