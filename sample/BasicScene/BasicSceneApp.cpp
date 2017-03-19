@@ -1,5 +1,6 @@
 
 #include "BasicSceneApp.h"
+#include "app/Input.h"
 #include "graphic/shader/Shader.h"
 
 
@@ -151,6 +152,7 @@ static BasicEffect s_effect;
 
 BasicSceneApp::BasicSceneApp()
     : Application("Scene app")
+    , m_camera((float)m_window.GetWidth() / (float)m_window.GetHeight(), OC_PIDIV2, 0.01f, 1000.0f)
 {
     // Material
     s_material.m_ambient = Vector4(0.651f, 0.5f, 0.392f, 1.0f);
@@ -202,20 +204,14 @@ bool BasicSceneApp::InitializeImpl()
     m_inputLayout = s_effect.CreateInputLayout(vertexDeclaration, 3);
 
     // Initialize matrix
-    m_world = Matrix4::TranslationMatrix(0, 0, 10);
+    m_world = Matrix4::TranslationMatrix(Vector3(0, 0, 10));
 
-    // View
+    // Camera
     Vector3 eye(0.0f, 2.0f, -20.0f);
     Vector3 at(0.0f, -1.0f, 0.0f);
     Vector3 up(0.0f, 1.0f, 0.0f);
-    m_view = Matrix4::LookAtLHMatrix(eye, at, up);
-
     // TODO : resize break the projection matrix
-    // TODO : Aspect ratio calculé ailleur
-
-    // Initialize the projection matrix
-    const float aspectRatio = (float)m_window.GetWidth() / (float)m_window.GetHeight();
-    m_projection = Matrix4::PerspectiveFovLHMatrix(OC_PIDIV2, aspectRatio, 0.01f, 100.0f);
+    m_camera.SetPosition(eye);
 
     return true;
 }
@@ -226,8 +222,48 @@ void BasicSceneApp::ShutdownImpl()
 
 void BasicSceneApp::UpdateImpl(float elapsed)
 {
+    // Rotate cube
     float rot = 2 * elapsed;
-    m_world = Matrix4::RotationMatrixY(rot) * m_world;
+    m_world = Matrix4::RotationY(rot) * m_world;
+
+    // Process input
+    MouseState mouseState = MouseState::GetMouseState(m_window.GetHandle());
+    KeyboardState kbState = KeyboardState::GetKeyboardState(m_window.GetHandle());
+
+    float camMoveSpeed = 20.0f * elapsed;
+    const float camRotSpeed = 0.1f * elapsed;
+
+    // Move the camera with keyboard input
+    if (kbState.IsKeyDown(Key::LeftShift))
+        camMoveSpeed *= 0.25f;
+
+    Vector3 camPos = m_camera.GetPosition();
+    if (kbState.IsKeyDown(Key::W))
+        camPos += m_camera.Forward() * camMoveSpeed;
+    else if (kbState.IsKeyDown(Key::S))
+        camPos += m_camera.Back() * camMoveSpeed;
+    if (kbState.IsKeyDown(Key::A))
+        camPos += m_camera.Left() * camMoveSpeed;
+    else if (kbState.IsKeyDown(Key::D))
+        camPos += m_camera.Right() * camMoveSpeed;
+    if (kbState.IsKeyDown(Key::Q))
+        camPos += m_camera.Up() * camMoveSpeed;
+    else if (kbState.IsKeyDown(Key::E))
+        camPos += m_camera.Down() * camMoveSpeed;
+
+    m_camera.SetPosition(camPos);
+
+    // Rotate camera
+    if (mouseState.RButton.IsPressed && mouseState.IsOverWindow)
+    {
+        float xRot = m_camera.GetXRotation();
+        float yRot = m_camera.GetYRotation();
+        xRot += mouseState.DY * camRotSpeed;
+        yRot += mouseState.DX * camRotSpeed;
+        OC_LOG_DEBUG("xRot=" << xRot << "yRot=" << yRot);
+        m_camera.SetXRotation(xRot);
+        m_camera.SetYRotation(yRot);
+    }
 }
 
 void BasicSceneApp::RenderImpl()
@@ -246,21 +282,14 @@ void BasicSceneApp::RenderImpl()
 
     s_effect.BindShaders();
 
-    // Rotate
-#if 1
-    //m_world = Matrix4::RotationMatrixY(0.04f) * m_world;
-#else
-    //Matrix4 rot = m_world.Inverse().RotationMatrixY(0.04f);
-    //m_world = Matrix4::RotationMatrixY(0.04f) * m_world;
-    Matrix4 rot = m_world.Inverse() * Matrix4::RotationMatrixY(0.04f);
-    m_world = m_world * rot * m_world;
-#endif
-
     // Why the transpose : http://www.gamedev.net/topic/574593-direct3d11-why-need-transpose/
     BasicEffect::ObjParam& objParam = s_effect.GetObjParam();
     objParam.m_world = m_world.Transpose();
+
+    // World inverse transpose : used to keep normal vector orthogonal in case of non-uniform scaling matrix
+    // If uniform scaling : the world matrix works
     objParam.m_worldInvTranspose = m_world.Inverse().Transpose(); // Don't think I need to transpose here
-    objParam.m_worldViewProj = (m_world * m_view * m_projection).Transpose();
+    objParam.m_worldViewProj = (m_world * m_camera.GetViewProjection()).Transpose();
     objParam.m_material = s_material;
 
     s_effect.ApplyChanges();

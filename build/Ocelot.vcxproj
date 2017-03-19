@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\app\Application.cpp" />
+    <ClCompile Include="..\src\app\Input.cpp" />
     <ClCompile Include="..\src\app\Window.cpp" />
     <ClCompile Include="..\src\core\logging\LogAppender.cpp" />
     <ClCompile Include="..\src\core\logging\LogEvent.cpp" />
@@ -33,16 +34,14 @@
     <ClCompile Include="..\src\core\system\Timer.cpp" />
     <ClCompile Include="..\src\graphic\buffer\IndexBuffer.cpp" />
     <ClCompile Include="..\src\graphic\buffer\VertexBuffer.cpp" />
+    <ClCompile Include="..\src\graphic\Camera.cpp" />
     <ClCompile Include="..\src\graphic\Graphic.cpp" />
     <ClCompile Include="..\src\graphic\model\Mesh.cpp" />
     <ClCompile Include="..\src\graphic\model\Shape.cpp" />
     <ClCompile Include="..\src\graphic\shader\Shader.cpp" />
     <ClCompile Include="..\src\graphic\util\GeometryBuilder.cpp" />
-    <ClCompile Include="..\src\math\Matrix3.cpp" />
-    <ClCompile Include="..\src\math\Matrix4.cpp" />
-    <ClCompile Include="..\src\math\Vector2.cpp" />
-    <ClCompile Include="..\src\math\Vector3.cpp" />
-    <ClCompile Include="..\src\math\Vector4.cpp" />
+    <ClCompile Include="..\src\math\Matrix.cpp" />
+    <ClCompile Include="..\src\math\Vector.cpp" />
     <ClCompile Include="..\src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -54,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\app\Application.h" />
+    <ClInclude Include="..\src\app\Input.h" />
     <ClInclude Include="..\src\app\Window.h" />
     <ClInclude Include="..\src\core\Defines.h" />
     <ClInclude Include="..\src\core\logging\LogAppender.h" />
@@ -73,6 +73,7 @@
     <ClInclude Include="..\src\graphic\buffer\ConstantBuffer.h" />
     <ClInclude Include="..\src\graphic\buffer\IndexBuffer.h" />
     <ClInclude Include="..\src\graphic\buffer\VertexBuffer.h" />
+    <ClInclude Include="..\src\graphic\Camera.h" />
     <ClInclude Include="..\src\graphic\Graphic.h" />
     <ClInclude Include="..\src\graphic\model\Mesh.h" />
     <ClInclude Include="..\src\graphic\model\Shape.h" />
@@ -80,11 +81,8 @@
     <ClInclude Include="..\src\graphic\util\DxUtil.h" />
     <ClInclude Include="..\src\graphic\util\GeometryBuilder.h" />
     <ClInclude Include="..\src\math\Math.h" />
-    <ClInclude Include="..\src\math\Matrix3.h" />
-    <ClInclude Include="..\src\math\Matrix4.h" />
-    <ClInclude Include="..\src\math\Vector2.h" />
-    <ClInclude Include="..\src\math\Vector3.h" />
-    <ClInclude Include="..\src\math\Vector4.h" />
+    <ClInclude Include="..\src\math\Matrix.h" />
+    <ClInclude Include="..\src\math\Vector.h" />
     <ClInclude Include="..\src\pch.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
@@ -109,6 +107,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{73B1D1B0-6661-4A2A-AC16-D07986750881}</ProjectGuid>
     <RootNamespace>Ocelot</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -120,7 +119,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -142,11 +141,9 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="DirectX.props" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="DirectX.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -155,7 +152,9 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level4</WarningLevel>
@@ -180,7 +179,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\src</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_VARIADIC_MAX=10;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
       <ForcedIncludeFiles>pch.h</ForcedIncludeFiles>

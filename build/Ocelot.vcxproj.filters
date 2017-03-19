@@ -61,21 +61,6 @@
     <ClCompile Include="..\src\graphic\util\GeometryBuilder.cpp">
       <Filter>graphic\util</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\math\Matrix3.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\math\Matrix4.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\math\Vector2.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\math\Vector3.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\math\Vector4.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\core\logging\LogAppender.cpp">
       <Filter>core\logging</Filter>
     </ClCompile>
@@ -112,6 +97,18 @@
     <ClCompile Include="..\src\graphic\shader\Shader.cpp">
       <Filter>graphic\shader</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\graphic\Camera.cpp">
+      <Filter>graphic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\app\Input.cpp">
+      <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\math\Matrix.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\math\Vector.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\pch.h" />
@@ -144,21 +141,6 @@
       <Filter>graphic\util</Filter>
     </ClInclude>
     <ClInclude Include="..\src\math\Math.h">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\math\Matrix3.h">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\math\Matrix4.h">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\math\Vector2.h">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\math\Vector3.h">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\math\Vector4.h">
       <Filter>math</Filter>
     </ClInclude>
     <ClInclude Include="..\src\core\logging\LogAppender.h">
@@ -211,6 +193,18 @@
     </ClInclude>
     <ClInclude Include="..\src\graphic\shader\Shader.h">
       <Filter>graphic\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\graphic\Camera.h">
+      <Filter>graphic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\app\Input.h">
+      <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\math\Matrix.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\math\Vector.h">
+      <Filter>math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

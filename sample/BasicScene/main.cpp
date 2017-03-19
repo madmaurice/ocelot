@@ -1,6 +1,4 @@
 
-#include "pch.h"
-#include "app/Application.h"
 #include "BasicSceneApp.h"
 
 using namespace OC;

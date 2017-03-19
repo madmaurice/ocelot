@@ -1,9 +1,11 @@
 
-#pragma once
+
+#pragma comment(lib, "D3D11.lib")
 
 #include "Graphic.h"
 #include "graphic/util/DxUtil.h"
 #include "graphic/util/GeometryBuilder.h"
+
 
 OC_NS_BG;
 

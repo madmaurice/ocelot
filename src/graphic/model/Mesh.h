@@ -1,8 +1,7 @@
 
 #pragma once
 
-#include "math/Vector2.h"
-#include "math/Vector3.h"
+#include "math/Vector.h"
 #include "graphic/buffer/IndexBuffer.h"
 #include "graphic/buffer/VertexBuffer.h"
 #include <d3d11.h>

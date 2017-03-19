@@ -5,6 +5,8 @@
 
 #include <d3dcompiler.h>
 
+#pragma comment(lib,"d3dcompiler.lib")
+
 OC_NS_BG;
 
 namespace
@@ -48,8 +50,10 @@ namespace
 #endif
 
         ID3DBlob* pErrorBlob;
-        hr = D3DX11CompileFromFile(fileName, NULL, NULL, entryPoint, shaderModel,
-            flags, 0, NULL, blobOut, &pErrorBlob, NULL);
+        WCHAR    file[MAX_PATH];
+        MultiByteToWideChar(0, 0, fileName, -1, file, MAX_PATH);
+        hr = D3DCompileFromFile(file, nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, entryPoint, shaderModel,
+            flags, 0, blobOut, &pErrorBlob);
 
         if (FAILED(hr))
         {

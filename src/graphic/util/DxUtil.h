@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include <d3dx11.h>
-#include <dxerr.h>
-#include "math/math.h"
+#include <d3d11.h>
+#include <dxgi.h>
+#include "math/Math.h"
 
 #if defined(OC_DEBUG)
 
@@ -15,8 +15,17 @@
         HRESULT _hr = (x);                                      \
         if(FAILED(_hr))                                         \
         {                                                      \
-            DXTraceA(__FILE__, (DWORD)__LINE__, _hr, #x, true);  \
-            __debugbreak();                                    \
+            char msg[MAX_PATH];                               	\
+			FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM |	        \
+				FORMAT_MESSAGE_IGNORE_INSERTS 	 |		        \
+				FORMAT_MESSAGE_ALLOCATE_BUFFER,			        \
+				NULL,						                    \
+				_hr,						                    \
+				MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),	    \
+				msg,				                            \
+				0,						                        \
+				NULL);					                        \
+			MessageBoxA(NULL, msg, "Error", MB_OK);	       \
         }                                                      \
     }                                                          \
     while(0)                                                   \
